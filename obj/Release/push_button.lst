@@ -1,0 +1,2040 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
+                      00004 ; This file was generated Fri Jul 17 06:58:43 2020
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC port for the 14-bit core
+                      00007 ;--------------------------------------------------------
+                      00008 ;       .file   "push_button.c"
+                      00009         list    p=16f877a
+                      00010         radix dec
+                      00011         include "p16f877a.inc"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ; Build date : Aug 07 2014
+                      00005 ;  MPASM PIC16F877A processor include
+                      00006 ; 
+                      00007 ;  (c) Copyright 1999-2014 Microchip Technology, All rights reserved
+                      00008 ;==========================================================================
+                      00009 
+                      00567         LIST
+                      00012 ;--------------------------------------------------------
+                      00013 ; external declarations
+                      00014 ;--------------------------------------------------------
+  0000                00015         extern  _GPIO_InitPortPin
+  0000                00016         extern  _GPIO_InitPort
+  0000                00017         extern  _GPIO_Update
+  0000                00018         extern  _GPIO_SetPortPinState
+  0000                00019         extern  _GPIO_SetPortState
+  0000                00020         extern  _GPIO_GetPortPinState
+  0000                00021         extern  _UTIL_DelayMS
+  0000                00022         extern  _SSD_Init
+  0000                00023         extern  _SSD_SET_Symbol
+  0000                00024         extern  _SSD_SET_state
+  0000                00025         extern  _SSD_GET_state
+  0000                00026         extern  _SSD_GET_Symbol
+  0000                00027         extern  _SSD_update
+  0000                00028         extern  _Heater_Init
+  0000                00029         extern  _Heater_SetState
+  0000                00030         extern  _Heater_GetState
+  0000                00031         extern  _Heater_update
+  0000                00032         extern  _Cooler_Init
+  0000                00033         extern  _Cooler_SetState
+  0000                00034         extern  _Cooler_GetState
+  0000                00035         extern  _Cooler_update
+  0000                00036         extern  _LED_Init
+  0000                00037         extern  _LED_Update
+  0000                00038         extern  _LED_GetState
+  0000                00039         extern  _LED_SetState
+  0000                00040         extern  _TMR0_Init
+  0000                00041         extern  _TMR0_Update
+  0000                00042         extern  _TMR0_Start
+  0000                00043         extern  _ADC_Init
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  0000                00044         extern  _ADC_Update
+  0000                00045         extern  _ADC_GetResult
+  0000                00046         extern  _Start_conversion_Int
+  0000                00047         extern  _Temprature_Init
+  0000                00048         extern  _Temprature_update
+  0000                00049         extern  _SettingMode_update
+  0000                00050         extern  _SettingMode_Get_SSD_state
+  0000                00051         extern  _SettingMode_OFF_mode
+  0000                00052         extern  _STATUSbits
+  0000                00053         extern  _PORTAbits
+  0000                00054         extern  _PORTBbits
+  0000                00055         extern  _PORTCbits
+  0000                00056         extern  _PORTDbits
+  0000                00057         extern  _PORTEbits
+  0000                00058         extern  _INTCONbits
+  0000                00059         extern  _PIR1bits
+  0000                00060         extern  _PIR2bits
+  0000                00061         extern  _T1CONbits
+  0000                00062         extern  _T2CONbits
+  0000                00063         extern  _SSPCONbits
+  0000                00064         extern  _CCP1CONbits
+  0000                00065         extern  _RCSTAbits
+  0000                00066         extern  _CCP2CONbits
+  0000                00067         extern  _ADCON0bits
+  0000                00068         extern  _OPTION_REGbits
+  0000                00069         extern  _TRISAbits
+  0000                00070         extern  _TRISBbits
+  0000                00071         extern  _TRISCbits
+  0000                00072         extern  _TRISDbits
+  0000                00073         extern  _TRISEbits
+  0000                00074         extern  _PIE1bits
+  0000                00075         extern  _PIE2bits
+  0000                00076         extern  _PCONbits
+  0000                00077         extern  _SSPCON2bits
+  0000                00078         extern  _SSPSTATbits
+  0000                00079         extern  _TXSTAbits
+  0000                00080         extern  _CMCONbits
+  0000                00081         extern  _CVRCONbits
+  0000                00082         extern  _ADCON1bits
+  0000                00083         extern  _EECON1bits
+  0000                00084         extern  _Counters
+  0000                00085         extern  _Flags
+  0000                00086         extern  _Readings
+  0000                00087         extern  _INDF
+  0000                00088         extern  _TMR0
+  0000                00089         extern  _PCL
+  0000                00090         extern  _STATUS
+  0000                00091         extern  _FSR
+  0000                00092         extern  _PORTA
+  0000                00093         extern  _PORTB
+  0000                00094         extern  _PORTC
+  0000                00095         extern  _PORTD
+  0000                00096         extern  _PORTE
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  0000                00097         extern  _PCLATH
+  0000                00098         extern  _INTCON
+  0000                00099         extern  _PIR1
+  0000                00100         extern  _PIR2
+  0000                00101         extern  _TMR1
+  0000                00102         extern  _TMR1L
+  0000                00103         extern  _TMR1H
+  0000                00104         extern  _T1CON
+  0000                00105         extern  _TMR2
+  0000                00106         extern  _T2CON
+  0000                00107         extern  _SSPBUF
+  0000                00108         extern  _SSPCON
+  0000                00109         extern  _CCPR1
+  0000                00110         extern  _CCPR1L
+  0000                00111         extern  _CCPR1H
+  0000                00112         extern  _CCP1CON
+  0000                00113         extern  _RCSTA
+  0000                00114         extern  _TXREG
+  0000                00115         extern  _RCREG
+  0000                00116         extern  _CCPR2
+  0000                00117         extern  _CCPR2L
+  0000                00118         extern  _CCPR2H
+  0000                00119         extern  _CCP2CON
+  0000                00120         extern  _ADRESH
+  0000                00121         extern  _ADCON0
+  0000                00122         extern  _OPTION_REG
+  0000                00123         extern  _TRISA
+  0000                00124         extern  _TRISB
+  0000                00125         extern  _TRISC
+  0000                00126         extern  _TRISD
+  0000                00127         extern  _TRISE
+  0000                00128         extern  _PIE1
+  0000                00129         extern  _PIE2
+  0000                00130         extern  _PCON
+  0000                00131         extern  _SSPCON2
+  0000                00132         extern  _PR2
+  0000                00133         extern  _SSPADD
+  0000                00134         extern  _SSPSTAT
+  0000                00135         extern  _TXSTA
+  0000                00136         extern  _SPBRG
+  0000                00137         extern  _CMCON
+  0000                00138         extern  _CVRCON
+  0000                00139         extern  _ADRESL
+  0000                00140         extern  _ADCON1
+  0000                00141         extern  _EEDATA
+  0000                00142         extern  _EEADR
+  0000                00143         extern  _EEDATH
+  0000                00144         extern  _EEADRH
+  0000                00145         extern  _EECON1
+  0000                00146         extern  _EECON2
+  0000                00147         extern  __mulchar
+                      00148 
+  0000                00149         extern PSAVE
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  0000                00150         extern SSAVE
+  0000                00151         extern WSAVE
+  0000                00152         extern STK12
+  0000                00153         extern STK11
+  0000                00154         extern STK10
+  0000                00155         extern STK09
+  0000                00156         extern STK08
+  0000                00157         extern STK07
+  0000                00158         extern STK06
+  0000                00159         extern STK05
+  0000                00160         extern STK04
+  0000                00161         extern STK03
+  0000                00162         extern STK02
+  0000                00163         extern STK01
+  0000                00164         extern STK00
+                      00165 ;--------------------------------------------------------
+                      00166 ; global declarations
+                      00167 ;--------------------------------------------------------
+  0000                00168         global  _PB_GetState
+  0000                00169         global  _PB_Update
+  0000                00170         global  _PB_Init
+                      00171 
+                      00172 ;--------------------------------------------------------
+                      00173 ; global definitions
+                      00174 ;--------------------------------------------------------
+                      00175 ;--------------------------------------------------------
+                      00176 ; absolute symbol definitions
+                      00177 ;--------------------------------------------------------
+                      00178 ;--------------------------------------------------------
+                      00179 ; compiler-defined variables
+                      00180 ;--------------------------------------------------------
+                      00181 UDL_push_button_0       udata
+0000                  00182 r0x102A res     1
+0001                  00183 r0x102B res     1
+0002                  00184 r0x102C res     1
+0003                  00185 r0x102D res     1
+0004                  00186 r0x102E res     1
+0005                  00187 r0x1022 res     1
+0006                  00188 r0x1023 res     1
+0007                  00189 r0x1024 res     1
+0008                  00190 r0x1025 res     1
+0009                  00191 r0x1026 res     1
+000A                  00192 r0x1027 res     1
+000B                  00193 r0x1028 res     1
+000C                  00194 r0x1029 res     1
+000D                  00195 r0x101A res     1
+000E                  00196 r0x101B res     1
+000F                  00197 r0x101C res     1
+0010                  00198 r0x101D res     1
+0011                  00199 r0x101E res     1
+0012                  00200 r0x101F res     1
+0013                  00201 r0x1020 res     1
+0014                  00202 r0x1021 res     1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  5
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0015                  00203 _pb_info        res     12
+                      00204 ;--------------------------------------------------------
+                      00205 ; initialized data
+                      00206 ;--------------------------------------------------------
+                      00207 ;--------------------------------------------------------
+                      00208 ; overlayable items in internal ram 
+                      00209 ;--------------------------------------------------------
+                      00210 ;       udata_ovr
+                      00211 ;--------------------------------------------------------
+                      00212 ; code
+                      00213 ;--------------------------------------------------------
+                      00214 code_push_button        code
+                      00215 ;***
+                      00216 ;  pBlock Stats: dbName = C
+                      00217 ;***
+                      00218 ;entry:  _SetValue_update       ;Function start
+                      00219 ; 2 exit points
+                      00220 ;has an exit
+                      00221 ;functions called:
+                      00222 ;   _PB_GetState
+                      00223 ;   _PB_GetState
+                      00224 ;   _PB_GetState
+                      00225 ;   _PB_GetState
+                      00226 ;4 compiler assigned registers:
+                      00227 ;   r0x101E
+                      00228 ;   r0x101F
+                      00229 ;   r0x1020
+                      00230 ;   r0x1021
+                      00231 ;; Starting pCode block
+0000                  00232 _SetValue_update        ;Function start
+                      00233 ; 2 exit points
+                      00234 ;       .line   133; "push_button.c"    if(Readings.Set_value <= 75 && Readings.Set_value >= 35)
+0000   ???? ????      00235         BANKSEL _Readings
+0002   08??           00236         MOVF    (_Readings + 4),W
+0003   ???? ????      00237         BANKSEL r0x101E
+0005   00??           00238         MOVWF   r0x101E
+0006   ???? ????      00239         BANKSEL _Readings
+0008   08??           00240         MOVF    (_Readings + 5),W
+0009   ???? ????      00241         BANKSEL r0x101F
+000B   00??           00242         MOVWF   r0x101F
+000C   ???? ????      00243         BANKSEL _Readings
+000E   08??           00244         MOVF    (_Readings + 6),W
+000F   ???? ????      00245         BANKSEL r0x1020
+0011   00??           00246         MOVWF   r0x1020
+0012   ???? ????      00247         BANKSEL _Readings
+0014   08??           00248         MOVF    (_Readings + 7),W
+0015   ???? ????      00249         BANKSEL r0x1021
+0017   00??           00250         MOVWF   r0x1021
+                      00251 ;;swapping arguments (AOP_TYPEs 1/2)
+                      00252 ;;unsigned compare: left >= lit(0x4C=76), size=4
+0018   3000           00253         MOVLW   0x00
+0019   02??           00254         SUBWF   r0x1021,W
+001A   1D03           00255         BTFSS   STATUS,2
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  6
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+001B   2???           00256         GOTO    _00234_DS_
+001C   3000           00257         MOVLW   0x00
+001D   02??           00258         SUBWF   r0x1020,W
+001E   1D03           00259         BTFSS   STATUS,2
+001F   2???           00260         GOTO    _00234_DS_
+0020   3000           00261         MOVLW   0x00
+0021   02??           00262         SUBWF   r0x101F,W
+0022   1D03           00263         BTFSS   STATUS,2
+0023   2???           00264         GOTO    _00234_DS_
+0024   304C           00265         MOVLW   0x4c
+0025   02??           00266         SUBWF   r0x101E,W
+0026                  00267 _00234_DS_
+0026   1803           00268         BTFSC   STATUS,0
+0027   2???           00269         GOTO    _00214_DS_
+                      00270 ;;genSkipc:3247: created from rifx:027A5DF4
+                      00271 ;;unsigned compare: left < lit(0x23=35), size=4
+0028   3000           00272         MOVLW   0x00
+0029   ???? ????      00273         BANKSEL r0x1021
+002B   02??           00274         SUBWF   r0x1021,W
+002C   1D03           00275         BTFSS   STATUS,2
+002D   2???           00276         GOTO    _00235_DS_
+002E   3000           00277         MOVLW   0x00
+002F   02??           00278         SUBWF   r0x1020,W
+0030   1D03           00279         BTFSS   STATUS,2
+0031   2???           00280         GOTO    _00235_DS_
+0032   3000           00281         MOVLW   0x00
+0033   02??           00282         SUBWF   r0x101F,W
+0034   1D03           00283         BTFSS   STATUS,2
+0035   2???           00284         GOTO    _00235_DS_
+0036   3023           00285         MOVLW   0x23
+0037   02??           00286         SUBWF   r0x101E,W
+0038                  00287 _00235_DS_
+0038   1C03           00288         BTFSS   STATUS,0
+0039   2???           00289         GOTO    _00214_DS_
+                      00290 ;;genSkipc:3247: created from rifx:027A5DF4
+                      00291 ;       .line   135; "push_button.c"    if(PB_GetState(PB_UP) == PB_PRE_RELEASED)
+003A   3002           00292         MOVLW   0x02
+003B   2???           00293         CALL    _PB_GetState
+003C   ???? ????      00294         BANKSEL r0x101E
+003E   00??           00295         MOVWF   r0x101E
+003F   3A03           00296         XORLW   0x03
+0040   1D03           00297         BTFSS   STATUS,2
+0041   2???           00298         GOTO    _00209_DS_
+                      00299 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
+                      00300 ;       .line   137; "push_button.c"    Counters.FixedMode_counter = 0; //count new 5 seconds
+0042   ???? ????      00301         BANKSEL _Counters
+0044   01??           00302         CLRF    (_Counters + 0)
+                      00303 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
+0045   01??           00304         CLRF    (_Counters + 1)
+                      00305 ;       .line   138; "push_button.c"    Readings.Set_value+=5 ;
+0046   ???? ????      00306         BANKSEL _Readings
+0048   08??           00307         MOVF    (_Readings + 4),W
+0049   ???? ????      00308         BANKSEL r0x101E
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  7
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+004B   00??           00309         MOVWF   r0x101E
+004C   ???? ????      00310         BANKSEL _Readings
+004E   08??           00311         MOVF    (_Readings + 5),W
+004F   ???? ????      00312         BANKSEL r0x101F
+0051   00??           00313         MOVWF   r0x101F
+0052   ???? ????      00314         BANKSEL _Readings
+0054   08??           00315         MOVF    (_Readings + 6),W
+0055   ???? ????      00316         BANKSEL r0x1020
+0057   00??           00317         MOVWF   r0x1020
+0058   ???? ????      00318         BANKSEL _Readings
+005A   08??           00319         MOVF    (_Readings + 7),W
+005B   ???? ????      00320         BANKSEL r0x1021
+005D   00??           00321         MOVWF   r0x1021
+005E   3005           00322         MOVLW   0x05
+005F   07??           00323         ADDWF   r0x101E,F
+0060   1803           00324         BTFSC   STATUS,0
+0061   0A??           00325         INCF    r0x101F,F
+0062   1903           00326         BTFSC   STATUS,2
+0063   0A??           00327         INCF    r0x1020,F
+0064   1903           00328         BTFSC   STATUS,2
+0065   0A??           00329         INCF    r0x1021,F
+                      00330 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
+0066   08??           00331         MOVF    r0x101E,W
+0067   ???? ????      00332         BANKSEL _Readings
+0069   00??           00333         MOVWF   (_Readings + 4)
+                      00334 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
+006A   ???? ????      00335         BANKSEL r0x101F
+006C   08??           00336         MOVF    r0x101F,W
+006D   ???? ????      00337         BANKSEL _Readings
+006F   00??           00338         MOVWF   (_Readings + 5)
+                      00339 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
+0070   ???? ????      00340         BANKSEL r0x1020
+0072   08??           00341         MOVF    r0x1020,W
+0073   ???? ????      00342         BANKSEL _Readings
+0075   00??           00343         MOVWF   (_Readings + 6)
+                      00344 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
+0076   ???? ????      00345         BANKSEL r0x1021
+0078   08??           00346         MOVF    r0x1021,W
+0079   ???? ????      00347         BANKSEL _Readings
+007B   00??           00348         MOVWF   (_Readings + 7)
+                      00349 ;;swapping arguments (AOP_TYPEs 1/2)
+                      00350 ;;unsigned compare: left >= lit(0x4C=76), size=4
+                      00351 ;       .line   139; "push_button.c"    if(Readings.Set_value > 75)
+007C   3000           00352         MOVLW   0x00
+007D   ???? ????      00353         BANKSEL r0x1021
+007F   02??           00354         SUBWF   r0x1021,W
+0080   1D03           00355         BTFSS   STATUS,2
+0081   2???           00356         GOTO    _00236_DS_
+0082   3000           00357         MOVLW   0x00
+0083   02??           00358         SUBWF   r0x1020,W
+0084   1D03           00359         BTFSS   STATUS,2
+0085   2???           00360         GOTO    _00236_DS_
+0086   3000           00361         MOVLW   0x00
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0087   02??           00362         SUBWF   r0x101F,W
+0088   1D03           00363         BTFSS   STATUS,2
+0089   2???           00364         GOTO    _00236_DS_
+008A   304C           00365         MOVLW   0x4c
+008B   02??           00366         SUBWF   r0x101E,W
+008C                  00367 _00236_DS_
+008C   1C03           00368         BTFSS   STATUS,0
+008D   2???           00369         GOTO    _00214_DS_
+                      00370 ;;genSkipc:3247: created from rifx:027A5DF4
+                      00371 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
+                      00372 ;       .line   141; "push_button.c"    Readings.Set_value = 75 ;
+008E   304B           00373         MOVLW   0x4b
+008F   ???? ????      00374         BANKSEL _Readings
+0091   00??           00375         MOVWF   (_Readings + 4)
+                      00376 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
+0092   01??           00377         CLRF    (_Readings + 5)
+                      00378 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
+0093   01??           00379         CLRF    (_Readings + 6)
+                      00380 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
+0094   01??           00381         CLRF    (_Readings + 7)
+0095   2???           00382         GOTO    _00214_DS_
+0096                  00383 _00209_DS_
+                      00384 ;       .line   144; "push_button.c"    else if(PB_GetState(PB_DOWN) == PB_PRE_RELEASED)
+0096   3001           00385         MOVLW   0x01
+0097   2???           00386         CALL    _PB_GetState
+0098   ???? ????      00387         BANKSEL r0x101E
+009A   00??           00388         MOVWF   r0x101E
+009B   3A03           00389         XORLW   0x03
+009C   1D03           00390         BTFSS   STATUS,2
+009D   2???           00391         GOTO    _00214_DS_
+                      00392 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
+                      00393 ;       .line   146; "push_button.c"    Counters.FixedMode_counter = 0; //count new 5 seconds
+009E   ???? ????      00394         BANKSEL _Counters
+00A0   01??           00395         CLRF    (_Counters + 0)
+                      00396 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
+00A1   01??           00397         CLRF    (_Counters + 1)
+                      00398 ;       .line   147; "push_button.c"    Readings.Set_value-= 5 ;
+00A2   ???? ????      00399         BANKSEL _Readings
+00A4   08??           00400         MOVF    (_Readings + 4),W
+00A5   ???? ????      00401         BANKSEL r0x101E
+00A7   00??           00402         MOVWF   r0x101E
+00A8   ???? ????      00403         BANKSEL _Readings
+00AA   08??           00404         MOVF    (_Readings + 5),W
+00AB   ???? ????      00405         BANKSEL r0x101F
+00AD   00??           00406         MOVWF   r0x101F
+00AE   ???? ????      00407         BANKSEL _Readings
+00B0   08??           00408         MOVF    (_Readings + 6),W
+00B1   ???? ????      00409         BANKSEL r0x1020
+00B3   00??           00410         MOVWF   r0x1020
+00B4   ???? ????      00411         BANKSEL _Readings
+00B6   08??           00412         MOVF    (_Readings + 7),W
+00B7   ???? ????      00413         BANKSEL r0x1021
+00B9   00??           00414         MOVWF   r0x1021
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE  9
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00BA   30FB           00415         MOVLW   0xfb
+00BB   07??           00416         ADDWF   r0x101E,F
+00BC   30FF           00417         MOVLW   0xff
+00BD   1C03           00418         BTFSS   STATUS,0
+00BE   07??           00419         ADDWF   r0x101F,F
+00BF   30FF           00420         MOVLW   0xff
+00C0   1C03           00421         BTFSS   STATUS,0
+00C1   07??           00422         ADDWF   r0x1020,F
+00C2   30FF           00423         MOVLW   0xff
+00C3   1C03           00424         BTFSS   STATUS,0
+00C4   07??           00425         ADDWF   r0x1021,F
+                      00426 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
+00C5   08??           00427         MOVF    r0x101E,W
+00C6   ???? ????      00428         BANKSEL _Readings
+00C8   00??           00429         MOVWF   (_Readings + 4)
+                      00430 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
+00C9   ???? ????      00431         BANKSEL r0x101F
+00CB   08??           00432         MOVF    r0x101F,W
+00CC   ???? ????      00433         BANKSEL _Readings
+00CE   00??           00434         MOVWF   (_Readings + 5)
+                      00435 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
+00CF   ???? ????      00436         BANKSEL r0x1020
+00D1   08??           00437         MOVF    r0x1020,W
+00D2   ???? ????      00438         BANKSEL _Readings
+00D4   00??           00439         MOVWF   (_Readings + 6)
+                      00440 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
+00D5   ???? ????      00441         BANKSEL r0x1021
+00D7   08??           00442         MOVF    r0x1021,W
+00D8   ???? ????      00443         BANKSEL _Readings
+00DA   00??           00444         MOVWF   (_Readings + 7)
+                      00445 ;;unsigned compare: left < lit(0x23=35), size=4
+                      00446 ;       .line   148; "push_button.c"    if(Readings.Set_value < 35)
+00DB   3000           00447         MOVLW   0x00
+00DC   ???? ????      00448         BANKSEL r0x1021
+00DE   02??           00449         SUBWF   r0x1021,W
+00DF   1D03           00450         BTFSS   STATUS,2
+00E0   2???           00451         GOTO    _00237_DS_
+00E1   3000           00452         MOVLW   0x00
+00E2   02??           00453         SUBWF   r0x1020,W
+00E3   1D03           00454         BTFSS   STATUS,2
+00E4   2???           00455         GOTO    _00237_DS_
+00E5   3000           00456         MOVLW   0x00
+00E6   02??           00457         SUBWF   r0x101F,W
+00E7   1D03           00458         BTFSS   STATUS,2
+00E8   2???           00459         GOTO    _00237_DS_
+00E9   3023           00460         MOVLW   0x23
+00EA   02??           00461         SUBWF   r0x101E,W
+00EB                  00462 _00237_DS_
+00EB   1803           00463         BTFSC   STATUS,0
+00EC   2???           00464         GOTO    _00214_DS_
+                      00465 ;;genSkipc:3247: created from rifx:027A5DF4
+                      00466 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
+                      00467 ;       .line   150; "push_button.c"    Readings.Set_value = 35 ;
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 10
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00ED   3023           00468         MOVLW   0x23
+00EE   ???? ????      00469         BANKSEL _Readings
+00F0   00??           00470         MOVWF   (_Readings + 4)
+                      00471 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
+00F1   01??           00472         CLRF    (_Readings + 5)
+                      00473 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
+00F2   01??           00474         CLRF    (_Readings + 6)
+                      00475 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
+00F3   01??           00476         CLRF    (_Readings + 7)
+00F4                  00477 _00214_DS_
+00F4   0008           00478         RETURN  
+                      00479 ; exit point of _SetValue_update
+                      00480 
+                      00481 ;***
+                      00482 ;  pBlock Stats: dbName = C
+                      00483 ;***
+                      00484 ;entry:  _PB_GetState   ;Function start
+                      00485 ; 2 exit points
+                      00486 ;has an exit
+                      00487 ;functions called:
+                      00488 ;   __mulchar
+                      00489 ;   __mulchar
+                      00490 ;5 compiler assigned registers:
+                      00491 ;   r0x101A
+                      00492 ;   STK00
+                      00493 ;   r0x101B
+                      00494 ;   r0x101C
+                      00495 ;   r0x101D
+                      00496 ;; Starting pCode block
+00F5                  00497 _PB_GetState    ;Function start
+                      00498 ; 2 exit points
+                      00499 ;       .line   121; "push_button.c"    tPB_State PB_GetState(tPB pb)
+00F5   ???? ????      00500         BANKSEL r0x101A
+00F7   00??           00501         MOVWF   r0x101A
+                      00502 ;       .line   125; "push_button.c"    ret = pb_info[pb].state;
+00F8   3003           00503         MOVLW   0x03
+00F9   00??           00504         MOVWF   STK00
+00FA   08??           00505         MOVF    r0x101A,W
+00FB   ???? ????      00506         PAGESEL __mulchar
+00FD   2???           00507         CALL    __mulchar
+00FE   ???? ????      00508         PAGESEL $
+0100   ???? ????      00509         BANKSEL r0x101B
+0102   00??           00510         MOVWF   r0x101B
+0103   01??           00511         CLRF    r0x101C
+0104   08??           00512         MOVF    r0x101B,W
+0105   3E??           00513         ADDLW   (_pb_info + 0)
+0106   00??           00514         MOVWF   r0x101A
+0107   30??           00515         MOVLW   high (_pb_info + 0)
+0108   00??           00516         MOVWF   r0x101D
+0109   3000           00517         MOVLW   0x00
+010A   1803           00518         BTFSC   STATUS,0
+010B   0F??           00519         INCFSZ  r0x101C,W
+010C   07??           00520         ADDWF   r0x101D,F
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 11
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+010D   3002           00521         MOVLW   0x02
+010E   07??           00522         ADDWF   r0x101A,F
+010F   1803           00523         BTFSC   STATUS,0
+0110   0A??           00524         INCF    r0x101D,F
+0111   08??           00525         MOVF    r0x101A,W
+0112   1283 1303      00526         BANKSEL FSR
+0114   0084           00527         MOVWF   FSR
+0115   1383           00528         BCF     STATUS,7
+0116   ???? ????      00529         BANKSEL r0x101D
+0118   18??           00530         BTFSC   r0x101D,0
+0119   1783           00531         BSF     STATUS,7
+011A   1283 1303      00532         BANKSEL INDF
+011C   0800           00533         MOVF    INDF,W
+                      00534 ;       .line   127; "push_button.c"    return ret;
+011D   ???? ????      00535         BANKSEL r0x101B
+011F   00??           00536         MOVWF   r0x101B
+0120   0008           00537         RETURN  
+                      00538 ; exit point of _PB_GetState
+                      00539 
+                      00540 ;***
+                      00541 ;  pBlock Stats: dbName = C
+                      00542 ;***
+                      00543 ;entry:  _PB_Update     ;Function start
+                      00544 ; 2 exit points
+                      00545 ;has an exit
+                      00546 ;functions called:
+                      00547 ;   __mulchar
+                      00548 ;   _GPIO_GetPortPinState
+                      00549 ;   _GPIO_GetPortPinState
+                      00550 ;   _GPIO_GetPortPinState
+                      00551 ;   _GPIO_GetPortPinState
+                      00552 ;   __mulchar
+                      00553 ;   _SetValue_update
+                      00554 ;   __mulchar
+                      00555 ;   _GPIO_GetPortPinState
+                      00556 ;   _GPIO_GetPortPinState
+                      00557 ;   _GPIO_GetPortPinState
+                      00558 ;   _GPIO_GetPortPinState
+                      00559 ;   __mulchar
+                      00560 ;   _SetValue_update
+                      00561 ;9 compiler assigned registers:
+                      00562 ;   r0x1022
+                      00563 ;   STK00
+                      00564 ;   r0x1023
+                      00565 ;   r0x1024
+                      00566 ;   r0x1025
+                      00567 ;   r0x1026
+                      00568 ;   r0x1027
+                      00569 ;   r0x1028
+                      00570 ;   r0x1029
+                      00571 ;; Starting pCode block
+0121                  00572 _PB_Update      ;Function start
+                      00573 ; 2 exit points
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 12
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00574 ;       .line   59; "push_button.c"     for (current_button = PB_POWER; current_button <= PB_UNUSED; cur
+                            rent_button++)
+0121   ???? ????      00575         BANKSEL r0x1022
+0123   01??           00576         CLRF    r0x1022
+0124                  00577 _00155_DS_
+                      00578 ;       .line   62; "push_button.c"     pb_info[current_button].samples[0] = pb_info[current_button].sam
+                            ples[1];
+0124   3003           00579         MOVLW   0x03
+0125   00??           00580         MOVWF   STK00
+0126   ???? ????      00581         BANKSEL r0x1022
+0128   08??           00582         MOVF    r0x1022,W
+0129   ???? ????      00583         PAGESEL __mulchar
+012B   2???           00584         CALL    __mulchar
+012C   ???? ????      00585         PAGESEL $
+012E   ???? ????      00586         BANKSEL r0x1023
+0130   00??           00587         MOVWF   r0x1023
+0131   01??           00588         CLRF    r0x1024
+0132   08??           00589         MOVF    r0x1023,W
+0133   3E??           00590         ADDLW   (_pb_info + 0)
+0134   00??           00591         MOVWF   r0x1025
+0135   30??           00592         MOVLW   high (_pb_info + 0)
+0136   00??           00593         MOVWF   r0x1026
+0137   3000           00594         MOVLW   0x00
+0138   1803           00595         BTFSC   STATUS,0
+0139   0F??           00596         INCFSZ  r0x1024,W
+013A   07??           00597         ADDWF   r0x1026,F
+013B   08??           00598         MOVF    r0x1023,W
+013C   3E??           00599         ADDLW   (_pb_info + 0)
+013D   00??           00600         MOVWF   r0x1023
+013E   08??           00601         MOVF    r0x1024,W
+013F   1803           00602         BTFSC   STATUS,0
+0140   0F??           00603         INCFSZ  r0x1024,W
+0141   3E??           00604         ADDLW   high (_pb_info + 0)
+0142   00??           00605         MOVWF   r0x1024
+0143   0A??           00606         INCF    r0x1023,F
+0144   1903           00607         BTFSC   STATUS,2
+0145   0A??           00608         INCF    r0x1024,F
+0146   08??           00609         MOVF    r0x1023,W
+0147   1283 1303      00610         BANKSEL FSR
+0149   0084           00611         MOVWF   FSR
+014A   1383           00612         BCF     STATUS,7
+014B   ???? ????      00613         BANKSEL r0x1024
+014D   18??           00614         BTFSC   r0x1024,0
+014E   1783           00615         BSF     STATUS,7
+014F   1283 1303      00616         BANKSEL INDF
+0151   0800           00617         MOVF    INDF,W
+0152   ???? ????      00618         BANKSEL r0x1027
+0154   00??           00619         MOVWF   r0x1027
+0155   08??           00620         MOVF    r0x1025,W
+0156   1283 1303      00621         BANKSEL FSR
+0158   0084           00622         MOVWF   FSR
+0159   1383           00623         BCF     STATUS,7
+015A   ???? ????      00624         BANKSEL r0x1026
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 13
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+015C   18??           00625         BTFSC   r0x1026,0
+015D   1783           00626         BSF     STATUS,7
+015E   08??           00627         MOVF    r0x1027,W
+015F   1283 1303      00628         BANKSEL INDF
+0161   0080           00629         MOVWF   INDF
+                      00630 ;;swapping arguments (AOP_TYPEs 1/2)
+                      00631 ;;unsigned compare: left >= lit(0x4=4), size=1
+                      00632 ;       .line   64; "push_button.c"     switch(current_button)
+0162   3004           00633         MOVLW   0x04
+0163   ???? ????      00634         BANKSEL r0x1022
+0165   02??           00635         SUBWF   r0x1022,W
+0166   1803           00636         BTFSC   STATUS,0
+0167   2???           00637         GOTO    _00137_DS_
+                      00638 ;;genSkipc:3247: created from rifx:027A5DF4
+0168   30??           00639         MOVLW   HIGH(_00191_DS_)
+0169   1283 1303      00640         BANKSEL PCLATH
+016B   008A           00641         MOVWF   PCLATH
+016C   30??           00642         MOVLW   _00191_DS_
+016D   ???? ????      00643         BANKSEL r0x1022
+016F   07??           00644         ADDWF   r0x1022,W
+0170   1C03           00645         BTFSS   STATUS,0
+0171   2???           00646         GOTO    _00001_DS_
+0172   1283 1303      00647         BANKSEL PCLATH
+0174   0A8A           00648         INCF    PCLATH,F
+0175                  00649 _00001_DS_
+0175   0082           00650         MOVWF   PCL
+0176                  00651 _00191_DS_
+0176   2???           00652         GOTO    _00132_DS_
+0177   2???           00653         GOTO    _00133_DS_
+0178   2???           00654         GOTO    _00134_DS_
+0179   2???           00655         GOTO    _00135_DS_
+017A                  00656 _00132_DS_
+                      00657 ;       .line   67; "push_button.c"     pb_info[current_button].samples[1] = GPIO_GetPortPinState(PORT_B
+                            , 0);
+017A   3000           00658         MOVLW   0x00
+017B   00??           00659         MOVWF   STK00
+017C   3001           00660         MOVLW   0x01
+017D   ???? ????      00661         PAGESEL _GPIO_GetPortPinState
+017F   2???           00662         CALL    _GPIO_GetPortPinState
+0180   ???? ????      00663         PAGESEL $
+0182   ???? ????      00664         BANKSEL r0x1025
+0184   00??           00665         MOVWF   r0x1025
+0185   08??           00666         MOVF    r0x1023,W
+0186   1283 1303      00667         BANKSEL FSR
+0188   0084           00668         MOVWF   FSR
+0189   1383           00669         BCF     STATUS,7
+018A   ???? ????      00670         BANKSEL r0x1024
+018C   18??           00671         BTFSC   r0x1024,0
+018D   1783           00672         BSF     STATUS,7
+018E   08??           00673         MOVF    r0x1025,W
+018F   1283 1303      00674         BANKSEL INDF
+0191   0080           00675         MOVWF   INDF
+                      00676 ;       .line   68; "push_button.c"     break;
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 14
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0192   2???           00677         GOTO    _00137_DS_
+0193                  00678 _00133_DS_
+                      00679 ;       .line   70; "push_button.c"     pb_info[current_button].samples[1] = GPIO_GetPortPinState(PORT_B
+                            , 1);
+0193   3001           00680         MOVLW   0x01
+0194   00??           00681         MOVWF   STK00
+0195   3001           00682         MOVLW   0x01
+0196   ???? ????      00683         PAGESEL _GPIO_GetPortPinState
+0198   2???           00684         CALL    _GPIO_GetPortPinState
+0199   ???? ????      00685         PAGESEL $
+019B   ???? ????      00686         BANKSEL r0x1025
+019D   00??           00687         MOVWF   r0x1025
+019E   08??           00688         MOVF    r0x1023,W
+019F   1283 1303      00689         BANKSEL FSR
+01A1   0084           00690         MOVWF   FSR
+01A2   1383           00691         BCF     STATUS,7
+01A3   ???? ????      00692         BANKSEL r0x1024
+01A5   18??           00693         BTFSC   r0x1024,0
+01A6   1783           00694         BSF     STATUS,7
+01A7   08??           00695         MOVF    r0x1025,W
+01A8   1283 1303      00696         BANKSEL INDF
+01AA   0080           00697         MOVWF   INDF
+                      00698 ;       .line   71; "push_button.c"     break;
+01AB   2???           00699         GOTO    _00137_DS_
+01AC                  00700 _00134_DS_
+                      00701 ;       .line   73; "push_button.c"     pb_info[current_button].samples[1] = GPIO_GetPortPinState(PORT_B
+                            , 2);
+01AC   3002           00702         MOVLW   0x02
+01AD   00??           00703         MOVWF   STK00
+01AE   3001           00704         MOVLW   0x01
+01AF   ???? ????      00705         PAGESEL _GPIO_GetPortPinState
+01B1   2???           00706         CALL    _GPIO_GetPortPinState
+01B2   ???? ????      00707         PAGESEL $
+01B4   ???? ????      00708         BANKSEL r0x1025
+01B6   00??           00709         MOVWF   r0x1025
+01B7   08??           00710         MOVF    r0x1023,W
+01B8   1283 1303      00711         BANKSEL FSR
+01BA   0084           00712         MOVWF   FSR
+01BB   1383           00713         BCF     STATUS,7
+01BC   ???? ????      00714         BANKSEL r0x1024
+01BE   18??           00715         BTFSC   r0x1024,0
+01BF   1783           00716         BSF     STATUS,7
+01C0   08??           00717         MOVF    r0x1025,W
+01C1   1283 1303      00718         BANKSEL INDF
+01C3   0080           00719         MOVWF   INDF
+                      00720 ;       .line   74; "push_button.c"     break;
+01C4   2???           00721         GOTO    _00137_DS_
+01C5                  00722 _00135_DS_
+                      00723 ;       .line   76; "push_button.c"     pb_info[current_button].samples[1] = GPIO_GetPortPinState(PORT_B
+                            , 3);
+01C5   3003           00724         MOVLW   0x03
+01C6   00??           00725         MOVWF   STK00
+01C7   3001           00726         MOVLW   0x01
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 15
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+01C8   ???? ????      00727         PAGESEL _GPIO_GetPortPinState
+01CA   2???           00728         CALL    _GPIO_GetPortPinState
+01CB   ???? ????      00729         PAGESEL $
+01CD   ???? ????      00730         BANKSEL r0x1025
+01CF   00??           00731         MOVWF   r0x1025
+01D0   08??           00732         MOVF    r0x1023,W
+01D1   1283 1303      00733         BANKSEL FSR
+01D3   0084           00734         MOVWF   FSR
+01D4   1383           00735         BCF     STATUS,7
+01D5   ???? ????      00736         BANKSEL r0x1024
+01D7   18??           00737         BTFSC   r0x1024,0
+01D8   1783           00738         BSF     STATUS,7
+01D9   08??           00739         MOVF    r0x1025,W
+01DA   1283 1303      00740         BANKSEL INDF
+01DC   0080           00741         MOVWF   INDF
+01DD                  00742 _00137_DS_
+                      00743 ;       .line   84; "push_button.c"     switch(pb_info[current_button].state)
+01DD   3003           00744         MOVLW   0x03
+01DE   00??           00745         MOVWF   STK00
+01DF   ???? ????      00746         BANKSEL r0x1022
+01E1   08??           00747         MOVF    r0x1022,W
+01E2   ???? ????      00748         PAGESEL __mulchar
+01E4   2???           00749         CALL    __mulchar
+01E5   ???? ????      00750         PAGESEL $
+01E7   ???? ????      00751         BANKSEL r0x1023
+01E9   00??           00752         MOVWF   r0x1023
+01EA   01??           00753         CLRF    r0x1024
+01EB   08??           00754         MOVF    r0x1023,W
+01EC   3E??           00755         ADDLW   (_pb_info + 0)
+01ED   00??           00756         MOVWF   r0x1023
+01EE   3000           00757         MOVLW   0x00
+01EF   1803           00758         BTFSC   STATUS,0
+01F0   0F??           00759         INCFSZ  r0x1024,W
+01F1   3E??           00760         ADDLW   high (_pb_info + 0)
+01F2   00??           00761         MOVWF   r0x1024
+01F3   3002           00762         MOVLW   0x02
+01F4   07??           00763         ADDWF   r0x1023,W
+01F5   00??           00764         MOVWF   r0x1025
+01F6   01??           00765         CLRF    r0x1026
+01F7   0D??           00766         RLF     r0x1026,F
+01F8   08??           00767         MOVF    r0x1024,W
+01F9   07??           00768         ADDWF   r0x1026,F
+01FA   08??           00769         MOVF    r0x1025,W
+01FB   1283 1303      00770         BANKSEL FSR
+01FD   0084           00771         MOVWF   FSR
+01FE   1383           00772         BCF     STATUS,7
+01FF   ???? ????      00773         BANKSEL r0x1026
+0201   18??           00774         BTFSC   r0x1026,0
+0202   1783           00775         BSF     STATUS,7
+0203   1283 1303      00776         BANKSEL INDF
+0205   0800           00777         MOVF    INDF,W
+0206   ???? ????      00778         BANKSEL r0x1027
+0208   00??           00779         MOVWF   r0x1027
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 16
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00780 ;;swapping arguments (AOP_TYPEs 1/2)
+                      00781 ;;unsigned compare: left >= lit(0x4=4), size=1
+0209   3004           00782         MOVLW   0x04
+020A   02??           00783         SUBWF   r0x1027,W
+020B   1803           00784         BTFSC   STATUS,0
+020C   2???           00785         GOTO    _00156_DS_
+                      00786 ;;genSkipc:3247: created from rifx:027A5DF4
+020D   30??           00787         MOVLW   HIGH(_00193_DS_)
+020E   1283 1303      00788         BANKSEL PCLATH
+0210   008A           00789         MOVWF   PCLATH
+0211   30??           00790         MOVLW   _00193_DS_
+0212   ???? ????      00791         BANKSEL r0x1027
+0214   07??           00792         ADDWF   r0x1027,W
+0215   1C03           00793         BTFSS   STATUS,0
+0216   2???           00794         GOTO    _00002_DS_
+0217   1283 1303      00795         BANKSEL PCLATH
+0219   0A8A           00796         INCF    PCLATH,F
+021A                  00797 _00002_DS_
+021A   0082           00798         MOVWF   PCL
+021B                  00799 _00193_DS_
+021B   2???           00800         GOTO    _00138_DS_
+021C   2???           00801         GOTO    _00142_DS_
+021D   2???           00802         GOTO    _00145_DS_
+021E   2???           00803         GOTO    _00149_DS_
+021F                  00804 _00138_DS_
+                      00805 ;       .line   87; "push_button.c"     if((pb_info[current_button].samples[0] == PB_PRESSED_VOLTAGE) &&
+021F   ???? ????      00806         BANKSEL r0x1023
+0221   08??           00807         MOVF    r0x1023,W
+0222   1283 1303      00808         BANKSEL FSR
+0224   0084           00809         MOVWF   FSR
+0225   1383           00810         BCF     STATUS,7
+0226   ???? ????      00811         BANKSEL r0x1024
+0228   18??           00812         BTFSC   r0x1024,0
+0229   1783           00813         BSF     STATUS,7
+022A   1283 1303      00814         BANKSEL INDF
+022C   0800           00815         MOVF    INDF,W
+022D   ???? ????      00816         BANKSEL r0x1027
+022F   00??           00817         MOVWF   r0x1027
+0230   08??           00818         MOVF    r0x1027,W
+0231   1D03           00819         BTFSS   STATUS,2
+0232   2???           00820         GOTO    _00156_DS_
+                      00821 ;       .line   88; "push_button.c"     (pb_info[current_button].samples[1] == PB_PRESSED_VOLTAGE))
+0233   3001           00822         MOVLW   0x01
+0234   07??           00823         ADDWF   r0x1023,W
+0235   00??           00824         MOVWF   r0x1027
+0236   01??           00825         CLRF    r0x1028
+0237   0D??           00826         RLF     r0x1028,F
+0238   08??           00827         MOVF    r0x1024,W
+0239   07??           00828         ADDWF   r0x1028,F
+023A   08??           00829         MOVF    r0x1027,W
+023B   1283 1303      00830         BANKSEL FSR
+023D   0084           00831         MOVWF   FSR
+023E   1383           00832         BCF     STATUS,7
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 17
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+023F   ???? ????      00833         BANKSEL r0x1028
+0241   18??           00834         BTFSC   r0x1028,0
+0242   1783           00835         BSF     STATUS,7
+0243   1283 1303      00836         BANKSEL INDF
+0245   0800           00837         MOVF    INDF,W
+0246   ???? ????      00838         BANKSEL r0x1029
+0248   00??           00839         MOVWF   r0x1029
+0249   08??           00840         MOVF    r0x1029,W
+024A   1D03           00841         BTFSS   STATUS,2
+024B   2???           00842         GOTO    _00156_DS_
+                      00843 ;       .line   90; "push_button.c"     pb_info[current_button].state = PB_PRE_PRESSED;
+024C   08??           00844         MOVF    r0x1025,W
+024D   1283 1303      00845         BANKSEL FSR
+024F   0084           00846         MOVWF   FSR
+0250   1383           00847         BCF     STATUS,7
+0251   ???? ????      00848         BANKSEL r0x1026
+0253   18??           00849         BTFSC   r0x1026,0
+0254   1783           00850         BSF     STATUS,7
+0255   3001           00851         MOVLW   0x01
+0256   1283 1303      00852         BANKSEL INDF
+0258   0080           00853         MOVWF   INDF
+                      00854 ;       .line   92; "push_button.c"     break;
+0259   2???           00855         GOTO    _00156_DS_
+025A                  00856 _00142_DS_
+                      00857 ;       .line   94; "push_button.c"     if(pb_info[current_button].samples[1] == PB_PRESSED_VOLTAGE)
+025A   3001           00858         MOVLW   0x01
+025B   ???? ????      00859         BANKSEL r0x1023
+025D   07??           00860         ADDWF   r0x1023,W
+025E   00??           00861         MOVWF   r0x1027
+025F   01??           00862         CLRF    r0x1028
+0260   0D??           00863         RLF     r0x1028,F
+0261   08??           00864         MOVF    r0x1024,W
+0262   07??           00865         ADDWF   r0x1028,F
+0263   08??           00866         MOVF    r0x1027,W
+0264   1283 1303      00867         BANKSEL FSR
+0266   0084           00868         MOVWF   FSR
+0267   1383           00869         BCF     STATUS,7
+0268   ???? ????      00870         BANKSEL r0x1028
+026A   18??           00871         BTFSC   r0x1028,0
+026B   1783           00872         BSF     STATUS,7
+026C   1283 1303      00873         BANKSEL INDF
+026E   0800           00874         MOVF    INDF,W
+026F   ???? ????      00875         BANKSEL r0x1029
+0271   00??           00876         MOVWF   r0x1029
+0272   08??           00877         MOVF    r0x1029,W
+0273   1D03           00878         BTFSS   STATUS,2
+0274   2???           00879         GOTO    _00156_DS_
+                      00880 ;       .line   96; "push_button.c"     pb_info[current_button].state = PB_PRESSED;
+0275   08??           00881         MOVF    r0x1025,W
+0276   1283 1303      00882         BANKSEL FSR
+0278   0084           00883         MOVWF   FSR
+0279   1383           00884         BCF     STATUS,7
+027A   ???? ????      00885         BANKSEL r0x1026
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 18
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+027C   18??           00886         BTFSC   r0x1026,0
+027D   1783           00887         BSF     STATUS,7
+027E   3002           00888         MOVLW   0x02
+027F   1283 1303      00889         BANKSEL INDF
+0281   0080           00890         MOVWF   INDF
+                      00891 ;       .line   98; "push_button.c"     break;
+0282   2???           00892         GOTO    _00156_DS_
+0283                  00893 _00145_DS_
+                      00894 ;       .line   100; "push_button.c"    if((pb_info[current_button].samples[0] == PB_RELEASED_VOLTAGE) &
+                            &
+0283   ???? ????      00895         BANKSEL r0x1023
+0285   08??           00896         MOVF    r0x1023,W
+0286   1283 1303      00897         BANKSEL FSR
+0288   0084           00898         MOVWF   FSR
+0289   1383           00899         BCF     STATUS,7
+028A   ???? ????      00900         BANKSEL r0x1024
+028C   18??           00901         BTFSC   r0x1024,0
+028D   1783           00902         BSF     STATUS,7
+028E   1283 1303      00903         BANKSEL INDF
+0290   0800           00904         MOVF    INDF,W
+0291   ???? ????      00905         BANKSEL r0x1027
+0293   00??           00906         MOVWF   r0x1027
+0294   3A01           00907         XORLW   0x01
+0295   1D03           00908         BTFSS   STATUS,2
+0296   2???           00909         GOTO    _00156_DS_
+                      00910 ;       .line   101; "push_button.c"    (pb_info[current_button].samples[1] == PB_RELEASED_VOLTAGE))
+0297   3001           00911         MOVLW   0x01
+0298   07??           00912         ADDWF   r0x1023,W
+0299   00??           00913         MOVWF   r0x1027
+029A   01??           00914         CLRF    r0x1028
+029B   0D??           00915         RLF     r0x1028,F
+029C   08??           00916         MOVF    r0x1024,W
+029D   07??           00917         ADDWF   r0x1028,F
+029E   08??           00918         MOVF    r0x1027,W
+029F   1283 1303      00919         BANKSEL FSR
+02A1   0084           00920         MOVWF   FSR
+02A2   1383           00921         BCF     STATUS,7
+02A3   ???? ????      00922         BANKSEL r0x1028
+02A5   18??           00923         BTFSC   r0x1028,0
+02A6   1783           00924         BSF     STATUS,7
+02A7   1283 1303      00925         BANKSEL INDF
+02A9   0800           00926         MOVF    INDF,W
+02AA   ???? ????      00927         BANKSEL r0x1029
+02AC   00??           00928         MOVWF   r0x1029
+02AD   3A01           00929         XORLW   0x01
+02AE   1D03           00930         BTFSS   STATUS,2
+02AF   2???           00931         GOTO    _00156_DS_
+                      00932 ;       .line   103; "push_button.c"    pb_info[current_button].state = PB_PRE_RELEASED;
+02B0   08??           00933         MOVF    r0x1025,W
+02B1   1283 1303      00934         BANKSEL FSR
+02B3   0084           00935         MOVWF   FSR
+02B4   1383           00936         BCF     STATUS,7
+02B5   ???? ????      00937         BANKSEL r0x1026
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 19
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+02B7   18??           00938         BTFSC   r0x1026,0
+02B8   1783           00939         BSF     STATUS,7
+02B9   3003           00940         MOVLW   0x03
+02BA   1283 1303      00941         BANKSEL INDF
+02BC   0080           00942         MOVWF   INDF
+                      00943 ;       .line   105; "push_button.c"    break;
+02BD   2???           00944         GOTO    _00156_DS_
+02BE                  00945 _00149_DS_
+                      00946 ;       .line   107; "push_button.c"    if(pb_info[current_button].samples[1] == PB_RELEASED_VOLTAGE)
+02BE   ???? ????      00947         BANKSEL r0x1023
+02C0   0A??           00948         INCF    r0x1023,F
+02C1   1903           00949         BTFSC   STATUS,2
+02C2   0A??           00950         INCF    r0x1024,F
+02C3   08??           00951         MOVF    r0x1023,W
+02C4   1283 1303      00952         BANKSEL FSR
+02C6   0084           00953         MOVWF   FSR
+02C7   1383           00954         BCF     STATUS,7
+02C8   ???? ????      00955         BANKSEL r0x1024
+02CA   18??           00956         BTFSC   r0x1024,0
+02CB   1783           00957         BSF     STATUS,7
+02CC   1283 1303      00958         BANKSEL INDF
+02CE   0800           00959         MOVF    INDF,W
+02CF   ???? ????      00960         BANKSEL r0x1027
+02D1   00??           00961         MOVWF   r0x1027
+02D2   3A01           00962         XORLW   0x01
+02D3   1D03           00963         BTFSS   STATUS,2
+02D4   2???           00964         GOTO    _00156_DS_
+                      00965 ;       .line   109; "push_button.c"    pb_info[current_button].state = PB_RELEASED;
+02D5   08??           00966         MOVF    r0x1025,W
+02D6   1283 1303      00967         BANKSEL FSR
+02D8   0084           00968         MOVWF   FSR
+02D9   1383           00969         BCF     STATUS,7
+02DA   ???? ????      00970         BANKSEL r0x1026
+02DC   18??           00971         BTFSC   r0x1026,0
+02DD   1783           00972         BSF     STATUS,7
+02DE   3000           00973         MOVLW   0x00
+02DF   1283 1303      00974         BANKSEL INDF
+02E1   0080           00975         MOVWF   INDF
+02E2                  00976 _00156_DS_
+                      00977 ;       .line   59; "push_button.c"     for (current_button = PB_POWER; current_button <= PB_UNUSED; cur
+                            rent_button++)
+02E2   ???? ????      00978         BANKSEL r0x1022
+02E4   0A??           00979         INCF    r0x1022,F
+                      00980 ;;swapping arguments (AOP_TYPEs 1/2)
+                      00981 ;;unsigned compare: left >= lit(0x4=4), size=1
+02E5   3004           00982         MOVLW   0x04
+02E6   02??           00983         SUBWF   r0x1022,W
+02E7   1C03           00984         BTFSS   STATUS,0
+02E8   2???           00985         GOTO    _00155_DS_
+                      00986 ;;genSkipc:3247: created from rifx:027A5DF4
+                      00987 ;       .line   118; "push_button.c"    SetValue_update(); //fn to check for the push buttons to decreme
+                            nt and increment the user set value
+02E9   2???           00988         CALL    _SetValue_update
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 20
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+02EA   0008           00989         RETURN  
+                      00990 ; exit point of _PB_Update
+                      00991 
+                      00992 ;***
+                      00993 ;  pBlock Stats: dbName = C
+                      00994 ;***
+                      00995 ;entry:  _PB_Init       ;Function start
+                      00996 ; 2 exit points
+                      00997 ;has an exit
+                      00998 ;functions called:
+                      00999 ;   _GPIO_InitPortPin
+                      01000 ;   _GPIO_InitPortPin
+                      01001 ;   _GPIO_InitPortPin
+                      01002 ;   _GPIO_InitPortPin
+                      01003 ;   __mulchar
+                      01004 ;   _GPIO_InitPortPin
+                      01005 ;   _GPIO_InitPortPin
+                      01006 ;   _GPIO_InitPortPin
+                      01007 ;   _GPIO_InitPortPin
+                      01008 ;   __mulchar
+                      01009 ;7 compiler assigned registers:
+                      01010 ;   r0x102A
+                      01011 ;   STK00
+                      01012 ;   r0x102B
+                      01013 ;   STK01
+                      01014 ;   r0x102C
+                      01015 ;   r0x102D
+                      01016 ;   r0x102E
+                      01017 ;; Starting pCode block
+02EB                  01018 _PB_Init        ;Function start
+                      01019 ; 2 exit points
+                      01020 ;       .line   14; "push_button.c"     void PB_Init(tPB pb, tPB_State initial_state)
+02EB   ???? ????      01021         BANKSEL r0x102A
+02ED   00??           01022         MOVWF   r0x102A
+02EE   08??           01023         MOVF    STK00,W
+02EF   00??           01024         MOVWF   r0x102B
+                      01025 ;;swapping arguments (AOP_TYPEs 1/2)
+                      01026 ;;unsigned compare: left >= lit(0x4=4), size=1
+                      01027 ;       .line   17; "push_button.c"     switch(pb)
+02F0   3004           01028         MOVLW   0x04
+02F1   02??           01029         SUBWF   r0x102A,W
+02F2   1803           01030         BTFSC   STATUS,0
+02F3   2???           01031         GOTO    _00110_DS_
+                      01032 ;;genSkipc:3247: created from rifx:027A5DF4
+02F4   30??           01033         MOVLW   HIGH(_00125_DS_)
+02F5   1283 1303      01034         BANKSEL PCLATH
+02F7   008A           01035         MOVWF   PCLATH
+02F8   30??           01036         MOVLW   _00125_DS_
+02F9   ???? ????      01037         BANKSEL r0x102A
+02FB   07??           01038         ADDWF   r0x102A,W
+02FC   1C03           01039         BTFSS   STATUS,0
+02FD   2???           01040         GOTO    _00003_DS_
+02FE   1283 1303      01041         BANKSEL PCLATH
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 21
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0300   0A8A           01042         INCF    PCLATH,F
+0301                  01043 _00003_DS_
+0301   0082           01044         MOVWF   PCL
+0302                  01045 _00125_DS_
+0302   2???           01046         GOTO    _00105_DS_
+0303   2???           01047         GOTO    _00106_DS_
+0304   2???           01048         GOTO    _00107_DS_
+0305   2???           01049         GOTO    _00108_DS_
+0306                  01050 _00105_DS_
+                      01051 ;       .line   20; "push_button.c"     GPIO_InitPortPin(PORT_B, 0,GPIO_IN);
+0306   3001           01052         MOVLW   0x01
+0307   00??           01053         MOVWF   STK01
+0308   3000           01054         MOVLW   0x00
+0309   00??           01055         MOVWF   STK00
+030A   3001           01056         MOVLW   0x01
+030B   ???? ????      01057         PAGESEL _GPIO_InitPortPin
+030D   2???           01058         CALL    _GPIO_InitPortPin
+030E   ???? ????      01059         PAGESEL $
+                      01060 ;       .line   21; "push_button.c"     break;
+0310   2???           01061         GOTO    _00110_DS_
+0311                  01062 _00106_DS_
+                      01063 ;       .line   23; "push_button.c"     GPIO_InitPortPin(PORT_B, 1,GPIO_IN);
+0311   3001           01064         MOVLW   0x01
+0312   00??           01065         MOVWF   STK01
+0313   3001           01066         MOVLW   0x01
+0314   00??           01067         MOVWF   STK00
+0315   3001           01068         MOVLW   0x01
+0316   ???? ????      01069         PAGESEL _GPIO_InitPortPin
+0318   2???           01070         CALL    _GPIO_InitPortPin
+0319   ???? ????      01071         PAGESEL $
+                      01072 ;       .line   24; "push_button.c"     break;
+031B   2???           01073         GOTO    _00110_DS_
+031C                  01074 _00107_DS_
+                      01075 ;       .line   26; "push_button.c"     GPIO_InitPortPin(PORT_B, 2,GPIO_IN);
+031C   3001           01076         MOVLW   0x01
+031D   00??           01077         MOVWF   STK01
+031E   3002           01078         MOVLW   0x02
+031F   00??           01079         MOVWF   STK00
+0320   3001           01080         MOVLW   0x01
+0321   ???? ????      01081         PAGESEL _GPIO_InitPortPin
+0323   2???           01082         CALL    _GPIO_InitPortPin
+0324   ???? ????      01083         PAGESEL $
+                      01084 ;       .line   27; "push_button.c"     break;
+0326   2???           01085         GOTO    _00110_DS_
+0327                  01086 _00108_DS_
+                      01087 ;       .line   29; "push_button.c"     GPIO_InitPortPin(PORT_B, 3,GPIO_IN);
+0327   3001           01088         MOVLW   0x01
+0328   00??           01089         MOVWF   STK01
+0329   3003           01090         MOVLW   0x03
+032A   00??           01091         MOVWF   STK00
+032B   3001           01092         MOVLW   0x01
+032C   ???? ????      01093         PAGESEL _GPIO_InitPortPin
+032E   2???           01094         CALL    _GPIO_InitPortPin
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 22
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+032F   ???? ????      01095         PAGESEL $
+0331                  01096 _00110_DS_
+                      01097 ;       .line   37; "push_button.c"     pb_info[pb].state = initial_state;
+0331   3003           01098         MOVLW   0x03
+0332   00??           01099         MOVWF   STK00
+0333   ???? ????      01100         BANKSEL r0x102A
+0335   08??           01101         MOVF    r0x102A,W
+0336   ???? ????      01102         PAGESEL __mulchar
+0338   2???           01103         CALL    __mulchar
+0339   ???? ????      01104         PAGESEL $
+033B   ???? ????      01105         BANKSEL r0x102C
+033D   00??           01106         MOVWF   r0x102C
+033E   01??           01107         CLRF    r0x102D
+033F   08??           01108         MOVF    r0x102C,W
+0340   3E??           01109         ADDLW   (_pb_info + 0)
+0341   00??           01110         MOVWF   r0x102C
+0342   30??           01111         MOVLW   high (_pb_info + 0)
+0343   00??           01112         MOVWF   r0x102A
+0344   3000           01113         MOVLW   0x00
+0345   1803           01114         BTFSC   STATUS,0
+0346   0F??           01115         INCFSZ  r0x102D,W
+0347   07??           01116         ADDWF   r0x102A,F
+0348   3002           01117         MOVLW   0x02
+0349   07??           01118         ADDWF   r0x102C,W
+034A   00??           01119         MOVWF   r0x102D
+034B   01??           01120         CLRF    r0x102E
+034C   0D??           01121         RLF     r0x102E,F
+034D   08??           01122         MOVF    r0x102A,W
+034E   07??           01123         ADDWF   r0x102E,F
+034F   08??           01124         MOVF    r0x102D,W
+0350   1283 1303      01125         BANKSEL FSR
+0352   0084           01126         MOVWF   FSR
+0353   1383           01127         BCF     STATUS,7
+0354   ???? ????      01128         BANKSEL r0x102E
+0356   18??           01129         BTFSC   r0x102E,0
+0357   1783           01130         BSF     STATUS,7
+0358   08??           01131         MOVF    r0x102B,W
+0359   1283 1303      01132         BANKSEL INDF
+035B   0080           01133         MOVWF   INDF
+                      01134 ;;swapping arguments (AOP_TYPEs 1/2)
+                      01135 ;;unsigned compare: left >= lit(0x4=4), size=1
+                      01136 ;       .line   40; "push_button.c"     switch (initial_state)
+035C   3004           01137         MOVLW   0x04
+035D   ???? ????      01138         BANKSEL r0x102B
+035F   02??           01139         SUBWF   r0x102B,W
+0360   1803           01140         BTFSC   STATUS,0
+0361   2???           01141         GOTO    _00116_DS_
+                      01142 ;;genSkipc:3247: created from rifx:027A5DF4
+0362   30??           01143         MOVLW   HIGH(_00127_DS_)
+0363   1283 1303      01144         BANKSEL PCLATH
+0365   008A           01145         MOVWF   PCLATH
+0366   30??           01146         MOVLW   _00127_DS_
+0367   ???? ????      01147         BANKSEL r0x102B
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 23
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0369   07??           01148         ADDWF   r0x102B,W
+036A   1C03           01149         BTFSS   STATUS,0
+036B   2???           01150         GOTO    _00004_DS_
+036C   1283 1303      01151         BANKSEL PCLATH
+036E   0A8A           01152         INCF    PCLATH,F
+036F                  01153 _00004_DS_
+036F   0082           01154         MOVWF   PCL
+0370                  01155 _00127_DS_
+0370   2???           01156         GOTO    _00112_DS_
+0371   2???           01157         GOTO    _00114_DS_
+0372   2???           01158         GOTO    _00114_DS_
+0373   2???           01159         GOTO    _00112_DS_
+0374                  01160 _00112_DS_
+                      01161 ;       .line   44; "push_button.c"     pb_info[pb].samples[0] = PB_RELEASED_VOLTAGE;
+0374   ???? ????      01162         BANKSEL r0x102C
+0376   08??           01163         MOVF    r0x102C,W
+0377   1283 1303      01164         BANKSEL FSR
+0379   0084           01165         MOVWF   FSR
+037A   1383           01166         BCF     STATUS,7
+037B   ???? ????      01167         BANKSEL r0x102A
+037D   18??           01168         BTFSC   r0x102A,0
+037E   1783           01169         BSF     STATUS,7
+037F   3001           01170         MOVLW   0x01
+0380   1283 1303      01171         BANKSEL INDF
+0382   0080           01172         MOVWF   INDF
+                      01173 ;       .line   45; "push_button.c"     pb_info[pb].samples[1] = PB_RELEASED_VOLTAGE;
+0383   3001           01174         MOVLW   0x01
+0384   ???? ????      01175         BANKSEL r0x102C
+0386   07??           01176         ADDWF   r0x102C,W
+0387   00??           01177         MOVWF   r0x102B
+0388   01??           01178         CLRF    r0x102D
+0389   0D??           01179         RLF     r0x102D,F
+038A   08??           01180         MOVF    r0x102A,W
+038B   07??           01181         ADDWF   r0x102D,F
+038C   08??           01182         MOVF    r0x102B,W
+038D   1283 1303      01183         BANKSEL FSR
+038F   0084           01184         MOVWF   FSR
+0390   1383           01185         BCF     STATUS,7
+0391   ???? ????      01186         BANKSEL r0x102D
+0393   18??           01187         BTFSC   r0x102D,0
+0394   1783           01188         BSF     STATUS,7
+0395   3001           01189         MOVLW   0x01
+0396   1283 1303      01190         BANKSEL INDF
+0398   0080           01191         MOVWF   INDF
+                      01192 ;       .line   46; "push_button.c"     break;
+0399   2???           01193         GOTO    _00116_DS_
+039A                  01194 _00114_DS_
+                      01195 ;       .line   49; "push_button.c"     pb_info[pb].samples[0] = PB_PRESSED_VOLTAGE;
+039A   ???? ????      01196         BANKSEL r0x102C
+039C   08??           01197         MOVF    r0x102C,W
+039D   1283 1303      01198         BANKSEL FSR
+039F   0084           01199         MOVWF   FSR
+03A0   1383           01200         BCF     STATUS,7
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 24
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+03A1   ???? ????      01201         BANKSEL r0x102A
+03A3   18??           01202         BTFSC   r0x102A,0
+03A4   1783           01203         BSF     STATUS,7
+03A5   3000           01204         MOVLW   0x00
+03A6   1283 1303      01205         BANKSEL INDF
+03A8   0080           01206         MOVWF   INDF
+                      01207 ;       .line   50; "push_button.c"     pb_info[pb].samples[1] = PB_PRESSED_VOLTAGE;
+03A9   ???? ????      01208         BANKSEL r0x102C
+03AB   0A??           01209         INCF    r0x102C,F
+03AC   1903           01210         BTFSC   STATUS,2
+03AD   0A??           01211         INCF    r0x102A,F
+03AE   08??           01212         MOVF    r0x102C,W
+03AF   1283 1303      01213         BANKSEL FSR
+03B1   0084           01214         MOVWF   FSR
+03B2   1383           01215         BCF     STATUS,7
+03B3   ???? ????      01216         BANKSEL r0x102A
+03B5   18??           01217         BTFSC   r0x102A,0
+03B6   1783           01218         BSF     STATUS,7
+03B7   3000           01219         MOVLW   0x00
+03B8   1283 1303      01220         BANKSEL INDF
+03BA   0080           01221         MOVWF   INDF
+03BB                  01222 _00116_DS_
+                      01223 ;       .line   52; "push_button.c"     }
+03BB   0008           01224         RETURN  
+                      01225 ; exit point of _PB_Init
+                      01226 
+                      01227 
+                      01228 ;       code size estimation:
+                      01229 ;         584+  186 =   770 instructions ( 1912 byte)
+                      01230 
+                      01231         end
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 25
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000003
+CHS1                              00000004
+CHS2                              00000005
+CIS                               00000003
+CKE                               00000006
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 26
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CKP                               00000004
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000009C
+CMIE                              00000006
+CMIF                              00000006
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            0000009D
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+D_A                               00000005
+D_NOT_A                           00000005
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IRP                               00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 27
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+OPTION_REG                        00000081
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSAVE                             00000000
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 28
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SEN                               00000000
+SMP                               00000007
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSAVE                             00000000
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 29
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STK00                             00000000
+STK01                             00000000
+STK02                             00000000
+STK03                             00000000
+STK04                             00000000
+STK05                             00000000
+STK06                             00000000
+STK07                             00000000
+STK08                             00000000
+STK09                             00000000
+STK10                             00000000
+STK11                             00000000
+STK12                             00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 30
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+W                                 00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 31
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WSAVE                             00000000
+Z                                 00000002
+_00001_DS_                        00000175
+_00002_DS_                        0000021A
+_00003_DS_                        00000301
+_00004_DS_                        0000036F
+_00105_DS_                        00000306
+_00106_DS_                        00000311
+_00107_DS_                        0000031C
+_00108_DS_                        00000327
+_00110_DS_                        00000331
+_00112_DS_                        00000374
+_00114_DS_                        0000039A
+_00116_DS_                        000003BB
+_00125_DS_                        00000302
+_00127_DS_                        00000370
+_00132_DS_                        0000017A
+_00133_DS_                        00000193
+_00134_DS_                        000001AC
+_00135_DS_                        000001C5
+_00137_DS_                        000001DD
+_00138_DS_                        0000021F
+_00142_DS_                        0000025A
+_00145_DS_                        00000283
+_00149_DS_                        000002BE
+_00155_DS_                        00000124
+_00156_DS_                        000002E2
+_00191_DS_                        00000176
+_00193_DS_                        0000021B
+_00209_DS_                        00000096
+_00214_DS_                        000000F4
+_00234_DS_                        00000026
+_00235_DS_                        00000038
+_00236_DS_                        0000008C
+_00237_DS_                        000000EB
+_ADCON0                           00000000
+_ADCON0bits                       00000000
+_ADCON1                           00000000
+_ADCON1bits                       00000000
+_ADC_GetResult                    00000000
+_ADC_Init                         00000000
+_ADC_Update                       00000000
+_ADRESH                           00000000
+_ADRESL                           00000000
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CCP1CON                          00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 32
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_CCP1CONbits                      00000000
+_CCP2CON                          00000000
+_CCP2CONbits                      00000000
+_CCPR1                            00000000
+_CCPR1H                           00000000
+_CCPR1L                           00000000
+_CCPR2                            00000000
+_CCPR2H                           00000000
+_CCPR2L                           00000000
+_CMCON                            00000000
+_CMCONbits                        00000000
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_CVRCON                           00000000
+_CVRCONbits                       00000000
+_Cooler_GetState                  00000000
+_Cooler_Init                      00000000
+_Cooler_SetState                  00000000
+_Cooler_update                    00000000
+_Counters                         00000000
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_EEADR                            00000000
+_EEADRH                           00000000
+_EECON1                           00000000
+_EECON1bits                       00000000
+_EECON2                           00000000
+_EEDATA                           00000000
+_EEDATH                           00000000
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_FSR                              00000000
+_Flags                            00000000
+_GPIO_GetPortPinState             00000000
+_GPIO_InitPort                    00000000
+_GPIO_InitPortPin                 00000000
+_GPIO_SetPortPinState             00000000
+_GPIO_SetPortState                00000000
+_GPIO_Update                      00000000
+_HS_OSC                           00003FFE
+_Heater_GetState                  00000000
+_Heater_Init                      00000000
+_Heater_SetState                  00000000
+_Heater_update                    00000000
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 33
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_INDF                             00000000
+_INTCON                           00000000
+_INTCONbits                       00000000
+_LED_GetState                     00000000
+_LED_Init                         00000000
+_LED_SetState                     00000000
+_LED_Update                       00000000
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_OPTION_REG                       00000000
+_OPTION_REGbits                   00000000
+_PB_GetState                      000000F5
+_PB_Init                          000002EB
+_PB_Update                        00000121
+_PCL                              00000000
+_PCLATH                           00000000
+_PCON                             00000000
+_PCONbits                         00000000
+_PIE1                             00000000
+_PIE1bits                         00000000
+_PIE2                             00000000
+_PIE2bits                         00000000
+_PIR1                             00000000
+_PIR1bits                         00000000
+_PIR2                             00000000
+_PIR2bits                         00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
+_PORTB                            00000000
+_PORTBbits                        00000000
+_PORTC                            00000000
+_PORTCbits                        00000000
+_PORTD                            00000000
+_PORTDbits                        00000000
+_PORTE                            00000000
+_PORTEbits                        00000000
+_PR2                              00000000
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RCREG                            00000000
+_RCSTA                            00000000
+_RCSTAbits                        00000000
+_RC_OSC                           00003FFF
+_Readings                         00000000
+_SPBRG                            00000000
+_SSD_GET_Symbol                   00000000
+_SSD_GET_state                    00000000
+_SSD_Init                         00000000
+_SSD_SET_Symbol                   00000000
+_SSD_SET_state                    00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 34
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_SSD_update                       00000000
+_SSPADD                           00000000
+_SSPBUF                           00000000
+_SSPCON                           00000000
+_SSPCON2                          00000000
+_SSPCON2bits                      00000000
+_SSPCONbits                       00000000
+_SSPSTAT                          00000000
+_SSPSTATbits                      00000000
+_STATUS                           00000000
+_STATUSbits                       00000000
+_SetValue_update                  00000000
+_SettingMode_Get_SSD_state        00000000
+_SettingMode_OFF_mode             00000000
+_SettingMode_update               00000000
+_Start_conversion_Int             00000000
+_T1CON                            00000000
+_T1CONbits                        00000000
+_T2CON                            00000000
+_T2CONbits                        00000000
+_TMR0                             00000000
+_TMR0_Init                        00000000
+_TMR0_Start                       00000000
+_TMR0_Update                      00000000
+_TMR1                             00000000
+_TMR1H                            00000000
+_TMR1L                            00000000
+_TMR2                             00000000
+_TRISA                            00000000
+_TRISAbits                        00000000
+_TRISB                            00000000
+_TRISBbits                        00000000
+_TRISC                            00000000
+_TRISCbits                        00000000
+_TRISD                            00000000
+_TRISDbits                        00000000
+_TRISE                            00000000
+_TRISEbits                        00000000
+_TXREG                            00000000
+_TXSTA                            00000000
+_TXSTAbits                        00000000
+_Temprature_Init                  00000000
+_Temprature_update                00000000
+_UTIL_DelayMS                     00000000
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FFD
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\p   7-17-2020  06:58:43         PAGE 35
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__16F877A                         00000001
+__CODE_END                        00001FFF
+__CODE_START                      00000000
+__COMMON_RAM_END                  0000007F
+__COMMON_RAM_START                00000070
+__EEPROM_END                      000021FF
+__EEPROM_START                    00002100
+__VECTOR_INT                      00000004
+__VECTOR_RESET                    00000000
+__mulchar                         00000000
+_code_push_button_00FE            000000FE
+_code_push_button_012C            0000012C
+_code_push_button_0180            00000180
+_code_push_button_0199            00000199
+_code_push_button_01B2            000001B2
+_code_push_button_01CB            000001CB
+_code_push_button_01E5            000001E5
+_code_push_button_030E            0000030E
+_code_push_button_0319            00000319
+_code_push_button_0324            00000324
+_code_push_button_032F            0000032F
+_code_push_button_0339            00000339
+_pb_info                          00000015
+r0x101A                           0000000D
+r0x101B                           0000000E
+r0x101C                           0000000F
+r0x101D                           00000010
+r0x101E                           00000011
+r0x101F                           00000012
+r0x1020                           00000013
+r0x1021                           00000014
+r0x1022                           00000005
+r0x1023                           00000006
+r0x1024                           00000007
+r0x1025                           00000008
+r0x1026                           00000009
+r0x1027                           0000000A
+r0x1028                           0000000B
+r0x1029                           0000000C
+r0x102A                           00000000
+r0x102B                           00000001
+r0x102C                           00000002
+r0x102D                           00000003
+r0x102E                           00000004
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+
