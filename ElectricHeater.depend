@@ -1,0 +1,98 @@
+# depslib dependency file v1.0
+1594867121 source:d:\my field\embedded\pic\projects\electricheater\adc.c
+	"adc.h"
+
+1594965638 d:\my field\embedded\pic\projects\electricheater\adc.h
+	<pic16f877a.h>
+
+1594959519 source:d:\my field\embedded\pic\projects\electricheater\cooler.c
+	"cooler.h"
+
+1594959489 d:\my field\embedded\pic\projects\electricheater\cooler.h
+	"gpio.h"
+	"setting_mode.h"
+
+1594295980 d:\my field\embedded\pic\projects\electricheater\gpio.h
+	<pic16f877a.h>
+
+1595027482 d:\my field\embedded\pic\projects\electricheater\setting_mode.h
+	"eeprom_ext.h"
+	"SSD.h"
+
+1594963556 d:\my field\embedded\pic\projects\electricheater\eeprom_ext.h
+	<pic16f877a.h>
+	"i2c.h"
+	"setting_mode.h"
+
+1594965777 d:\my field\embedded\pic\projects\electricheater\i2c.h
+	<pic16f877a.h>
+
+1595042504 d:\my field\embedded\pic\projects\electricheater\ssd.h
+	"gpio.h"
+	"Timer.h"
+	"PORT.h"
+	"utilities.h"
+	"setting_mode.h"
+
+1594967018 d:\my field\embedded\pic\projects\electricheater\timer.h
+	<pic16f877a.h>
+	"push_button.h"
+	"SSD.h"
+	"Temp.h"
+	"led.h"
+	"heater.h"
+	"cooler.h"
+	"setting_mode.h"
+	"eeprom_ext.h"
+
+1594961239 d:\my field\embedded\pic\projects\electricheater\push_button.h
+	"gpio.h"
+	"setting_mode.h"
+
+1594961289 d:\my field\embedded\pic\projects\electricheater\temp.h
+	"adc.h"
+	"setting_mode.h"
+
+1595049792 d:\my field\embedded\pic\projects\electricheater\led.h
+	"gpio.h"
+	"setting_mode.h"
+
+1595047633 d:\my field\embedded\pic\projects\electricheater\heater.h
+	"gpio.h"
+	"setting_mode.h"
+
+1595041635 d:\my field\embedded\pic\projects\electricheater\port.h
+
+1594295998 d:\my field\embedded\pic\projects\electricheater\utilities.h
+
+1594876640 source:d:\my field\embedded\pic\projects\electricheater\gpio.c
+	"gpio.h"
+
+1595047644 source:d:\my field\embedded\pic\projects\electricheater\heater.c
+	"heater.h"
+
+1594867390 source:d:\my field\embedded\pic\projects\electricheater\i2c.c
+	"i2c.h"
+
+1595123119 source:d:\my field\embedded\pic\projects\electricheater\interrupt.c
+	"Interrupt.h"
+
+1594959592 d:\my field\embedded\pic\projects\electricheater\interrupt.h
+	<pic16f877a.h>
+	"gpio.h"
+	"Timer.h"
+	"setting_mode.h"
+
+1595115883 source:d:\my field\embedded\pic\projects\electricheater\led.c
+	"led.h"
+
+1595122880 source:d:\my field\embedded\pic\projects\electricheater\push_button.c
+	"push_button.h"
+	<pic16f877a.h>
+
+1595123648 source:d:\my field\embedded\pic\projects\electricheater\ssd.c
+	"SSD.h"
+
+1594295998 source:d:\my field\embedded\pic\projects\electricheater\utilities.c
+	"utilities.h"
+

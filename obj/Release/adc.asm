@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:42 2020
+; This file was generated Sun Jul 19 20:05:21 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -173,10 +173,10 @@ code_adc	code
 ;; Starting pCode block
 _Start_conversion_Int	;Function start
 ; 2 exit points
-;	.line	31; "adc.c"	void Start_conversion_Int(unsigned char channel){
+;	.line	31; "adc.c"	void Start_conversion_Int(unsigned char channel)
 	BANKSEL	r0x1000
 	MOVWF	r0x1000
-;	.line	33; "adc.c"	ADC_SELECT_CHANNEL(channel);
+;	.line	34; "adc.c"	ADC_SELECT_CHANNEL(channel);
 	MOVLW	0x04
 	ANDWF	r0x1000,W
 	MOVWF	r0x1001
@@ -233,19 +233,19 @@ _00005_DS_
 	BANKSEL	_ADCON0bits
 	BSF	_ADCON0bits,3
 _00006_DS_
-;	.line	34; "adc.c"	ADC_SELECT_RESULT_JUSTIFICATION(RIGHT);
+;	.line	35; "adc.c"	ADC_SELECT_RESULT_JUSTIFICATION(RIGHT);
 	BANKSEL	_ADCON1bits
 	BSF	_ADCON1bits,7
-;	.line	35; "adc.c"	ADC_SET_STATE(ADC_ON);
+;	.line	36; "adc.c"	ADC_SET_STATE(ADC_ON);
 	BANKSEL	_ADCON0bits
 	BSF	_ADCON0bits,0
-;	.line	36; "adc.c"	ADC_START_CONVERSION();
+;	.line	37; "adc.c"	ADC_START_CONVERSION();
 	BSF	_ADCON0bits,2
-;	.line	37; "adc.c"	GIE  = 1 ;
+;	.line	38; "adc.c"	GIE  = 1 ;
 	BSF	_INTCONbits,7
-;	.line	38; "adc.c"	PEIE = 1 ;
+;	.line	39; "adc.c"	PEIE = 1 ;
 	BSF	_INTCONbits,6
-;	.line	39; "adc.c"	ADIE = 1 ;
+;	.line	40; "adc.c"	ADIE = 1 ;
 	BANKSEL	_PIE1bits
 	BSF	_PIE1bits,6
 	RETURN	

@@ -3,7 +3,6 @@
 
 #define _XTAL_FREQ 8000000
 
-
 void I2C_Init(const unsigned long feq_K);
 void I2C_Hold();
 void I2C_Begin();

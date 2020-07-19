@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:42 2020
+; This file was generated Sun Jul 19 20:05:22 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -19,6 +19,13 @@
 	extern	_GPIO_SetPortState
 	extern	_GPIO_GetPortPinState
 	extern	_UTIL_DelayMS
+	extern	_SSD_Init
+	extern	_SSD_SET_Symbol
+	extern	_SSD_SET_state
+	extern	_SSD_GET_state
+	extern	_SSD_GET_Symbol
+	extern	_SSD_update
+	extern	_SettingMode_update
 	extern	_PB_Init
 	extern	_PB_Update
 	extern	_PB_GetState
@@ -28,27 +35,25 @@
 	extern	_Start_conversion_Int
 	extern	_Temprature_Init
 	extern	_Temprature_update
+	extern	_LED_Init
+	extern	_LED_GetState
+	extern	_LED_Update
+	extern	_Heater_Init
+	extern	_Heater_update
+	extern	_Heater_GetState
 	extern	_Cooler_Init
 	extern	_Cooler_SetState
 	extern	_Cooler_GetState
 	extern	_Cooler_update
-	extern	_Heater_Init
-	extern	_Heater_SetState
-	extern	_Heater_GetState
-	extern	_Heater_update
-	extern	_SettingMode_update
-	extern	_SettingMode_Get_SSD_state
-	extern	_SettingMode_OFF_mode
-	extern	_SSD_Init
-	extern	_SSD_SET_Symbol
-	extern	_SSD_SET_state
-	extern	_SSD_GET_state
-	extern	_SSD_GET_Symbol
-	extern	_SSD_update
-	extern	_LED_Init
-	extern	_LED_Update
-	extern	_LED_GetState
-	extern	_LED_SetState
+	extern	_I2C_Init
+	extern	_I2C_Hold
+	extern	_I2C_Begin
+	extern	_I2C_End
+	extern	_I2C_Write
+	extern	_I2C_Read
+	extern	_e2pext_r
+	extern	_e2pext_w
+	extern	_e2pex_update
 	extern	_TMR0_Init
 	extern	_TMR0_Update
 	extern	_TMR0_Start
@@ -171,6 +176,7 @@
 	global	_ISR
 	global	_RB0Int_update
 	global	_RB0_INT_Init
+	global	_flag
 
 ;--------------------------------------------------------
 ; global definitions
@@ -182,10 +188,15 @@
 ; compiler-defined variables
 ;--------------------------------------------------------
 UDL_Interrupt_0	udata
-r0x1006	res	1
+r0x1008	res	1
 ;--------------------------------------------------------
 ; initialized data
 ;--------------------------------------------------------
+
+ID_Interrupt_0	idata
+_flag
+	db	0x00
+
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
 ;--------------------------------------------------------
@@ -201,14 +212,12 @@ __sdcc_interrupt
 ;entry:  _ISR	;Function start
 ; 0 exit points
 ;functions called:
-;   _TMR0_Update
 ;   _RB0Int_update
-;   _TMR0_Update
 ;   _RB0Int_update
 ;; Starting pCode block
 _ISR	;Function start
 ; 0 exit points
-;	.line	20; "Interrupt.c"	void ISR(void)__interrupt 0
+;	.line	19; "Interrupt.c"	void ISR(void)__interrupt 0
 	MOVWF	WSAVE
 	SWAPF	STATUS,W
 	CLRF	STATUS
@@ -219,33 +228,33 @@ _ISR	;Function start
 	MOVF	FSR,W
 	BANKSEL	___sdcc_saved_fsr
 	MOVWF	___sdcc_saved_fsr
-;	.line	23; "Interrupt.c"	if(TMR0IF)
+;	.line	22; "Interrupt.c"	if(TMR0IF)
 	BANKSEL	_INTCONbits
 	BTFSS	_INTCONbits,2
-	GOTO	_00120_DS_
-;	.line	25; "Interrupt.c"	TMR0_Update();
-	PAGESEL	_TMR0_Update
-	CALL	_TMR0_Update
-	PAGESEL	$
-;	.line	26; "Interrupt.c"	TMR0_InterruptFlag_Clear();
+	GOTO	_00114_DS_
+;	.line	24; "Interrupt.c"	flag = 1 ; //execute main program
+	MOVLW	0x01
+	BANKSEL	_flag
+	MOVWF	_flag
+;	.line	25; "Interrupt.c"	TMR0_InterruptFlag_Clear();
 	BANKSEL	_INTCONbits
 	BCF	_INTCONbits,2
-;	.line	27; "Interrupt.c"	TMR0_UPDATE_REGISTER(5);
-	MOVLW	0xd8
+;	.line	26; "Interrupt.c"	TMR0_UPDATE_REGISTER(20);
+	MOVLW	0x60
 	MOVWF	_TMR0
-_00120_DS_
-;	.line	30; "Interrupt.c"	if(INTF)
+_00114_DS_
+;	.line	29; "Interrupt.c"	if(INTF)
 	BANKSEL	_INTCONbits
 	BTFSS	_INTCONbits,1
-	GOTO	_00123_DS_
-;	.line	32; "Interrupt.c"	RB0Int_update();
+	GOTO	_00117_DS_
+;	.line	31; "Interrupt.c"	RB0Int_update();
 	PAGESEL	_RB0Int_update
 	CALL	_RB0Int_update
 	PAGESEL	$
-;	.line	34; "Interrupt.c"	CLEAR_RB0_EXINT_FLAG();
+;	.line	33; "Interrupt.c"	CLEAR_RB0_EXINT_FLAG();
 	BANKSEL	_INTCONbits
 	BCF	_INTCONbits,1
-_00123_DS_
+_00117_DS_
 	BANKSEL	___sdcc_saved_fsr
 	MOVF	___sdcc_saved_fsr,W
 	BANKSEL	FSR
@@ -271,34 +280,21 @@ code_Interrupt	code
 ; 2 exit points
 ;has an exit
 ;1 compiler assigned register :
-;   r0x1006
+;   r0x1008
 ;; Starting pCode block
 _RB0Int_update	;Function start
 ; 2 exit points
-;	.line	15; "Interrupt.c"	if(Flags.Operation_Flag == 1){ Flags.Operation_Flag = 0 ;
+;	.line	16; "Interrupt.c"	Flags.Operation_Flag ^= 1 ; //toggle the mode once pressing power push button
 	BANKSEL	_Flags
 	MOVF	(_Flags + 4),W
-	BANKSEL	r0x1006
-	MOVWF	r0x1006
-	XORLW	0x01
-	BTFSS	STATUS,2
-	GOTO	_00112_DS_
-;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-	BANKSEL	_Flags
-	CLRF	(_Flags + 4)
-	GOTO	_00114_DS_
-_00112_DS_
-;	.line	16; "Interrupt.c"	}else if(Flags.Operation_Flag == 0){Flags.Operation_Flag = 1 ;}
-	MOVLW	0x00
-	BANKSEL	r0x1006
-	IORWF	r0x1006,W
-	BTFSS	STATUS,2
-	GOTO	_00114_DS_
-;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+	BANKSEL	r0x1008
+	MOVWF	r0x1008
 	MOVLW	0x01
+	XORWF	r0x1008,F
+;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+	MOVF	r0x1008,W
 	BANKSEL	_Flags
 	MOVWF	(_Flags + 4)
-_00114_DS_
 	RETURN	
 ; exit point of _RB0Int_update
 
@@ -317,7 +313,7 @@ _00114_DS_
 ;; Starting pCode block
 _RB0_INT_Init	;Function start
 ; 2 exit points
-;	.line	5; "Interrupt.c"	GPIO_InitPortPin(PORT_B,0,GPIO_IN);
+;	.line	7; "Interrupt.c"	GPIO_InitPortPin(PORT_B,0,GPIO_IN);
 	MOVLW	0x01
 	MOVWF	STK01
 	MOVLW	0x00
@@ -326,15 +322,15 @@ _RB0_INT_Init	;Function start
 	PAGESEL	_GPIO_InitPortPin
 	CALL	_GPIO_InitPortPin
 	PAGESEL	$
-;	.line	6; "Interrupt.c"	GLOBAL_INT_ENABLE();
+;	.line	8; "Interrupt.c"	GLOBAL_INT_ENABLE();
 	BANKSEL	_INTCONbits
 	BSF	_INTCONbits,7
-;	.line	7; "Interrupt.c"	RB0_EXINT_ENABLE();
+;	.line	9; "Interrupt.c"	RB0_EXINT_ENABLE();
 	BSF	_INTCONbits,4
-;	.line	8; "Interrupt.c"	SET_RB0_EDGE(EDGE);//select edge from the header file
+;	.line	10; "Interrupt.c"	SET_RB0_EDGE(EDGE);//select edge from the header file
 	BANKSEL	_OPTION_REGbits
 	BSF	_OPTION_REGbits,6
-;	.line	9; "Interrupt.c"	CLEAR_RB0_EXINT_FLAG();
+;	.line	11; "Interrupt.c"	CLEAR_RB0_EXINT_FLAG();
 	BANKSEL	_INTCONbits
 	BCF	_INTCONbits,1
 	RETURN	
@@ -342,6 +338,6 @@ _RB0_INT_Init	;Function start
 
 
 ;	code size estimation:
-;	   54+   21 =    75 instructions (  192 byte)
+;	   48+   18 =    66 instructions (  168 byte)
 
 	end

@@ -1,4 +1,4 @@
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  1
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -7,7 +7,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00001 ;--------------------------------------------------------
                       00002 ; File Created by SDCC : free open source ANSI-C Compiler
                       00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-                      00004 ; This file was generated Fri Jul 17 06:58:44 2020
+                      00004 ; This file was generated Sun Jul 19 20:05:25 2020
                       00005 ;--------------------------------------------------------
                       00006 ; PIC port for the 14-bit core
                       00007 ;--------------------------------------------------------
@@ -57,7 +57,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00041 ; absolute symbol definitions
                       00042 ;--------------------------------------------------------
                       00043 ;--------------------------------------------------------
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  2
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  2
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -116,7 +116,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 000B   02??           00094         SUBWF   r0x1002,W
 000C   1D03           00095         BTFSS   STATUS,2
 000D   2???           00096         GOTO    _00128_DS_
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  3
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  3
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -166,7 +166,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00138 ;          39+    4 =    43 instructions (   94 byte)
                       00139 
                       00140         end
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  4
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  4
 
 
 SYMBOL TABLE
@@ -225,7 +225,7 @@ CHS1                              00000004
 CHS2                              00000005
 CIS                               00000003
 CKE                               00000006
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  5
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  5
 
 
 SYMBOL TABLE
@@ -284,7 +284,7 @@ INTF                              00000001
 IRP                               00000007
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  6
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  6
 
 
 SYMBOL TABLE
@@ -343,7 +343,7 @@ RA5                               00000005
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  7
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  7
 
 
 SYMBOL TABLE
@@ -402,7 +402,7 @@ SSAVE                             00000000
 SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  8
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  8
 
 
 SYMBOL TABLE
@@ -461,7 +461,7 @@ TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
 TOUTPS0                           00000003
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE  9
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE  9
 
 
 SYMBOL TABLE
@@ -520,7 +520,7 @@ TXREG                             00000019
 TXSTA                             00000098
 UA                                00000001
 W                                 00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE 10
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE 10
 
 
 SYMBOL TABLE
@@ -579,7 +579,7 @@ __CODE_END                        00001FFF
 __CODE_START                      00000000
 __COMMON_RAM_END                  0000007F
 __COMMON_RAM_START                00000070
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-17-2020  06:58:44         PAGE 11
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\u   7-19-2020  20:05:25         PAGE 11
 
 
 SYMBOL TABLE

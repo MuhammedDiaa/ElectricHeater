@@ -1,6 +1,8 @@
 #include "Interrupt.h"
 
-void RB0_INT_Init()
+unsigned char flag = 0;
+
+void RB0_INT_Init(void)
 {
     GPIO_InitPortPin(PORT_B,0,GPIO_IN);
     GLOBAL_INT_ENABLE();
@@ -11,10 +13,7 @@ void RB0_INT_Init()
 
 void RB0Int_update(void)
 {
-    //code
-        if(Flags.Operation_Flag == 1){ Flags.Operation_Flag = 0 ;
-        }else if(Flags.Operation_Flag == 0){Flags.Operation_Flag = 1 ;}
-
+        Flags.Operation_Flag ^= 1 ; //toggle the mode once pressing power push button
 }
 
 void ISR(void)__interrupt 0
@@ -22,9 +21,9 @@ void ISR(void)__interrupt 0
     //Software interrupt vector table
     if(TMR0IF)
     {
-        TMR0_Update();
+        flag = 1 ; //execute main program
         TMR0_InterruptFlag_Clear();
-        TMR0_UPDATE_REGISTER(5);
+        TMR0_UPDATE_REGISTER(20);
     }
 
     if(INTF)

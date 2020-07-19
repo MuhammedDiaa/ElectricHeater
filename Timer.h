@@ -2,13 +2,14 @@
 #define __TIMER_H__
 
 #include <pic16f877a.h>
-#include "SSD.h"
 #include "push_button.h"
-#include "setting_mode.h"
+#include "SSD.h"
+#include "Temp.h"
+#include "led.h"
 #include "heater.h"
 #include "cooler.h"
-#include "led.h"
-
+#include "setting_mode.h"
+#include "eeprom_ext.h"
 
 #define TMR0_SELECT_PRESCALAR(x)	PSA = 0;\
 									PS2 = (x&0b100) >> 2;\

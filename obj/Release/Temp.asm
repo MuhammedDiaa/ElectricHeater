@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:43 2020
+; This file was generated Sun Jul 19 20:05:24 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -22,6 +22,31 @@
 	extern	_GPIO_SetPortPinState
 	extern	_GPIO_SetPortState
 	extern	_GPIO_GetPortPinState
+	extern	_PB_Init
+	extern	_PB_Update
+	extern	_PB_GetState
+	extern	_LED_Init
+	extern	_LED_GetState
+	extern	_LED_Update
+	extern	_Heater_Init
+	extern	_Heater_update
+	extern	_Heater_GetState
+	extern	_Cooler_Init
+	extern	_Cooler_SetState
+	extern	_Cooler_GetState
+	extern	_Cooler_update
+	extern	_I2C_Init
+	extern	_I2C_Hold
+	extern	_I2C_Begin
+	extern	_I2C_End
+	extern	_I2C_Write
+	extern	_I2C_Read
+	extern	_e2pext_r
+	extern	_e2pext_w
+	extern	_e2pex_update
+	extern	_TMR0_Init
+	extern	_TMR0_Update
+	extern	_TMR0_Start
 	extern	_UTIL_DelayMS
 	extern	_SSD_Init
 	extern	_SSD_SET_Symbol
@@ -29,27 +54,7 @@
 	extern	_SSD_GET_state
 	extern	_SSD_GET_Symbol
 	extern	_SSD_update
-	extern	_PB_Init
-	extern	_PB_Update
-	extern	_PB_GetState
-	extern	_Heater_Init
-	extern	_Heater_SetState
-	extern	_Heater_GetState
-	extern	_Heater_update
-	extern	_Cooler_Init
-	extern	_Cooler_SetState
-	extern	_Cooler_GetState
-	extern	_Cooler_update
-	extern	_LED_Init
-	extern	_LED_Update
-	extern	_LED_GetState
-	extern	_LED_SetState
-	extern	_TMR0_Init
-	extern	_TMR0_Update
-	extern	_TMR0_Start
 	extern	_SettingMode_update
-	extern	_SettingMode_Get_SSD_state
-	extern	_SettingMode_OFF_mode
 	extern	__mullong
 	extern	___ulong2fs
 	extern	___fsdiv
@@ -182,11 +187,11 @@
 ; compiler-defined variables
 ;--------------------------------------------------------
 UDL_Temp_0	udata
-r0x100E	res	1
-r0x100F	res	1
-r0x1010	res	1
-r0x1011	res	1
+r0x1012	res	1
+r0x1013	res	1
 r0x1014	res	1
+r0x1015	res	1
+r0x1018	res	1
 ;--------------------------------------------------------
 ; initialized data
 ;--------------------------------------------------------
@@ -212,14 +217,14 @@ code_Temp	code
 ;   ___fsdiv
 ;   ___fs2ulong
 ;14 compiler assigned registers:
-;   r0x1014
-;   r0x100E
-;   r0x100F
-;   STK00
-;   r0x1010
-;   r0x1011
+;   r0x1018
 ;   r0x1012
 ;   r0x1013
+;   STK00
+;   r0x1014
+;   r0x1015
+;   r0x1016
+;   r0x1017
 ;   STK06
 ;   STK05
 ;   STK04
@@ -230,46 +235,46 @@ code_Temp	code
 _Temprature_update	;Function start
 ; 2 exit points
 _Temprature_Read
-;	.line	17; "Temp.c"	if(Counters.Temp_counter == 20)
+;	.line	18; "Temp.c"	if(Counters.Temp_counter == 10)
 	BANKSEL	_Counters
 	MOVF	(_Counters + 5),W
-	BANKSEL	r0x100E
-	MOVWF	r0x100E
-	XORLW	0x14
+	BANKSEL	r0x1012
+	MOVWF	r0x1012
+	XORLW	0x0a
 	BTFSS	STATUS,2
 	GOTO	_00111_DS_
-;	.line	19; "Temp.c"	Readings.temp_read = ADC_GetResult(2);
+;	.line	20; "Temp.c"	Readings.temp_read = ADC_GetResult(2);
 	MOVLW	0x02
 	PAGESEL	_ADC_GetResult
 	CALL	_ADC_GetResult
 	PAGESEL	$
-	BANKSEL	r0x1011
-	MOVWF	r0x1011
-	MOVWF	r0x100F
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
+	MOVWF	r0x1013
 	MOVF	STK00,W
-	MOVWF	r0x100E
+	MOVWF	r0x1012
 	BANKSEL	_Readings
 	MOVWF	(_Readings + 0)
-	BANKSEL	r0x1010
-	MOVWF	r0x1010
-;;99	MOVF	r0x100F,W
-;;1	CLRF	r0x1012
-;;1	CLRF	r0x1013
+	BANKSEL	r0x1014
+	MOVWF	r0x1014
+;;99	MOVF	r0x1013,W
+;;1	CLRF	r0x1016
+;;1	CLRF	r0x1017
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
-;;100	MOVF	r0x1010,W
+;;100	MOVF	r0x1014,W
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
-	MOVF	r0x1011,W
+	MOVF	r0x1015,W
 	BANKSEL	_Readings
 	MOVWF	(_Readings + 1)
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
 	MOVLW	0x00
 	MOVWF	(_Readings + 2)
 	MOVWF	(_Readings + 3)
-;	.line	20; "Temp.c"	Readings.temp_read = (Readings.temp_read*150*5)/(1.5*1023);
-	BANKSEL	r0x1010
-	MOVF	r0x1010,W
+;	.line	21; "Temp.c"	Readings.temp_read = (Readings.temp_read*150*5)/(1.5*1023);
+	BANKSEL	r0x1014
+	MOVF	r0x1014,W
 	MOVWF	STK06
-	MOVF	r0x1011,W
+	MOVF	r0x1015,W
 	MOVWF	STK05
 	MOVLW	0x00
 	MOVWF	STK04
@@ -285,31 +290,31 @@ _Temprature_Read
 	PAGESEL	__mullong
 	CALL	__mullong
 	PAGESEL	$
-	BANKSEL	r0x1011
-	MOVWF	r0x1011
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
 	MOVF	STK00,W
-	MOVWF	r0x1010
+	MOVWF	r0x1014
 	MOVF	STK01,W
-	MOVWF	r0x100F
+	MOVWF	r0x1013
 	MOVF	STK02,W
-	MOVWF	r0x100E
+	MOVWF	r0x1012
 	MOVWF	STK02
-	MOVF	r0x100F,W
+	MOVF	r0x1013,W
 	MOVWF	STK01
-	MOVF	r0x1010,W
+	MOVF	r0x1014,W
 	MOVWF	STK00
-	MOVF	r0x1011,W
+	MOVF	r0x1015,W
 	PAGESEL	___ulong2fs
 	CALL	___ulong2fs
 	PAGESEL	$
-	BANKSEL	r0x1011
-	MOVWF	r0x1011
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
 	MOVF	STK00,W
-	MOVWF	r0x1010
+	MOVWF	r0x1014
 	MOVF	STK01,W
-	MOVWF	r0x100F
+	MOVWF	r0x1013
 	MOVF	STK02,W
-	MOVWF	r0x100E
+	MOVWF	r0x1012
 	MOVLW	0x00
 	MOVWF	STK06
 	MOVLW	0xd0
@@ -318,71 +323,71 @@ _Temprature_Read
 	MOVWF	STK04
 	MOVLW	0x44
 	MOVWF	STK03
-	MOVF	r0x100E,W
+	MOVF	r0x1012,W
 	MOVWF	STK02
-	MOVF	r0x100F,W
+	MOVF	r0x1013,W
 	MOVWF	STK01
-	MOVF	r0x1010,W
+	MOVF	r0x1014,W
 	MOVWF	STK00
-	MOVF	r0x1011,W
+	MOVF	r0x1015,W
 	PAGESEL	___fsdiv
 	CALL	___fsdiv
 	PAGESEL	$
-	BANKSEL	r0x1011
-	MOVWF	r0x1011
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
 	MOVF	STK00,W
-	MOVWF	r0x1010
+	MOVWF	r0x1014
 	MOVF	STK01,W
-	MOVWF	r0x100F
+	MOVWF	r0x1013
 	MOVF	STK02,W
-	MOVWF	r0x100E
+	MOVWF	r0x1012
 	MOVWF	STK02
-	MOVF	r0x100F,W
+	MOVF	r0x1013,W
 	MOVWF	STK01
-	MOVF	r0x1010,W
+	MOVF	r0x1014,W
 	MOVWF	STK00
-	MOVF	r0x1011,W
+	MOVF	r0x1015,W
 	PAGESEL	___fs2ulong
 	CALL	___fs2ulong
 	PAGESEL	$
-	BANKSEL	r0x1011
-	MOVWF	r0x1011
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
 	MOVF	STK00,W
-	MOVWF	r0x1010
+	MOVWF	r0x1014
 	MOVF	STK01,W
-	MOVWF	r0x100F
+	MOVWF	r0x1013
 	MOVF	STK02,W
-	MOVWF	r0x100E
+	MOVWF	r0x1012
 	BANKSEL	_Readings
 	MOVWF	(_Readings + 0)
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
-	BANKSEL	r0x100F
-	MOVF	r0x100F,W
+	BANKSEL	r0x1013
+	MOVF	r0x1013,W
 	BANKSEL	_Readings
 	MOVWF	(_Readings + 1)
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
-	BANKSEL	r0x1010
-	MOVF	r0x1010,W
+	BANKSEL	r0x1014
+	MOVF	r0x1014,W
 	BANKSEL	_Readings
 	MOVWF	(_Readings + 2)
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
-	BANKSEL	r0x1011
-	MOVF	r0x1011,W
+	BANKSEL	r0x1015
+	MOVF	r0x1015,W
 	BANKSEL	_Readings
 	MOVWF	(_Readings + 3)
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-;	.line	21; "Temp.c"	Counters.Temp_counter=0 ; // counter to read every 100ms one reading
+;	.line	22; "Temp.c"	Counters.Temp_counter=0 ; // counter to read every 100ms one reading
 	BANKSEL	_Counters
 	CLRF	(_Counters + 5)
 _00111_DS_
-;	.line	27; "Temp.c"	Counters.Temp_counter++;
+;	.line	28; "Temp.c"	Counters.Temp_counter++;
 	BANKSEL	_Counters
 	MOVF	(_Counters + 5),W
-	BANKSEL	r0x1014
-	MOVWF	r0x1014
-	INCF	r0x1014,F
+	BANKSEL	r0x1018
+	MOVWF	r0x1018
+	INCF	r0x1018,F
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-	MOVF	r0x1014,W
+	MOVF	r0x1018,W
 	BANKSEL	_Counters
 	MOVWF	(_Counters + 5)
 	RETURN	

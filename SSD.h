@@ -6,11 +6,9 @@
 #include "PORT.h"
 #include "utilities.h"
 #include "setting_mode.h"
-#define SSD_NUMBER (4)
+#define SSD_NUMBER (2)
 
 typedef enum {
-    SSD_L,
-    SSD_ML,
     SSD_MR,
     SSD_R
 }tSSD ;
@@ -33,7 +31,6 @@ typedef enum {
 typedef enum {
     SSD_OFF,
     SSD_ON,
-    Toggle
 } SSD_STATE ;
 
 

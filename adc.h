@@ -4,7 +4,6 @@
 #include <pic16f877a.h>
 
 
-
 #define ADC_SELECT_CHANNEL(channel)	(CHS2 = ((channel & 0x4) >> 2));\
                                     (CHS1 = ((channel & 0x2) >> 1));\
                                     (CHS0 = (channel & 0x1))

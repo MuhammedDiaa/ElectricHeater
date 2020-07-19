@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:42 2020
+; This file was generated Sun Jul 19 20:05:22 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -18,6 +18,34 @@
 	extern	_GPIO_SetPortPinState
 	extern	_GPIO_SetPortState
 	extern	_GPIO_GetPortPinState
+	extern	_PB_Init
+	extern	_PB_Update
+	extern	_PB_GetState
+	extern	_ADC_Init
+	extern	_ADC_Update
+	extern	_ADC_GetResult
+	extern	_Start_conversion_Int
+	extern	_Temprature_Init
+	extern	_Temprature_update
+	extern	_LED_Init
+	extern	_LED_GetState
+	extern	_LED_Update
+	extern	_Cooler_Init
+	extern	_Cooler_SetState
+	extern	_Cooler_GetState
+	extern	_Cooler_update
+	extern	_I2C_Init
+	extern	_I2C_Hold
+	extern	_I2C_Begin
+	extern	_I2C_End
+	extern	_I2C_Write
+	extern	_I2C_Read
+	extern	_e2pext_r
+	extern	_e2pext_w
+	extern	_e2pex_update
+	extern	_TMR0_Init
+	extern	_TMR0_Update
+	extern	_TMR0_Start
 	extern	_UTIL_DelayMS
 	extern	_SSD_Init
 	extern	_SSD_SET_Symbol
@@ -25,29 +53,7 @@
 	extern	_SSD_GET_state
 	extern	_SSD_GET_Symbol
 	extern	_SSD_update
-	extern	_PB_Init
-	extern	_PB_Update
-	extern	_PB_GetState
-	extern	_Cooler_Init
-	extern	_Cooler_SetState
-	extern	_Cooler_GetState
-	extern	_Cooler_update
-	extern	_LED_Init
-	extern	_LED_Update
-	extern	_LED_GetState
-	extern	_LED_SetState
-	extern	_TMR0_Init
-	extern	_TMR0_Update
-	extern	_TMR0_Start
-	extern	_ADC_Init
-	extern	_ADC_Update
-	extern	_ADC_GetResult
-	extern	_Start_conversion_Int
-	extern	_Temprature_Init
-	extern	_Temprature_update
 	extern	_SettingMode_update
-	extern	_SettingMode_Get_SSD_state
-	extern	_SettingMode_OFF_mode
 	extern	_STATUSbits
 	extern	_PORTAbits
 	extern	_PORTBbits
@@ -165,7 +171,6 @@
 ;--------------------------------------------------------
 	global	_Heater_update
 	global	_Heater_GetState
-	global	_Heater_SetState
 	global	_Heater_Init
 
 ;--------------------------------------------------------
@@ -196,17 +201,29 @@ code_heater	code
 ;has an exit
 ;functions called:
 ;   _Heater_SetState
-;   _Heater_SetState
-;1 compiler assigned register :
+;   _GPIO_SetPortPinState
+;4 compiler assigned registers:
+;   r0x1007
 ;   r0x1006
+;   STK01
+;   STK00
 ;; Starting pCode block
 _Heater_update	;Function start
 ; 2 exit points
 ;	.line	20; "heater.c"	Heater_SetState(Flags.Heater_Operation);
 	BANKSEL	_Flags
 	MOVF	(_Flags + 2),W
+;;1	MOVWF	r0x1007
 ;;1	MOVWF	r0x1006
-	CALL	_Heater_SetState
+_Heater_SetState
+;	.line	11; "heater.c"	GPIO_SetPortPinState(PORT_C,5,state);
+	MOVWF	STK01
+	MOVLW	0x05
+	MOVWF	STK00
+	MOVLW	0x02
+	PAGESEL	_GPIO_SetPortPinState
+	CALL	_GPIO_SetPortPinState
+	PAGESEL	$
 	RETURN	
 ; exit point of _Heater_update
 
@@ -221,7 +238,7 @@ _Heater_update	;Function start
 ;   _GPIO_GetPortPinState
 ;2 compiler assigned registers:
 ;   STK00
-;   r0x1007
+;   r0x1008
 ;; Starting pCode block
 _Heater_GetState	;Function start
 ; 2 exit points
@@ -232,37 +249,9 @@ _Heater_GetState	;Function start
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-;;1	MOVWF	r0x1007
+;;1	MOVWF	r0x1008
 	RETURN	
 ; exit point of _Heater_GetState
-
-;***
-;  pBlock Stats: dbName = C
-;***
-;entry:  _Heater_SetState	;Function start
-; 2 exit points
-;has an exit
-;functions called:
-;   _GPIO_SetPortPinState
-;   _GPIO_SetPortPinState
-;3 compiler assigned registers:
-;   r0x1005
-;   STK01
-;   STK00
-;; Starting pCode block
-_Heater_SetState	;Function start
-; 2 exit points
-;;1	MOVWF	r0x1005
-;	.line	11; "heater.c"	GPIO_SetPortPinState(PORT_C,5,state);
-	MOVWF	STK01
-	MOVLW	0x05
-	MOVWF	STK00
-	MOVLW	0x02
-	PAGESEL	_GPIO_SetPortPinState
-	CALL	_GPIO_SetPortPinState
-	PAGESEL	$
-	RETURN	
-; exit point of _Heater_SetState
 
 ;***
 ;  pBlock Stats: dbName = C
@@ -293,6 +282,6 @@ _Heater_Init	;Function start
 
 
 ;	code size estimation:
-;	   21+    7 =    28 instructions (   70 byte)
+;	   19+    7 =    26 instructions (   66 byte)
 
 	end

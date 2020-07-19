@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:42 2020
+; This file was generated Sun Jul 19 20:05:21 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -18,6 +18,33 @@
 	extern	_GPIO_SetPortPinState
 	extern	_GPIO_SetPortState
 	extern	_GPIO_GetPortPinState
+	extern	_PB_Init
+	extern	_PB_Update
+	extern	_PB_GetState
+	extern	_ADC_Init
+	extern	_ADC_Update
+	extern	_ADC_GetResult
+	extern	_Start_conversion_Int
+	extern	_Temprature_Init
+	extern	_Temprature_update
+	extern	_LED_Init
+	extern	_LED_GetState
+	extern	_LED_Update
+	extern	_Heater_Init
+	extern	_Heater_update
+	extern	_Heater_GetState
+	extern	_I2C_Init
+	extern	_I2C_Hold
+	extern	_I2C_Begin
+	extern	_I2C_End
+	extern	_I2C_Write
+	extern	_I2C_Read
+	extern	_e2pext_r
+	extern	_e2pext_w
+	extern	_e2pex_update
+	extern	_TMR0_Init
+	extern	_TMR0_Update
+	extern	_TMR0_Start
 	extern	_UTIL_DelayMS
 	extern	_SSD_Init
 	extern	_SSD_SET_Symbol
@@ -25,29 +52,7 @@
 	extern	_SSD_GET_state
 	extern	_SSD_GET_Symbol
 	extern	_SSD_update
-	extern	_PB_Init
-	extern	_PB_Update
-	extern	_PB_GetState
-	extern	_Heater_Init
-	extern	_Heater_SetState
-	extern	_Heater_GetState
-	extern	_Heater_update
-	extern	_LED_Init
-	extern	_LED_Update
-	extern	_LED_GetState
-	extern	_LED_SetState
-	extern	_TMR0_Init
-	extern	_TMR0_Update
-	extern	_TMR0_Start
-	extern	_ADC_Init
-	extern	_ADC_Update
-	extern	_ADC_GetResult
-	extern	_Start_conversion_Int
-	extern	_Temprature_Init
-	extern	_Temprature_update
 	extern	_SettingMode_update
-	extern	_SettingMode_Get_SSD_state
-	extern	_SettingMode_OFF_mode
 	extern	_STATUSbits
 	extern	_PORTAbits
 	extern	_PORTBbits
@@ -198,14 +203,14 @@ code_cooler	code
 ;   _Cooler_SetState
 ;   _Cooler_SetState
 ;1 compiler assigned register :
-;   r0x1006
+;   r0x1007
 ;; Starting pCode block
 _Cooler_update	;Function start
 ; 2 exit points
-;	.line	18; "cooler.c"	Cooler_SetState(Flags.Cooler_Operation);
+;	.line	22; "cooler.c"	Cooler_SetState(Flags.Cooler_Operation);
 	BANKSEL	_Flags
 	MOVF	(_Flags + 3),W
-;;1	MOVWF	r0x1006
+;;1	MOVWF	r0x1007
 	CALL	_Cooler_SetState
 	RETURN	
 ; exit point of _Cooler_update
@@ -221,18 +226,18 @@ _Cooler_update	;Function start
 ;   _GPIO_GetPortPinState
 ;2 compiler assigned registers:
 ;   STK00
-;   r0x1007
+;   r0x1008
 ;; Starting pCode block
 _Cooler_GetState	;Function start
 ; 2 exit points
-;	.line	13; "cooler.c"	return GPIO_GetPortPinState(PORT_C,2);
+;	.line	16; "cooler.c"	return GPIO_GetPortPinState(PORT_C,2);
 	MOVLW	0x02
 	MOVWF	STK00
 	MOVLW	0x02
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-;;1	MOVWF	r0x1007
+;;1	MOVWF	r0x1008
 	RETURN	
 ; exit point of _Cooler_GetState
 
@@ -246,14 +251,14 @@ _Cooler_GetState	;Function start
 ;   _GPIO_SetPortPinState
 ;   _GPIO_SetPortPinState
 ;3 compiler assigned registers:
-;   r0x1005
+;   r0x1006
 ;   STK01
 ;   STK00
 ;; Starting pCode block
 _Cooler_SetState	;Function start
 ; 2 exit points
-;;1	MOVWF	r0x1005
-;	.line	8; "cooler.c"	GPIO_SetPortPinState(PORT_C,2,state);
+;;1	MOVWF	r0x1006
+;	.line	10; "cooler.c"	GPIO_SetPortPinState(PORT_C,2,state);
 	MOVWF	STK01
 	MOVLW	0x02
 	MOVWF	STK00
@@ -279,7 +284,7 @@ _Cooler_SetState	;Function start
 ;; Starting pCode block
 _Cooler_Init	;Function start
 ; 2 exit points
-;	.line	4; "cooler.c"	GPIO_InitPortPin(PORT_C,2,GPIO_OUT);
+;	.line	5; "cooler.c"	GPIO_InitPortPin(PORT_C,2,GPIO_OUT);
 	MOVLW	0x00
 	MOVWF	STK01
 	MOVLW	0x02

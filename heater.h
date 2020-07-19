@@ -5,8 +5,8 @@
 #include "setting_mode.h"
 
 void Heater_Init(void);
-void Heater_SetState(unsigned char state);
-unsigned char Heater_GetState(void);
+static void Heater_SetState(unsigned char state);
 void Heater_update(void);
+unsigned char Heater_GetState(void);
 
 #endif // HEATER_H_INCLUDED

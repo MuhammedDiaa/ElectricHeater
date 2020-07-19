@@ -1,6 +1,6 @@
 #include "SSD.h"
 
-unsigned char display_flag = 1; // switch between two modes of displaying in Fixed mode
+unsigned char display_flag = 1; // switch between two modes of displaying in Fixed mode (temp sensor value mode,user set value mode )
 
 //Seven segment display lookup table
 static const unsigned char symbols [11] =
@@ -30,12 +30,6 @@ void SSD_Init(tSSD ssd,SSD_STATE initial_state, SSD_symbol initial_symbol)
     switch(ssd)
     {
     /*init enable pin for the ssd that the user will choose */
-    case SSD_L :
-        GPIO_InitPortPin(SSD_En_PORT,SSD_L_En_Pin,GPIO_OUT);
-        break;
-    case SSD_ML:
-        GPIO_InitPortPin(SSD_En_PORT,SSD_ML_En_Pin,GPIO_OUT);
-        break;
     case SSD_MR:
         GPIO_InitPortPin(SSD_En_PORT,SSD_MR_En_Pin,GPIO_OUT);
         break;
@@ -56,12 +50,6 @@ void SSD_SET_state(tSSD ssd,SSD_STATE state)
     switch(ssd)
     {
     /*init enable pin for the ssd that the user will choose */
-    case SSD_L :
-        GPIO_SetPortPinState(SSD_En_PORT,SSD_L_En_Pin,state);
-        break;
-    case SSD_ML:
-        GPIO_SetPortPinState(SSD_En_PORT,SSD_ML_En_Pin,state);
-        break;
     case SSD_MR:
         GPIO_SetPortPinState(SSD_En_PORT,SSD_MR_En_Pin,state);
         break;
@@ -86,12 +74,6 @@ SSD_STATE SSD_GET_state(tSSD ssd)
     switch(ssd)
     {
     /*init enable pin for the ssd that the user will choose */
-    case SSD_L:
-        return GPIO_GetPortPinState(SSD_En_PORT,SSD_L_En_Pin);
-        break;
-    case SSD_ML:
-        return GPIO_GetPortPinState(SSD_En_PORT,SSD_ML_En_Pin);
-        break;
     case SSD_MR:
         return GPIO_GetPortPinState(SSD_En_PORT,SSD_MR_En_Pin);
         break;
@@ -121,27 +103,20 @@ SSD_symbol SSD_GET_Symbol(tSSD ssd)
 void SSD_update()
 {
     static unsigned char current_ssd = SSD_MR ;
-if(display_flag){
-    SSD_SET_Symbol(SSD_MR,((Readings.Set_value%1000)%100)/10);
-    SSD_SET_Symbol(SSD_R,Readings.Set_value%10);
-}else{
-    SSD_SET_Symbol(SSD_MR,((Readings.temp_read%1000)%100)/10);
-    SSD_SET_Symbol(SSD_R,Readings.temp_read %10);
-}
-   /* for(current_ssd=SSD_MR;current_ssd<=SSD_R;current_ssd++){
-         SSD_SET_state(SSD_MR,SSD_OFF);
-         SSD_SET_state(SSD_R,SSD_OFF);
-
-         GPIO_SetPortState(SSD_DataPORT,symbols[SSD_symbols[current_ssd]]);
-         SSD_SET_state(current_ssd,1);
-         UTIL_DelayMS(20);
-    }*/
-
+    if(display_flag)//display the set value
+    {
+        SSD_SET_Symbol(SSD_MR,((Readings.Set_value%1000)%100)/10);
+        SSD_SET_Symbol(SSD_R,Readings.Set_value%10);
+    }
+    else//display the current temp read in fixed mode
+    {
+        SSD_SET_Symbol(SSD_MR,((Readings.temp_read%1000)%100)/10);
+        SSD_SET_Symbol(SSD_R,Readings.temp_read %10);
+    }
     SSD_SET_state(SSD_MR,SSD_OFF);
     SSD_SET_state(SSD_R,SSD_OFF);
     GPIO_SetPortState(SSD_DataPORT,symbols[SSD_symbols[current_ssd]]);
     SSD_SET_state(current_ssd,Flags.next_state);
-
     if(current_ssd == SSD_R)
     {
         current_ssd  = SSD_MR;
@@ -151,5 +126,4 @@ if(display_flag){
     {
         current_ssd++;
     }
-
 }

@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:44 2020
+; This file was generated Sun Jul 19 20:05:24 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -19,6 +19,13 @@
 	extern	_GPIO_SetPortState
 	extern	_GPIO_GetPortPinState
 	extern	_UTIL_DelayMS
+	extern	_SSD_Init
+	extern	_SSD_SET_Symbol
+	extern	_SSD_SET_state
+	extern	_SSD_GET_state
+	extern	_SSD_GET_Symbol
+	extern	_SSD_update
+	extern	_SettingMode_update
 	extern	_PB_Init
 	extern	_PB_Update
 	extern	_PB_GetState
@@ -28,27 +35,25 @@
 	extern	_Start_conversion_Int
 	extern	_Temprature_Init
 	extern	_Temprature_update
+	extern	_LED_Init
+	extern	_LED_GetState
+	extern	_LED_Update
+	extern	_Heater_Init
+	extern	_Heater_update
+	extern	_Heater_GetState
 	extern	_Cooler_Init
 	extern	_Cooler_SetState
 	extern	_Cooler_GetState
 	extern	_Cooler_update
-	extern	_Heater_Init
-	extern	_Heater_SetState
-	extern	_Heater_GetState
-	extern	_Heater_update
-	extern	_SettingMode_update
-	extern	_SettingMode_Get_SSD_state
-	extern	_SettingMode_OFF_mode
-	extern	_SSD_Init
-	extern	_SSD_SET_Symbol
-	extern	_SSD_SET_state
-	extern	_SSD_GET_state
-	extern	_SSD_GET_Symbol
-	extern	_SSD_update
-	extern	_LED_Init
-	extern	_LED_Update
-	extern	_LED_GetState
-	extern	_LED_SetState
+	extern	_I2C_Init
+	extern	_I2C_Hold
+	extern	_I2C_Begin
+	extern	_I2C_End
+	extern	_I2C_Write
+	extern	_I2C_Read
+	extern	_e2pext_r
+	extern	_e2pext_w
+	extern	_e2pex_update
 	extern	_STATUSbits
 	extern	_PORTAbits
 	extern	_PORTBbits
@@ -178,7 +183,7 @@
 ; compiler-defined variables
 ;--------------------------------------------------------
 UDL_Timer_0	udata
-r0x1005	res	1
+r0x1006	res	1
 ;--------------------------------------------------------
 ; initialized data
 ;--------------------------------------------------------
@@ -204,9 +209,12 @@ code_Timer	code
 ;   _Heater_update
 ;   _Cooler_update
 ;   _SettingMode_update
-;   _SettingMode_OFF_mode
+;   _e2pex_update
+;   _SettingMode_update
 ;   _Heater_update
 ;   _Cooler_update
+;   _e2pex_update
+;   _LED_Update
 ;   _PB_Update
 ;   _SSD_update
 ;   _Temprature_update
@@ -214,69 +222,84 @@ code_Timer	code
 ;   _Heater_update
 ;   _Cooler_update
 ;   _SettingMode_update
-;   _SettingMode_OFF_mode
+;   _e2pex_update
+;   _SettingMode_update
 ;   _Heater_update
 ;   _Cooler_update
+;   _e2pex_update
+;   _LED_Update
 ;1 compiler assigned register :
-;   r0x1005
+;   r0x1006
 ;; Starting pCode block
 _TMR0_Update	;Function start
 ; 2 exit points
-;	.line	20; "Timer.c"	if(Flags.Operation_Flag == 1)
+;	.line	20; "Timer.c"	if(Flags.Operation_Flag == ON_MODE)
 	BANKSEL	_Flags
 	MOVF	(_Flags + 4),W
-	BANKSEL	r0x1005
-	MOVWF	r0x1005
+	BANKSEL	r0x1006
+	MOVWF	r0x1006
 	XORLW	0x01
 	BTFSS	STATUS,2
 	GOTO	_00116_DS_
-;	.line	22; "Timer.c"	PB_Update();
+;	.line	22; "Timer.c"	PB_Update();               //~0
 	PAGESEL	_PB_Update
 	CALL	_PB_Update
 	PAGESEL	$
-;	.line	23; "Timer.c"	SSD_update();
+;	.line	23; "Timer.c"	SSD_update();             //~0,4ms
 	PAGESEL	_SSD_update
 	CALL	_SSD_update
 	PAGESEL	$
-;	.line	24; "Timer.c"	Temprature_update();
+;	.line	24; "Timer.c"	Temprature_update();     //~0 ,9ms
 	PAGESEL	_Temprature_update
 	CALL	_Temprature_update
 	PAGESEL	$
-;	.line	25; "Timer.c"	LED_Update();
+;	.line	25; "Timer.c"	LED_Update();           //~0
 	PAGESEL	_LED_Update
 	CALL	_LED_Update
 	PAGESEL	$
-;	.line	26; "Timer.c"	Heater_update();
+;	.line	26; "Timer.c"	Heater_update();       //~0
 	PAGESEL	_Heater_update
 	CALL	_Heater_update
 	PAGESEL	$
-;	.line	27; "Timer.c"	Cooler_update();
+;	.line	27; "Timer.c"	Cooler_update();      //~0
 	PAGESEL	_Cooler_update
 	CALL	_Cooler_update
 	PAGESEL	$
-;	.line	28; "Timer.c"	SettingMode_update();
+;	.line	28; "Timer.c"	SettingMode_update();//~0,0.08ms(fixed)  0,.06ms(blinking)
 	PAGESEL	_SettingMode_update
 	CALL	_SettingMode_update
 	PAGESEL	$
+;	.line	29; "Timer.c"	e2pex_update();     // 1.5  , 6.5ms
+	PAGESEL	_e2pex_update
+	CALL	_e2pex_update
+	PAGESEL	$
 	GOTO	_00118_DS_
 _00116_DS_
-;	.line	31; "Timer.c"	else if(Flags.Operation_Flag == 0)
+;	.line	31; "Timer.c"	else if(Flags.Operation_Flag == OFF_MODE)
 	MOVLW	0x00
-	BANKSEL	r0x1005
-	IORWF	r0x1005,W
+	BANKSEL	r0x1006
+	IORWF	r0x1006,W
 	BTFSS	STATUS,2
 	GOTO	_00118_DS_
-;	.line	33; "Timer.c"	SettingMode_OFF_mode();
-	PAGESEL	_SettingMode_OFF_mode
-	CALL	_SettingMode_OFF_mode
+;	.line	33; "Timer.c"	SettingMode_update(); //~0 , 0.08 ms(fixed)  0 ms ,.06(blinking)
+	PAGESEL	_SettingMode_update
+	CALL	_SettingMode_update
 	PAGESEL	$
-;	.line	34; "Timer.c"	Heater_update();
+;	.line	34; "Timer.c"	Heater_update();     //~0
 	PAGESEL	_Heater_update
 	CALL	_Heater_update
 	PAGESEL	$
-;	.line	35; "Timer.c"	Cooler_update();
+;	.line	35; "Timer.c"	Cooler_update();    //~0
 	PAGESEL	_Cooler_update
 	CALL	_Cooler_update
+	PAGESEL	$
+;	.line	36; "Timer.c"	e2pex_update();    //1.5 ,6.5ms
+	PAGESEL	_e2pex_update
+	CALL	_e2pex_update
+	PAGESEL	$
+;	.line	37; "Timer.c"	LED_Update();     //~0
+	PAGESEL	_LED_Update
+	CALL	_LED_Update
 	PAGESEL	$
 _00118_DS_
 	RETURN	
@@ -326,6 +349,6 @@ _TMR0_Init	;Function start
 
 
 ;	code size estimation:
-;	   32+   26 =    58 instructions (  168 byte)
+;	   35+   32 =    67 instructions (  198 byte)
 
 	end

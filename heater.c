@@ -7,7 +7,7 @@ void Heater_Init(void){
 
 
 
-void Heater_SetState(unsigned char state){
+static void Heater_SetState(unsigned char state){
     GPIO_SetPortPinState(PORT_C,5,state);
 }
 

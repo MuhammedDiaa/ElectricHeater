@@ -1,4 +1,5 @@
 #include "push_button.h"
+#include <pic16f877a.h>
 
 
 typedef struct
@@ -55,7 +56,6 @@ void PB_Init(tPB pb, tPB_State initial_state)
 void PB_Update(void)
 {
     tPB current_button = PB_POWER;
-
     for (current_button = PB_POWER; current_button <= PB_UNUSED; current_button++)
     {
         /* Update samples */
@@ -115,6 +115,7 @@ void PB_Update(void)
             break;
         }
     }
+
     SetValue_update(); //fn to check for the push buttons to decrement and increment the user set value
 }
 
@@ -150,6 +151,7 @@ static void SetValue_update(void)
                 Readings.Set_value = 35 ;
             }
         }
+
     }
 
 }

@@ -1,4 +1,4 @@
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  1
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -7,7 +7,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00001 ;--------------------------------------------------------
                       00002 ; File Created by SDCC : free open source ANSI-C Compiler
                       00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-                      00004 ; This file was generated Fri Jul 17 06:58:42 2020
+                      00004 ; This file was generated Sun Jul 19 20:05:21 2020
                       00005 ;--------------------------------------------------------
                       00006 ; PIC port for the 14-bit core
                       00007 ;--------------------------------------------------------
@@ -57,7 +57,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
   0000                00041         extern  _SSPSTATbits
   0000                00042         extern  _TXSTAbits
   0000                00043         extern  _CMCONbits
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  2
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  2
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -116,7 +116,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
   0000                00094         extern  _SSPSTAT
   0000                00095         extern  _TXSTA
   0000                00096         extern  _SPBRG
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  3
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  3
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -175,7 +175,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 0005                  00147 r0x1005 res     1
 0006                  00148 r0x1006 res     1
 0007                  00149 r0x1000 res     1
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  4
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  4
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -207,10 +207,10 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00173 ;; Starting pCode block
 0000                  00174 _Start_conversion_Int   ;Function start
                       00175 ; 2 exit points
-                      00176 ;       .line   31; "adc.c"     void Start_conversion_Int(unsigned char channel){
+                      00176 ;       .line   31; "adc.c"     void Start_conversion_Int(unsigned char channel)
 0000   ???? ????      00177         BANKSEL r0x1000
 0002   00??           00178         MOVWF   r0x1000
-                      00179 ;       .line   33; "adc.c"     ADC_SELECT_CHANNEL(channel);
+                      00179 ;       .line   34; "adc.c"     ADC_SELECT_CHANNEL(channel);
 0003   3004           00180         MOVLW   0x04
 0004   05??           00181         ANDWF   r0x1000,W
 0005   00??           00182         MOVWF   r0x1001
@@ -234,7 +234,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 0016                  00200 _00002_DS_
 0016   3002           00201         MOVLW   0x02
 0017   ???? ????      00202         BANKSEL r0x1000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  5
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  5
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -273,19 +273,19 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 0037   ???? ????      00233         BANKSEL _ADCON0bits
 0039   15??           00234         BSF     _ADCON0bits,3
 003A                  00235 _00006_DS_
-                      00236 ;       .line   34; "adc.c"     ADC_SELECT_RESULT_JUSTIFICATION(RIGHT);
+                      00236 ;       .line   35; "adc.c"     ADC_SELECT_RESULT_JUSTIFICATION(RIGHT);
 003A   ???? ????      00237         BANKSEL _ADCON1bits
 003C   17??           00238         BSF     _ADCON1bits,7
-                      00239 ;       .line   35; "adc.c"     ADC_SET_STATE(ADC_ON);
+                      00239 ;       .line   36; "adc.c"     ADC_SET_STATE(ADC_ON);
 003D   ???? ????      00240         BANKSEL _ADCON0bits
 003F   14??           00241         BSF     _ADCON0bits,0
-                      00242 ;       .line   36; "adc.c"     ADC_START_CONVERSION();
+                      00242 ;       .line   37; "adc.c"     ADC_START_CONVERSION();
 0040   15??           00243         BSF     _ADCON0bits,2
-                      00244 ;       .line   37; "adc.c"     GIE  = 1 ;
+                      00244 ;       .line   38; "adc.c"     GIE  = 1 ;
 0041   17??           00245         BSF     _INTCONbits,7
-                      00246 ;       .line   38; "adc.c"     PEIE = 1 ;
+                      00246 ;       .line   39; "adc.c"     PEIE = 1 ;
 0042   17??           00247         BSF     _INTCONbits,6
-                      00248 ;       .line   39; "adc.c"     ADIE = 1 ;
+                      00248 ;       .line   40; "adc.c"     ADIE = 1 ;
 0043   ???? ????      00249         BANKSEL _PIE1bits
 0045   17??           00250         BSF     _PIE1bits,6
 0046   0008           00251         RETURN  
@@ -293,7 +293,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00253 
                       00254 ;***
                       00255 ;  pBlock Stats: dbName = C
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  6
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  6
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -352,7 +352,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 006A   12??           00306         BCF     _ADCON0bits,4
 006B                  00307 _00009_DS_
 006B   1C03           00308         BTFSS   STATUS,0
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  7
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  7
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -411,7 +411,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 00A0   01??           00359         CLRF    r0x1004
                       00360 ;;99    MOVF    r0x1003,W
 00A1   01??           00361         CLRF    r0x1005
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  8
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  8
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -470,7 +470,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 00B9   ???? ????      00412         BANKSEL r0x1007
 00BB   05??           00413         ANDWF   r0x1007,W
 00BC   00??           00414         MOVWF   r0x1008
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE  9
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE  9
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -529,7 +529,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
 00EE   ???? ????      00465         BANKSEL _ADCON0bits
 00F0   17??           00466         BSF     _ADCON0bits,6
 00F1                  00467 _00019_DS_
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 10
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 10
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -549,7 +549,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00479 ;         162+   43 =   205 instructions (  496 byte)
                       00480 
                       00481         end
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 11
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 11
 
 
 SYMBOL TABLE
@@ -608,7 +608,7 @@ CHS1                              00000004
 CHS2                              00000005
 CIS                               00000003
 CKE                               00000006
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 12
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 12
 
 
 SYMBOL TABLE
@@ -667,7 +667,7 @@ INTF                              00000001
 IRP                               00000007
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 13
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 13
 
 
 SYMBOL TABLE
@@ -726,7 +726,7 @@ RA5                               00000005
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 14
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 14
 
 
 SYMBOL TABLE
@@ -785,7 +785,7 @@ SSAVE                             00000000
 SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 15
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 15
 
 
 SYMBOL TABLE
@@ -844,7 +844,7 @@ TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
 TOUTPS0                           00000003
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 16
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 16
 
 
 SYMBOL TABLE
@@ -903,7 +903,7 @@ TXREG                             00000019
 TXSTA                             00000098
 UA                                00000001
 W                                 00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 17
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 17
 
 
 SYMBOL TABLE
@@ -962,7 +962,7 @@ _CMCON                            00000000
 _CMCONbits                        00000000
 _CONFIG                           00002007
 _CPD_OFF                          00003FFF
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 18
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 18
 
 
 SYMBOL TABLE
@@ -1021,7 +1021,7 @@ _PORTBbits                        00000000
 _PORTC                            00000000
 _PORTCbits                        00000000
 _PORTD                            00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 19
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 19
 
 
 SYMBOL TABLE
@@ -1080,7 +1080,7 @@ _WRT_256                          00003DFF
 _WRT_HALF                         000039FF
 _WRT_OFF                          00003FFF
 _XT_OSC                           00003FFD
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-17-2020  06:58:42         PAGE 20
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\a   7-19-2020  20:05:21         PAGE 20
 
 
 SYMBOL TABLE

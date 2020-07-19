@@ -1,4 +1,4 @@
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  1
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -7,7 +7,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00001 ;--------------------------------------------------------
                       00002 ; File Created by SDCC : free open source ANSI-C Compiler
                       00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-                      00004 ; This file was generated Fri Jul 17 06:58:43 2020
+                      00004 ; This file was generated Sun Jul 19 20:05:22 2020
                       00005 ;--------------------------------------------------------
                       00006 ; PIC port for the 14-bit core
                       00007 ;--------------------------------------------------------
@@ -38,357 +38,396 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
   0000                00022         extern  _GPIO_SetPortPinState
   0000                00023         extern  _GPIO_SetPortState
   0000                00024         extern  _GPIO_GetPortPinState
-  0000                00025         extern  _UTIL_DelayMS
-  0000                00026         extern  _PB_Init
-  0000                00027         extern  _PB_Update
-  0000                00028         extern  _PB_GetState
-  0000                00029         extern  _ADC_Init
-  0000                00030         extern  _ADC_Update
-  0000                00031         extern  _ADC_GetResult
-  0000                00032         extern  _Start_conversion_Int
-  0000                00033         extern  _Temprature_Init
-  0000                00034         extern  _Temprature_update
-  0000                00035         extern  _Cooler_Init
-  0000                00036         extern  _Cooler_SetState
-  0000                00037         extern  _Cooler_GetState
-  0000                00038         extern  _Cooler_update
-  0000                00039         extern  _Heater_Init
-  0000                00040         extern  _Heater_SetState
-  0000                00041         extern  _Heater_GetState
-  0000                00042         extern  _Heater_update
-  0000                00043         extern  _SettingMode_update
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  2
+  0000                00025         extern  _ADC_Init
+  0000                00026         extern  _ADC_Update
+  0000                00027         extern  _ADC_GetResult
+  0000                00028         extern  _Start_conversion_Int
+  0000                00029         extern  _Temprature_Init
+  0000                00030         extern  _Temprature_update
+  0000                00031         extern  _LED_Init
+  0000                00032         extern  _LED_GetState
+  0000                00033         extern  _LED_Update
+  0000                00034         extern  _Heater_Init
+  0000                00035         extern  _Heater_update
+  0000                00036         extern  _Heater_GetState
+  0000                00037         extern  _Cooler_Init
+  0000                00038         extern  _Cooler_SetState
+  0000                00039         extern  _Cooler_GetState
+  0000                00040         extern  _Cooler_update
+  0000                00041         extern  _TMR0_Init
+  0000                00042         extern  _TMR0_Update
+  0000                00043         extern  _TMR0_Start
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  2
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00044         extern  _SettingMode_Get_SSD_state
-  0000                00045         extern  _SettingMode_OFF_mode
-  0000                00046         extern  _SSD_Init
-  0000                00047         extern  _SSD_SET_Symbol
-  0000                00048         extern  _SSD_SET_state
-  0000                00049         extern  _SSD_GET_state
-  0000                00050         extern  _SSD_GET_Symbol
-  0000                00051         extern  _SSD_update
-  0000                00052         extern  _LED_Init
-  0000                00053         extern  _LED_Update
-  0000                00054         extern  _LED_GetState
-  0000                00055         extern  _LED_SetState
-  0000                00056         extern  _TMR0_Init
-  0000                00057         extern  _TMR0_Update
-  0000                00058         extern  _TMR0_Start
-  0000                00059         extern  _RB0_INT_Init
-  0000                00060         extern  _RB0Int_update
-  0000                00061         extern  _ISR
-  0000                00062         extern  _STATUSbits
-  0000                00063         extern  _PORTAbits
-  0000                00064         extern  _PORTBbits
-  0000                00065         extern  _PORTCbits
-  0000                00066         extern  _PORTDbits
-  0000                00067         extern  _PORTEbits
-  0000                00068         extern  _INTCONbits
-  0000                00069         extern  _PIR1bits
-  0000                00070         extern  _PIR2bits
-  0000                00071         extern  _T1CONbits
-  0000                00072         extern  _T2CONbits
-  0000                00073         extern  _SSPCONbits
-  0000                00074         extern  _CCP1CONbits
-  0000                00075         extern  _RCSTAbits
-  0000                00076         extern  _CCP2CONbits
-  0000                00077         extern  _ADCON0bits
-  0000                00078         extern  _OPTION_REGbits
-  0000                00079         extern  _TRISAbits
-  0000                00080         extern  _TRISBbits
-  0000                00081         extern  _TRISCbits
-  0000                00082         extern  _TRISDbits
-  0000                00083         extern  _TRISEbits
-  0000                00084         extern  _PIE1bits
-  0000                00085         extern  _PIE2bits
-  0000                00086         extern  _PCONbits
-  0000                00087         extern  _SSPCON2bits
-  0000                00088         extern  _SSPSTATbits
-  0000                00089         extern  _TXSTAbits
-  0000                00090         extern  _CMCONbits
-  0000                00091         extern  _CVRCONbits
-  0000                00092         extern  _ADCON1bits
-  0000                00093         extern  _EECON1bits
-  0000                00094         extern  _Counters
-  0000                00095         extern  _Flags
-  0000                00096         extern  _Readings
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  3
+  0000                00044         extern  _UTIL_DelayMS
+  0000                00045         extern  _SSD_Init
+  0000                00046         extern  _SSD_SET_Symbol
+  0000                00047         extern  _SSD_SET_state
+  0000                00048         extern  _SSD_GET_state
+  0000                00049         extern  _SSD_GET_Symbol
+  0000                00050         extern  _SSD_update
+  0000                00051         extern  _SettingMode_update
+  0000                00052         extern  _PB_Init
+  0000                00053         extern  _PB_Update
+  0000                00054         extern  _PB_GetState
+  0000                00055         extern  _RB0_INT_Init
+  0000                00056         extern  _RB0Int_update
+  0000                00057         extern  _ISR
+  0000                00058         extern  _I2C_Init
+  0000                00059         extern  _I2C_Hold
+  0000                00060         extern  _I2C_Begin
+  0000                00061         extern  _I2C_End
+  0000                00062         extern  _I2C_Write
+  0000                00063         extern  _I2C_Read
+  0000                00064         extern  _e2pext_r
+  0000                00065         extern  _e2pext_w
+  0000                00066         extern  _e2pex_update
+  0000                00067         extern  _STATUSbits
+  0000                00068         extern  _PORTAbits
+  0000                00069         extern  _PORTBbits
+  0000                00070         extern  _PORTCbits
+  0000                00071         extern  _PORTDbits
+  0000                00072         extern  _PORTEbits
+  0000                00073         extern  _INTCONbits
+  0000                00074         extern  _PIR1bits
+  0000                00075         extern  _PIR2bits
+  0000                00076         extern  _T1CONbits
+  0000                00077         extern  _T2CONbits
+  0000                00078         extern  _SSPCONbits
+  0000                00079         extern  _CCP1CONbits
+  0000                00080         extern  _RCSTAbits
+  0000                00081         extern  _CCP2CONbits
+  0000                00082         extern  _ADCON0bits
+  0000                00083         extern  _OPTION_REGbits
+  0000                00084         extern  _TRISAbits
+  0000                00085         extern  _TRISBbits
+  0000                00086         extern  _TRISCbits
+  0000                00087         extern  _TRISDbits
+  0000                00088         extern  _TRISEbits
+  0000                00089         extern  _PIE1bits
+  0000                00090         extern  _PIE2bits
+  0000                00091         extern  _PCONbits
+  0000                00092         extern  _SSPCON2bits
+  0000                00093         extern  _SSPSTATbits
+  0000                00094         extern  _TXSTAbits
+  0000                00095         extern  _CMCONbits
+  0000                00096         extern  _CVRCONbits
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  3
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00097         extern  _INDF
-  0000                00098         extern  _TMR0
-  0000                00099         extern  _PCL
-  0000                00100         extern  _STATUS
-  0000                00101         extern  _FSR
-  0000                00102         extern  _PORTA
-  0000                00103         extern  _PORTB
-  0000                00104         extern  _PORTC
-  0000                00105         extern  _PORTD
-  0000                00106         extern  _PORTE
-  0000                00107         extern  _PCLATH
-  0000                00108         extern  _INTCON
-  0000                00109         extern  _PIR1
-  0000                00110         extern  _PIR2
-  0000                00111         extern  _TMR1
-  0000                00112         extern  _TMR1L
-  0000                00113         extern  _TMR1H
-  0000                00114         extern  _T1CON
-  0000                00115         extern  _TMR2
-  0000                00116         extern  _T2CON
-  0000                00117         extern  _SSPBUF
-  0000                00118         extern  _SSPCON
-  0000                00119         extern  _CCPR1
-  0000                00120         extern  _CCPR1L
-  0000                00121         extern  _CCPR1H
-  0000                00122         extern  _CCP1CON
-  0000                00123         extern  _RCSTA
-  0000                00124         extern  _TXREG
-  0000                00125         extern  _RCREG
-  0000                00126         extern  _CCPR2
-  0000                00127         extern  _CCPR2L
-  0000                00128         extern  _CCPR2H
-  0000                00129         extern  _CCP2CON
-  0000                00130         extern  _ADRESH
-  0000                00131         extern  _ADCON0
-  0000                00132         extern  _OPTION_REG
-  0000                00133         extern  _TRISA
-  0000                00134         extern  _TRISB
-  0000                00135         extern  _TRISC
-  0000                00136         extern  _TRISD
-  0000                00137         extern  _TRISE
-  0000                00138         extern  _PIE1
-  0000                00139         extern  _PIE2
-  0000                00140         extern  _PCON
-  0000                00141         extern  _SSPCON2
-  0000                00142         extern  _PR2
-  0000                00143         extern  _SSPADD
-  0000                00144         extern  _SSPSTAT
-  0000                00145         extern  _TXSTA
-  0000                00146         extern  _SPBRG
-  0000                00147         extern  _CMCON
-  0000                00148         extern  _CVRCON
-  0000                00149         extern  _ADRESL
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  4
+  0000                00097         extern  _ADCON1bits
+  0000                00098         extern  _EECON1bits
+  0000                00099         extern  _Counters
+  0000                00100         extern  _Flags
+  0000                00101         extern  _Readings
+  0000                00102         extern  _flag
+  0000                00103         extern  _INDF
+  0000                00104         extern  _TMR0
+  0000                00105         extern  _PCL
+  0000                00106         extern  _STATUS
+  0000                00107         extern  _FSR
+  0000                00108         extern  _PORTA
+  0000                00109         extern  _PORTB
+  0000                00110         extern  _PORTC
+  0000                00111         extern  _PORTD
+  0000                00112         extern  _PORTE
+  0000                00113         extern  _PCLATH
+  0000                00114         extern  _INTCON
+  0000                00115         extern  _PIR1
+  0000                00116         extern  _PIR2
+  0000                00117         extern  _TMR1
+  0000                00118         extern  _TMR1L
+  0000                00119         extern  _TMR1H
+  0000                00120         extern  _T1CON
+  0000                00121         extern  _TMR2
+  0000                00122         extern  _T2CON
+  0000                00123         extern  _SSPBUF
+  0000                00124         extern  _SSPCON
+  0000                00125         extern  _CCPR1
+  0000                00126         extern  _CCPR1L
+  0000                00127         extern  _CCPR1H
+  0000                00128         extern  _CCP1CON
+  0000                00129         extern  _RCSTA
+  0000                00130         extern  _TXREG
+  0000                00131         extern  _RCREG
+  0000                00132         extern  _CCPR2
+  0000                00133         extern  _CCPR2L
+  0000                00134         extern  _CCPR2H
+  0000                00135         extern  _CCP2CON
+  0000                00136         extern  _ADRESH
+  0000                00137         extern  _ADCON0
+  0000                00138         extern  _OPTION_REG
+  0000                00139         extern  _TRISA
+  0000                00140         extern  _TRISB
+  0000                00141         extern  _TRISC
+  0000                00142         extern  _TRISD
+  0000                00143         extern  _TRISE
+  0000                00144         extern  _PIE1
+  0000                00145         extern  _PIE2
+  0000                00146         extern  _PCON
+  0000                00147         extern  _SSPCON2
+  0000                00148         extern  _PR2
+  0000                00149         extern  _SSPADD
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  4
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00150         extern  _ADCON1
-  0000                00151         extern  _EEDATA
-  0000                00152         extern  _EEADR
-  0000                00153         extern  _EEDATH
-  0000                00154         extern  _EEADRH
-  0000                00155         extern  _EECON1
-  0000                00156         extern  _EECON2
-  0000                00157         extern  __sdcc_gsinit_startup
-                      00158 ;--------------------------------------------------------
-                      00159 ; global declarations
-                      00160 ;--------------------------------------------------------
-  0000                00161         global  _main
-                      00162 
-  0000                00163         global PSAVE
-  0000                00164         global SSAVE
-  0000                00165         global WSAVE
-  0000                00166         global STK12
-  0000                00167         global STK11
-  0000                00168         global STK10
-  0000                00169         global STK09
-  0000                00170         global STK08
-  0000                00171         global STK07
-  0000                00172         global STK06
-  0000                00173         global STK05
-  0000                00174         global STK04
-  0000                00175         global STK03
-  0000                00176         global STK02
-  0000                00177         global STK01
-  0000                00178         global STK00
-                      00179 
-                      00180 sharebank udata_ovr 0x0070
-0070                  00181 PSAVE   res 1
-0071                  00182 SSAVE   res 1
-0072                  00183 WSAVE   res 1
-0073                  00184 STK12   res 1
-0074                  00185 STK11   res 1
-0075                  00186 STK10   res 1
-0076                  00187 STK09   res 1
-0077                  00188 STK08   res 1
-0078                  00189 STK07   res 1
-0079                  00190 STK06   res 1
-007A                  00191 STK05   res 1
-007B                  00192 STK04   res 1
-007C                  00193 STK03   res 1
-007D                  00194 STK02   res 1
-007E                  00195 STK01   res 1
-007F                  00196 STK00   res 1
-                      00197 
-                      00198 ;--------------------------------------------------------
-                      00199 ; global definitions
-                      00200 ;--------------------------------------------------------
-                      00201 ;--------------------------------------------------------
-                      00202 ; absolute symbol definitions
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  5
+  0000                00150         extern  _SSPSTAT
+  0000                00151         extern  _TXSTA
+  0000                00152         extern  _SPBRG
+  0000                00153         extern  _CMCON
+  0000                00154         extern  _CVRCON
+  0000                00155         extern  _ADRESL
+  0000                00156         extern  _ADCON1
+  0000                00157         extern  _EEDATA
+  0000                00158         extern  _EEADR
+  0000                00159         extern  _EEDATH
+  0000                00160         extern  _EEADRH
+  0000                00161         extern  _EECON1
+  0000                00162         extern  _EECON2
+  0000                00163         extern  __sdcc_gsinit_startup
+                      00164 ;--------------------------------------------------------
+                      00165 ; global declarations
+                      00166 ;--------------------------------------------------------
+  0000                00167         global  _main
+                      00168 
+  0000                00169         global PSAVE
+  0000                00170         global SSAVE
+  0000                00171         global WSAVE
+  0000                00172         global STK12
+  0000                00173         global STK11
+  0000                00174         global STK10
+  0000                00175         global STK09
+  0000                00176         global STK08
+  0000                00177         global STK07
+  0000                00178         global STK06
+  0000                00179         global STK05
+  0000                00180         global STK04
+  0000                00181         global STK03
+  0000                00182         global STK02
+  0000                00183         global STK01
+  0000                00184         global STK00
+                      00185 
+                      00186 sharebank udata_ovr 0x0070
+0070                  00187 PSAVE   res 1
+0071                  00188 SSAVE   res 1
+0072                  00189 WSAVE   res 1
+0073                  00190 STK12   res 1
+0074                  00191 STK11   res 1
+0075                  00192 STK10   res 1
+0076                  00193 STK09   res 1
+0077                  00194 STK08   res 1
+0078                  00195 STK07   res 1
+0079                  00196 STK06   res 1
+007A                  00197 STK05   res 1
+007B                  00198 STK04   res 1
+007C                  00199 STK03   res 1
+007D                  00200 STK02   res 1
+007E                  00201 STK01   res 1
+007F                  00202 STK00   res 1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  5
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-                      00203 ;--------------------------------------------------------
+                      00203 
                       00204 ;--------------------------------------------------------
-                      00205 ; compiler-defined variables
+                      00205 ; global definitions
                       00206 ;--------------------------------------------------------
                       00207 ;--------------------------------------------------------
-                      00208 ; initialized data
+                      00208 ; absolute symbol definitions
                       00209 ;--------------------------------------------------------
                       00210 ;--------------------------------------------------------
-                      00211 ; overlayable items in internal ram 
+                      00211 ; compiler-defined variables
                       00212 ;--------------------------------------------------------
-                      00213 ;       udata_ovr
-                      00214 ;--------------------------------------------------------
-                      00215 ; reset vector 
+                      00213 ;--------------------------------------------------------
+                      00214 ; initialized data
+                      00215 ;--------------------------------------------------------
                       00216 ;--------------------------------------------------------
-                      00217 STARTUP code 0x0000
-0000   0000           00218         nop
-0001   ???? ????      00219         pagesel __sdcc_gsinit_startup
-0003   2???           00220         goto    __sdcc_gsinit_startup
-                      00221 ;--------------------------------------------------------
-                      00222 ; code
-                      00223 ;--------------------------------------------------------
-                      00224 code_main       code
-                      00225 ;***
-                      00226 ;  pBlock Stats: dbName = M
-                      00227 ;***
-                      00228 ;entry:  _main  ;Function start
-                      00229 ; 2 exit points
-                      00230 ;has an exit
-                      00231 ;functions called:
-                      00232 ;   _PB_Init
-                      00233 ;   _PB_Init
-                      00234 ;   _SSD_Init
-                      00235 ;   _SSD_Init
-                      00236 ;   _Heater_Init
-                      00237 ;   _Cooler_Init
-                      00238 ;   _LED_Init
-                      00239 ;   _Temprature_Init
-                      00240 ;   _TMR0_Init
-                      00241 ;   _TMR0_Start
-                      00242 ;   _PB_Init
-                      00243 ;   _PB_Init
-                      00244 ;   _SSD_Init
-                      00245 ;   _SSD_Init
-                      00246 ;   _Heater_Init
-                      00247 ;   _Cooler_Init
-                      00248 ;   _LED_Init
-                      00249 ;   _Temprature_Init
-                      00250 ;   _TMR0_Init
-                      00251 ;   _TMR0_Start
-                      00252 ;2 compiler assigned registers:
-                      00253 ;   STK00
-                      00254 ;   STK01
-                      00255 ;; Starting pCode block
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  6
+                      00217 ; overlayable items in internal ram 
+                      00218 ;--------------------------------------------------------
+                      00219 ;       udata_ovr
+                      00220 ;--------------------------------------------------------
+                      00221 ; reset vector 
+                      00222 ;--------------------------------------------------------
+                      00223 STARTUP code 0x0000
+0000   0000           00224         nop
+0001   ???? ????      00225         pagesel __sdcc_gsinit_startup
+0003   2???           00226         goto    __sdcc_gsinit_startup
+                      00227 ;--------------------------------------------------------
+                      00228 ; code
+                      00229 ;--------------------------------------------------------
+                      00230 code_main       code
+                      00231 ;***
+                      00232 ;  pBlock Stats: dbName = M
+                      00233 ;***
+                      00234 ;entry:  _main  ;Function start
+                      00235 ; 2 exit points
+                      00236 ;has an exit
+                      00237 ;functions called:
+                      00238 ;   _PB_Init
+                      00239 ;   _PB_Init
+                      00240 ;   _RB0_INT_Init
+                      00241 ;   _SSD_Init
+                      00242 ;   _SSD_Init
+                      00243 ;   _Heater_Init
+                      00244 ;   _Cooler_Init
+                      00245 ;   _LED_Init
+                      00246 ;   _Temprature_Init
+                      00247 ;   _I2C_Init
+                      00248 ;   _TMR0_Init
+                      00249 ;   _TMR0_Start
+                      00250 ;   _TMR0_Update
+                      00251 ;   _PB_Init
+                      00252 ;   _PB_Init
+                      00253 ;   _RB0_INT_Init
+                      00254 ;   _SSD_Init
+                      00255 ;   _SSD_Init
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  6
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-0000                  00256 _main   ;Function start
-                      00257 ; 2 exit points
-                      00258 ;       .line   15; "main.c"    PB_Init(PB_UP,PB_RELEASED);
-0000   3000           00259         MOVLW   0x00
-0001   00??           00260         MOVWF   STK00
-0002   3002           00261         MOVLW   0x02
-0003   ???? ????      00262         PAGESEL _PB_Init
-0005   2???           00263         CALL    _PB_Init
-0006   ???? ????      00264         PAGESEL $
-                      00265 ;       .line   16; "main.c"    PB_Init(PB_DOWN,PB_RELEASED);
-0008   3000           00266         MOVLW   0x00
-0009   00??           00267         MOVWF   STK00
-000A   3001           00268         MOVLW   0x01
-000B   ???? ????      00269         PAGESEL _PB_Init
-000D   2???           00270         CALL    _PB_Init
-000E   ???? ????      00271         PAGESEL $
-                      00272 ;       .line   18; "main.c"    SSD_Init(SSD_MR,SSD_OFF,SSD_NULL);
-0010   300A           00273         MOVLW   0x0a
-0011   00??           00274         MOVWF   STK01
-0012   3000           00275         MOVLW   0x00
-0013   00??           00276         MOVWF   STK00
-0014   3002           00277         MOVLW   0x02
-0015   ???? ????      00278         PAGESEL _SSD_Init
-0017   2???           00279         CALL    _SSD_Init
-0018   ???? ????      00280         PAGESEL $
-                      00281 ;       .line   19; "main.c"    SSD_Init(SSD_R,SSD_OFF,SSD_NULL);
-001A   300A           00282         MOVLW   0x0a
-001B   00??           00283         MOVWF   STK01
-001C   3000           00284         MOVLW   0x00
-001D   00??           00285         MOVWF   STK00
-001E   3003           00286         MOVLW   0x03
-001F   ???? ????      00287         PAGESEL _SSD_Init
-0021   2???           00288         CALL    _SSD_Init
-0022   ???? ????      00289         PAGESEL $
-                      00290 ;       .line   21; "main.c"    Heater_Init();
-0024   ???? ????      00291         PAGESEL _Heater_Init
-0026   2???           00292         CALL    _Heater_Init
-0027   ???? ????      00293         PAGESEL $
-                      00294 ;       .line   22; "main.c"    Cooler_Init();
-0029   ???? ????      00295         PAGESEL _Cooler_Init
-002B   2???           00296         CALL    _Cooler_Init
-002C   ???? ????      00297         PAGESEL $
-                      00298 ;       .line   24; "main.c"    LED_Init(LED_7,LED_OFF);
-002E   3000           00299         MOVLW   0x00
-002F   00??           00300         MOVWF   STK00
-0030   3007           00301         MOVLW   0x07
-0031   ???? ????      00302         PAGESEL _LED_Init
-0033   2???           00303         CALL    _LED_Init
-0034   ???? ????      00304         PAGESEL $
-                      00305 ;       .line   26; "main.c"    Temprature_Init();
-0036   ???? ????      00306         PAGESEL _Temprature_Init
-0038   2???           00307         CALL    _Temprature_Init
-0039   ???? ????      00308         PAGESEL $
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  7
+                      00256 ;   _Heater_Init
+                      00257 ;   _Cooler_Init
+                      00258 ;   _LED_Init
+                      00259 ;   _Temprature_Init
+                      00260 ;   _I2C_Init
+                      00261 ;   _TMR0_Init
+                      00262 ;   _TMR0_Start
+                      00263 ;   _TMR0_Update
+                      00264 ;3 compiler assigned registers:
+                      00265 ;   STK00
+                      00266 ;   STK01
+                      00267 ;   STK02
+                      00268 ;; Starting pCode block
+0000                  00269 _main   ;Function start
+                      00270 ; 2 exit points
+                      00271 ;       .line   19; "main.c"    PB_Init(PB_UP,PB_RELEASED);
+0000   3000           00272         MOVLW   0x00
+0001   00??           00273         MOVWF   STK00
+0002   3002           00274         MOVLW   0x02
+0003   ???? ????      00275         PAGESEL _PB_Init
+0005   2???           00276         CALL    _PB_Init
+0006   ???? ????      00277         PAGESEL $
+                      00278 ;       .line   20; "main.c"    PB_Init(PB_DOWN,PB_RELEASED);
+0008   3000           00279         MOVLW   0x00
+0009   00??           00280         MOVWF   STK00
+000A   3001           00281         MOVLW   0x01
+000B   ???? ????      00282         PAGESEL _PB_Init
+000D   2???           00283         CALL    _PB_Init
+000E   ???? ????      00284         PAGESEL $
+                      00285 ;       .line   21; "main.c"    RB0_INT_Init();
+0010   ???? ????      00286         PAGESEL _RB0_INT_Init
+0012   2???           00287         CALL    _RB0_INT_Init
+0013   ???? ????      00288         PAGESEL $
+                      00289 ;       .line   24; "main.c"    SSD_Init(SSD_MR,SSD_OFF,SSD_NULL);
+0015   300A           00290         MOVLW   0x0a
+0016   00??           00291         MOVWF   STK01
+0017   3000           00292         MOVLW   0x00
+0018   00??           00293         MOVWF   STK00
+0019   3000           00294         MOVLW   0x00
+001A   ???? ????      00295         PAGESEL _SSD_Init
+001C   2???           00296         CALL    _SSD_Init
+001D   ???? ????      00297         PAGESEL $
+                      00298 ;       .line   25; "main.c"    SSD_Init(SSD_R,SSD_OFF,SSD_NULL);
+001F   300A           00299         MOVLW   0x0a
+0020   00??           00300         MOVWF   STK01
+0021   3000           00301         MOVLW   0x00
+0022   00??           00302         MOVWF   STK00
+0023   3001           00303         MOVLW   0x01
+0024   ???? ????      00304         PAGESEL _SSD_Init
+0026   2???           00305         CALL    _SSD_Init
+0027   ???? ????      00306         PAGESEL $
+                      00307 ;       .line   28; "main.c"    Heater_Init();
+0029   ???? ????      00308         PAGESEL _Heater_Init
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  7
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-                      00309 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
-                      00310 ;       .line   28; "main.c"    Readings.Set_value = 40;
-003B   3028           00311         MOVLW   0x28
-003C   ???? ????      00312         BANKSEL _Readings
-003E   00??           00313         MOVWF   (_Readings + 4)
-                      00314 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
-003F   01??           00315         CLRF    (_Readings + 5)
-                      00316 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
-0040   01??           00317         CLRF    (_Readings + 6)
-                      00318 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
-0041   01??           00319         CLRF    (_Readings + 7)
-                      00320 ;       .line   30; "main.c"    TMR0_Init();
-0042   ???? ????      00321         PAGESEL _TMR0_Init
-0044   2???           00322         CALL    _TMR0_Init
-0045   ???? ????      00323         PAGESEL $
-                      00324 ;       .line   31; "main.c"    TMR0_Start();
-0047   ???? ????      00325         PAGESEL _TMR0_Start
-0049   2???           00326         CALL    _TMR0_Start
-004A   ???? ????      00327         PAGESEL $
-004C                  00328 _00106_DS_
-                      00329 ;       .line   33; "main.c"    while(1){
-004C   2???           00330         GOTO    _00106_DS_
-004D   0008           00331         RETURN  
-                      00332 ; exit point of _main
-                      00333 
-                      00334 
-                      00335 ;       code size estimation:
-                      00336 ;          36+   21 =    57 instructions (  156 byte)
-                      00337 
-                      00338         end
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  8
+002B   2???           00309         CALL    _Heater_Init
+002C   ???? ????      00310         PAGESEL $
+                      00311 ;       .line   29; "main.c"    Cooler_Init();
+002E   ???? ????      00312         PAGESEL _Cooler_Init
+0030   2???           00313         CALL    _Cooler_Init
+0031   ???? ????      00314         PAGESEL $
+                      00315 ;       .line   30; "main.c"    LED_Init(LED_7,LED_OFF);
+0033   3000           00316         MOVLW   0x00
+0034   00??           00317         MOVWF   STK00
+0035   3007           00318         MOVLW   0x07
+0036   ???? ????      00319         PAGESEL _LED_Init
+0038   2???           00320         CALL    _LED_Init
+0039   ???? ????      00321         PAGESEL $
+                      00322 ;       .line   33; "main.c"    Temprature_Init();
+003B   ???? ????      00323         PAGESEL _Temprature_Init
+003D   2???           00324         CALL    _Temprature_Init
+003E   ???? ????      00325         PAGESEL $
+                      00326 ;       .line   36; "main.c"    I2C_Init(488);//we choose this value because the system operates at 8MHz
+                             frequency.
+0040   30E8           00327         MOVLW   0xe8
+0041   00??           00328         MOVWF   STK02
+0042   3001           00329         MOVLW   0x01
+0043   00??           00330         MOVWF   STK01
+0044   3000           00331         MOVLW   0x00
+0045   00??           00332         MOVWF   STK00
+0046   3000           00333         MOVLW   0x00
+0047   ???? ????      00334         PAGESEL _I2C_Init
+0049   2???           00335         CALL    _I2C_Init
+004A   ???? ????      00336         PAGESEL $
+                      00337 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00338 ;       .line   37; "main.c"    Flags.e2prom_flag = 0;
+004C   ???? ????      00339         BANKSEL _Flags
+004E   01??           00340         CLRF    (_Flags + 5)
+                      00341 ;       .line   39; "main.c"    TMR0_Init();
+004F   ???? ????      00342         PAGESEL _TMR0_Init
+0051   2???           00343         CALL    _TMR0_Init
+0052   ???? ????      00344         PAGESEL $
+                      00345 ;       .line   40; "main.c"    TMR0_Start();
+0054   ???? ????      00346         PAGESEL _TMR0_Start
+0056   2???           00347         CALL    _TMR0_Start
+0057   ???? ????      00348         PAGESEL $
+0059                  00349 _00105_DS_
+                      00350 ;       .line   44; "main.c"    while(flag == 0){
+0059   3000           00351         MOVLW   0x00
+005A   ???? ????      00352         BANKSEL _flag
+005C   04??           00353         IORWF   _flag,W
+005D   1903           00354         BTFSC   STATUS,2
+005E   2???           00355         GOTO    _00105_DS_
+                      00356 ;       .line   47; "main.c"    flag = 0;
+005F   01??           00357         CLRF    _flag
+                      00358 ;       .line   49; "main.c"    TMR0_Update(); //the whole program logic is called in this function.
+0060   ???? ????      00359         PAGESEL _TMR0_Update
+0062   2???           00360         CALL    _TMR0_Update
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0063   ???? ????      00361         PAGESEL $
+0065   2???           00362         GOTO    _00105_DS_
+0066   0008           00363         RETURN  
+                      00364 ; exit point of _main
+                      00365 
+                      00366 
+                      00367 ;       code size estimation:
+                      00368 ;          47+   28 =    75 instructions (  206 byte)
+                      00369 
+                      00370         end
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE  9
 
 
 SYMBOL TABLE
@@ -447,7 +486,7 @@ CHS1                              00000004
 CHS2                              00000005
 CIS                               00000003
 CKE                               00000006
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE  9
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 10
 
 
 SYMBOL TABLE
@@ -506,7 +545,7 @@ INTF                              00000001
 IRP                               00000007
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 10
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 11
 
 
 SYMBOL TABLE
@@ -565,7 +604,7 @@ RA5                               00000005
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 11
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 12
 
 
 SYMBOL TABLE
@@ -624,7 +663,7 @@ SSAVE                             00000071
 SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 12
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 13
 
 
 SYMBOL TABLE
@@ -683,7 +722,7 @@ TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
 TOUTPS0                           00000003
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 13
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 14
 
 
 SYMBOL TABLE
@@ -742,7 +781,7 @@ TXREG                             00000019
 TXSTA                             00000098
 UA                                00000001
 W                                 00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 14
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 15
 
 
 SYMBOL TABLE
@@ -754,7 +793,7 @@ WREN                              00000002
 WRERR                             00000003
 WSAVE                             00000072
 Z                                 00000002
-_00106_DS_                        0000004C
+_00105_DS_                        00000059
 _ADCON0                           00000000
 _ADCON0bits                       00000000
 _ADCON1                           00000000
@@ -801,7 +840,7 @@ _EEADRH                           00000000
 _EECON1                           00000000
 _EECON1bits                       00000000
 _EECON2                           00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 15
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 16
 
 
 SYMBOL TABLE
@@ -824,8 +863,13 @@ _GPIO_Update                      00000000
 _HS_OSC                           00003FFE
 _Heater_GetState                  00000000
 _Heater_Init                      00000000
-_Heater_SetState                  00000000
 _Heater_update                    00000000
+_I2C_Begin                        00000000
+_I2C_End                          00000000
+_I2C_Hold                         00000000
+_I2C_Init                         00000000
+_I2C_Read                         00000000
+_I2C_Write                        00000000
 _IDLOC0                           00002000
 _IDLOC1                           00002001
 _IDLOC2                           00002002
@@ -836,7 +880,6 @@ _INTCONbits                       00000000
 _ISR                              00000000
 _LED_GetState                     00000000
 _LED_Init                         00000000
-_LED_SetState                     00000000
 _LED_Update                       00000000
 _LP_OSC                           00003FFC
 _LVP_OFF                          00003F7F
@@ -856,16 +899,16 @@ _PIE2                             00000000
 _PIE2bits                         00000000
 _PIR1                             00000000
 _PIR1bits                         00000000
-_PIR2                             00000000
-_PIR2bits                         00000000
-_PORTA                            00000000
-_PORTAbits                        00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 16
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 17
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_PIR2                             00000000
+_PIR2bits                         00000000
+_PORTA                            00000000
+_PORTAbits                        00000000
 _PORTB                            00000000
 _PORTBbits                        00000000
 _PORTC                            00000000
@@ -901,8 +944,6 @@ _SSPSTAT                          00000000
 _SSPSTATbits                      00000000
 _STATUS                           00000000
 _STATUSbits                       00000000
-_SettingMode_Get_SSD_state        00000000
-_SettingMode_OFF_mode             00000000
 _SettingMode_update               00000000
 _Start_conversion_Int             00000000
 _T1CON                            00000000
@@ -917,14 +958,14 @@ _TMR1                             00000000
 _TMR1H                            00000000
 _TMR1L                            00000000
 _TMR2                             00000000
-_TRISA                            00000000
-_TRISAbits                        00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-17-2020  06:58:43         PAGE 17
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 18
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_TRISA                            00000000
+_TRISAbits                        00000000
 _TRISB                            00000000
 _TRISBbits                        00000000
 _TRISC                            00000000
@@ -960,15 +1001,27 @@ __VECTOR_RESET                    00000000
 __sdcc_gsinit_startup             00000000
 _code_main_0006                   00000006
 _code_main_000E                   0000000E
-_code_main_0018                   00000018
-_code_main_0022                   00000022
+_code_main_0013                   00000013
+_code_main_001D                   0000001D
 _code_main_0027                   00000027
 _code_main_002C                   0000002C
-_code_main_0034                   00000034
+_code_main_0031                   00000031
 _code_main_0039                   00000039
-_code_main_0045                   00000045
+_code_main_003E                   0000003E
 _code_main_004A                   0000004A
+_code_main_0052                   00000052
+_code_main_0057                   00000057
+_code_main_0063                   00000063
+_e2pex_update                     00000000
+_e2pext_r                         00000000
+_e2pext_w                         00000000
+_flag                             00000000
 _main                             00000000
+
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\m   7-19-2020  20:05:22         PAGE 19
+
+
+
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed

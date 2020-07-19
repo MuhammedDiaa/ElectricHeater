@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:43 2020
+; This file was generated Sun Jul 19 20:05:22 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -18,7 +18,6 @@
 	extern	_GPIO_SetPortPinState
 	extern	_GPIO_SetPortState
 	extern	_GPIO_GetPortPinState
-	extern	_UTIL_DelayMS
 	extern	_PB_Init
 	extern	_PB_Update
 	extern	_PB_GetState
@@ -28,26 +27,33 @@
 	extern	_Start_conversion_Int
 	extern	_Temprature_Init
 	extern	_Temprature_update
+	extern	_Heater_Init
+	extern	_Heater_update
+	extern	_Heater_GetState
 	extern	_Cooler_Init
 	extern	_Cooler_SetState
 	extern	_Cooler_GetState
 	extern	_Cooler_update
-	extern	_Heater_Init
-	extern	_Heater_SetState
-	extern	_Heater_GetState
-	extern	_Heater_update
-	extern	_SettingMode_update
-	extern	_SettingMode_Get_SSD_state
-	extern	_SettingMode_OFF_mode
+	extern	_I2C_Init
+	extern	_I2C_Hold
+	extern	_I2C_Begin
+	extern	_I2C_End
+	extern	_I2C_Write
+	extern	_I2C_Read
+	extern	_e2pext_r
+	extern	_e2pext_w
+	extern	_e2pex_update
+	extern	_TMR0_Init
+	extern	_TMR0_Update
+	extern	_TMR0_Start
+	extern	_UTIL_DelayMS
 	extern	_SSD_Init
 	extern	_SSD_SET_Symbol
 	extern	_SSD_SET_state
 	extern	_SSD_GET_state
 	extern	_SSD_GET_Symbol
 	extern	_SSD_update
-	extern	_TMR0_Init
-	extern	_TMR0_Update
-	extern	_TMR0_Start
+	extern	_SettingMode_update
 	extern	_STATUSbits
 	extern	_PORTAbits
 	extern	_PORTBbits
@@ -163,7 +169,6 @@
 ;--------------------------------------------------------
 ; global declarations
 ;--------------------------------------------------------
-	global	_LED_SetState
 	global	_LED_GetState
 	global	_LED_Update
 	global	_LED_Init
@@ -178,12 +183,12 @@
 ; compiler-defined variables
 ;--------------------------------------------------------
 UDL_led_0	udata
+r0x1015	res	1
+r0x1016	res	1
+r0x1014	res	1
+r0x1010	res	1
 r0x1011	res	1
 r0x1012	res	1
-r0x1010	res	1
-r0x100B	res	1
-r0x100C	res	1
-r0x100E	res	1
 ;--------------------------------------------------------
 ; initialized data
 ;--------------------------------------------------------
@@ -209,36 +214,36 @@ code_led	code
 ;   _LED_SetState
 ;   _LED_SetState
 ;3 compiler assigned registers:
-;   r0x100E
-;   r0x100F
+;   r0x1012
+;   r0x1013
 ;   STK00
 ;; Starting pCode block
 _LED_Toggle	;Function start
 ; 2 exit points
-;	.line	116; "led.c"	static void LED_Toggle(tLED led)
-	BANKSEL	r0x100E
-	MOVWF	r0x100E
-;	.line	118; "led.c"	if (LED_GetState(led) == LED_ON)
+;	.line	117; "led.c"	static void LED_Toggle(tLED led)
+	BANKSEL	r0x1012
+	MOVWF	r0x1012
+;	.line	119; "led.c"	if (LED_GetState(led) == LED_ON)
 	CALL	_LED_GetState
-;;1	MOVWF	r0x100F
+;;1	MOVWF	r0x1013
 	XORLW	0x01
 	BTFSS	STATUS,2
-	GOTO	_00233_DS_
-;	.line	120; "led.c"	LED_SetState(led, LED_OFF);
+	GOTO	_00226_DS_
+;	.line	121; "led.c"	LED_SetState(led, LED_OFF);
 	MOVLW	0x00
 	MOVWF	STK00
-	BANKSEL	r0x100E
-	MOVF	r0x100E,W
+	BANKSEL	r0x1012
+	MOVF	r0x1012,W
 	CALL	_LED_SetState
-	GOTO	_00235_DS_
-_00233_DS_
-;	.line	124; "led.c"	LED_SetState(led, LED_ON);
+	GOTO	_00228_DS_
+_00226_DS_
+;	.line	125; "led.c"	LED_SetState(led, LED_ON);
 	MOVLW	0x01
 	MOVWF	STK00
-	BANKSEL	r0x100E
-	MOVF	r0x100E,W
+	BANKSEL	r0x1012
+	MOVF	r0x1012,W
 	CALL	_LED_SetState
-_00235_DS_
+_00228_DS_
 	RETURN	
 ; exit point of _LED_Toggle
 
@@ -259,46 +264,45 @@ _00235_DS_
 ;   _GPIO_SetPortPinState
 ;   _GPIO_SetPortPinState
 ;   _GPIO_SetPortPinState
-;5 compiler assigned registers:
-;   r0x100B
+;4 compiler assigned registers:
+;   r0x1010
 ;   STK00
-;   r0x100C
-;   r0x100D
+;   r0x1011
 ;   STK01
 ;; Starting pCode block
 _LED_SetState	;Function start
 ; 2 exit points
-;	.line	90; "led.c"	void LED_SetState(tLED led, tLED_State state)
-	BANKSEL	r0x100B
-	MOVWF	r0x100B
+;	.line	91; "led.c"	static void LED_SetState(tLED led, tLED_State state)
+	BANKSEL	r0x1010
+	MOVWF	r0x1010
 	MOVF	STK00,W
-	MOVWF	r0x100C
-;	.line	92; "led.c"	switch(led)
-	MOVF	r0x100B,W
-;;1	MOVWF	r0x100D
-	BTFSC	STATUS,2
-	GOTO	_00199_DS_
-	MOVF	r0x100B,W
+	MOVWF	r0x1011
+;	.line	93; "led.c"	switch(led)
+	MOVF	r0x1010,W
 	XORLW	0x01
 	BTFSC	STATUS,2
-	GOTO	_00200_DS_
-	MOVF	r0x100B,W
+	GOTO	_00192_DS_
+	MOVF	r0x1010,W
 	XORLW	0x02
 	BTFSC	STATUS,2
-	GOTO	_00201_DS_
-	MOVF	r0x100B,W
+	GOTO	_00193_DS_
+	MOVF	r0x1010,W
 	XORLW	0x03
 	BTFSC	STATUS,2
-	GOTO	_00202_DS_
-	MOVF	r0x100B,W
+	GOTO	_00194_DS_
+	MOVF	r0x1010,W
+	XORLW	0x04
+	BTFSC	STATUS,2
+	GOTO	_00195_DS_
+	MOVF	r0x1010,W
 	XORLW	0x07
 	BTFSC	STATUS,2
-	GOTO	_00203_DS_
-	GOTO	_00206_DS_
-_00199_DS_
-;	.line	95; "led.c"	GPIO_SetPortPinState(PORT_B, 0, state);
-	BANKSEL	r0x100C
-	MOVF	r0x100C,W
+	GOTO	_00196_DS_
+	GOTO	_00199_DS_
+_00192_DS_
+;	.line	96; "led.c"	GPIO_SetPortPinState(PORT_B, 0, state);
+	BANKSEL	r0x1011
+	MOVF	r0x1011,W
 	MOVWF	STK01
 	MOVLW	0x00
 	MOVWF	STK00
@@ -306,12 +310,12 @@ _00199_DS_
 	PAGESEL	_GPIO_SetPortPinState
 	CALL	_GPIO_SetPortPinState
 	PAGESEL	$
-;	.line	96; "led.c"	break;
-	GOTO	_00206_DS_
-_00200_DS_
-;	.line	98; "led.c"	GPIO_SetPortPinState(PORT_B, 1, state);
-	BANKSEL	r0x100C
-	MOVF	r0x100C,W
+;	.line	97; "led.c"	break;
+	GOTO	_00199_DS_
+_00193_DS_
+;	.line	99; "led.c"	GPIO_SetPortPinState(PORT_B, 1, state);
+	BANKSEL	r0x1011
+	MOVF	r0x1011,W
 	MOVWF	STK01
 	MOVLW	0x01
 	MOVWF	STK00
@@ -319,12 +323,12 @@ _00200_DS_
 	PAGESEL	_GPIO_SetPortPinState
 	CALL	_GPIO_SetPortPinState
 	PAGESEL	$
-;	.line	99; "led.c"	break;
-	GOTO	_00206_DS_
-_00201_DS_
-;	.line	101; "led.c"	GPIO_SetPortPinState(PORT_B, 2, state);
-	BANKSEL	r0x100C
-	MOVF	r0x100C,W
+;	.line	100; "led.c"	break;
+	GOTO	_00199_DS_
+_00194_DS_
+;	.line	102; "led.c"	GPIO_SetPortPinState(PORT_B, 2, state);
+	BANKSEL	r0x1011
+	MOVF	r0x1011,W
 	MOVWF	STK01
 	MOVLW	0x02
 	MOVWF	STK00
@@ -332,12 +336,12 @@ _00201_DS_
 	PAGESEL	_GPIO_SetPortPinState
 	CALL	_GPIO_SetPortPinState
 	PAGESEL	$
-;	.line	102; "led.c"	break;
-	GOTO	_00206_DS_
-_00202_DS_
-;	.line	104; "led.c"	GPIO_SetPortPinState(PORT_B, 3, state);
-	BANKSEL	r0x100C
-	MOVF	r0x100C,W
+;	.line	103; "led.c"	break;
+	GOTO	_00199_DS_
+_00195_DS_
+;	.line	105; "led.c"	GPIO_SetPortPinState(PORT_B, 3, state);
+	BANKSEL	r0x1011
+	MOVF	r0x1011,W
 	MOVWF	STK01
 	MOVLW	0x03
 	MOVWF	STK00
@@ -345,12 +349,12 @@ _00202_DS_
 	PAGESEL	_GPIO_SetPortPinState
 	CALL	_GPIO_SetPortPinState
 	PAGESEL	$
-;	.line	105; "led.c"	break;
-	GOTO	_00206_DS_
-_00203_DS_
-;	.line	107; "led.c"	GPIO_SetPortPinState(PORT_B, 7, state);
-	BANKSEL	r0x100C
-	MOVF	r0x100C,W
+;	.line	106; "led.c"	break;
+	GOTO	_00199_DS_
+_00196_DS_
+;	.line	108; "led.c"	GPIO_SetPortPinState(PORT_B, 7, state);
+	BANKSEL	r0x1011
+	MOVF	r0x1011,W
 	MOVWF	STK01
 	MOVLW	0x07
 	MOVWF	STK00
@@ -358,8 +362,8 @@ _00203_DS_
 	PAGESEL	_GPIO_SetPortPinState
 	CALL	_GPIO_SetPortPinState
 	PAGESEL	$
-_00206_DS_
-;	.line	112; "led.c"	}
+_00199_DS_
+;	.line	113; "led.c"	}
 	RETURN	
 ; exit point of _LED_SetState
 
@@ -380,103 +384,102 @@ _00206_DS_
 ;   _GPIO_GetPortPinState
 ;   _GPIO_GetPortPinState
 ;   _GPIO_GetPortPinState
-;4 compiler assigned registers:
-;   r0x100B
-;   r0x100C
-;   r0x100D
+;3 compiler assigned registers:
+;   r0x1010
+;   r0x1011
 ;   STK00
 ;; Starting pCode block
 _LED_GetState	;Function start
 ; 2 exit points
-;	.line	61; "led.c"	tLED_State LED_GetState(tLED led)
-	BANKSEL	r0x100B
-	MOVWF	r0x100B
-;	.line	63; "led.c"	tLED_State ret = LED_OFF;
-	CLRF	r0x100C
-;	.line	65; "led.c"	switch(led)
-	MOVF	r0x100B,W
-;;1	MOVWF	r0x100D
-	BTFSC	STATUS,2
-	GOTO	_00166_DS_
-	MOVF	r0x100B,W
+;	.line	62; "led.c"	tLED_State LED_GetState(tLED led)
+	BANKSEL	r0x1010
+	MOVWF	r0x1010
+;	.line	64; "led.c"	tLED_State ret = LED_OFF;
+	CLRF	r0x1011
+;	.line	66; "led.c"	switch(led)
+	MOVF	r0x1010,W
 	XORLW	0x01
 	BTFSC	STATUS,2
-	GOTO	_00167_DS_
-	MOVF	r0x100B,W
+	GOTO	_00159_DS_
+	MOVF	r0x1010,W
 	XORLW	0x02
 	BTFSC	STATUS,2
-	GOTO	_00168_DS_
-	MOVF	r0x100B,W
+	GOTO	_00160_DS_
+	MOVF	r0x1010,W
 	XORLW	0x03
 	BTFSC	STATUS,2
-	GOTO	_00169_DS_
-	MOVF	r0x100B,W
+	GOTO	_00161_DS_
+	MOVF	r0x1010,W
+	XORLW	0x04
+	BTFSC	STATUS,2
+	GOTO	_00162_DS_
+	MOVF	r0x1010,W
 	XORLW	0x07
 	BTFSC	STATUS,2
-	GOTO	_00170_DS_
-	GOTO	_00172_DS_
-_00166_DS_
-;	.line	68; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 0);
+	GOTO	_00163_DS_
+	GOTO	_00165_DS_
+_00159_DS_
+;	.line	69; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 0);
 	MOVLW	0x00
 	MOVWF	STK00
 	MOVLW	0x01
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-	BANKSEL	r0x100C
-	MOVWF	r0x100C
-;	.line	69; "led.c"	break;
-	GOTO	_00172_DS_
-_00167_DS_
-;	.line	71; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 1);
+	BANKSEL	r0x1011
+	MOVWF	r0x1011
+;	.line	70; "led.c"	break;
+	GOTO	_00165_DS_
+_00160_DS_
+;	.line	72; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 1);
 	MOVLW	0x01
 	MOVWF	STK00
 	MOVLW	0x01
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-	BANKSEL	r0x100C
-	MOVWF	r0x100C
-;	.line	72; "led.c"	break;
-	GOTO	_00172_DS_
-_00168_DS_
-;	.line	74; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 2);
+	BANKSEL	r0x1011
+	MOVWF	r0x1011
+;	.line	73; "led.c"	break;
+	GOTO	_00165_DS_
+_00161_DS_
+;	.line	75; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 2);
 	MOVLW	0x02
 	MOVWF	STK00
 	MOVLW	0x01
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-	BANKSEL	r0x100C
-	MOVWF	r0x100C
-;	.line	75; "led.c"	break;
-	GOTO	_00172_DS_
-_00169_DS_
-;	.line	77; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 3);
+	BANKSEL	r0x1011
+	MOVWF	r0x1011
+;	.line	76; "led.c"	break;
+	GOTO	_00165_DS_
+_00162_DS_
+;	.line	78; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 3);
 	MOVLW	0x03
 	MOVWF	STK00
 	MOVLW	0x01
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-	BANKSEL	r0x100C
-	MOVWF	r0x100C
-;	.line	78; "led.c"	break;
-	GOTO	_00172_DS_
-_00170_DS_
-;	.line	80; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 7);
+	BANKSEL	r0x1011
+	MOVWF	r0x1011
+;	.line	79; "led.c"	break;
+	GOTO	_00165_DS_
+_00163_DS_
+;	.line	81; "led.c"	ret = GPIO_GetPortPinState(PORT_B, 7);
 	MOVLW	0x07
 	MOVWF	STK00
 	MOVLW	0x01
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-	BANKSEL	r0x100C
-	MOVWF	r0x100C
-_00172_DS_
-;	.line	87; "led.c"	return ret;
-	BANKSEL	r0x100C
-	MOVF	r0x100C,W
+	BANKSEL	r0x1011
+	MOVWF	r0x1011
+_00165_DS_
+;	.line	88; "led.c"	return ret;
+	BANKSEL	r0x1011
+	MOVF	r0x1011,W
 	RETURN	
 ; exit point of _LED_GetState
 
@@ -494,7 +497,7 @@ _00172_DS_
 ;   _LED_Toggle
 ;   _LED_SetState
 ;2 compiler assigned registers:
-;   r0x1010
+;   r0x1014
 ;   STK00
 ;; Starting pCode block
 _LED_Update	;Function start
@@ -502,35 +505,45 @@ _LED_Update	;Function start
 ;	.line	39; "led.c"	switch(Flags.Toggle_led)
 	BANKSEL	_Flags
 	MOVF	(_Flags + 1),W
-	BANKSEL	r0x1010
-	MOVWF	r0x1010
-	BTFSC	STATUS,2
-	GOTO	_00138_DS_
-	MOVF	r0x1010,W
-	XORLW	0x01
-	BTFSC	STATUS,2
-	GOTO	_00139_DS_
-	MOVF	r0x1010,W
-	XORLW	0x03
-	BTFSC	STATUS,2
-	GOTO	_00142_DS_
+	BANKSEL	r0x1014
+	MOVWF	r0x1014
+;;swapping arguments (AOP_TYPEs 1/2)
+;;unsigned compare: left >= lit(0x3=3), size=1
+	MOVLW	0x03
+	SUBWF	r0x1014,W
+	BTFSC	STATUS,0
 	GOTO	_00145_DS_
+;;genSkipc:3247: created from rifx:027A5DF4
+	MOVLW	HIGH(_00154_DS_)
+	BANKSEL	PCLATH
+	MOVWF	PCLATH
+	MOVLW	_00154_DS_
+	BANKSEL	r0x1014
+	ADDWF	r0x1014,W
+	BTFSS	STATUS,0
+	GOTO	_00001_DS_
+	BANKSEL	PCLATH
+	INCF	PCLATH,F
+_00001_DS_
+	MOVWF	PCL
+_00154_DS_
+	GOTO	_00138_DS_
+	GOTO	_00139_DS_
+	GOTO	_00142_DS_
 _00138_DS_
 ;	.line	42; "led.c"	LED_SetState(LED_7,LED_ON);
 	MOVLW	0x01
 	MOVWF	STK00
 	MOVLW	0x07
-	PAGESEL	_LED_SetState
 	CALL	_LED_SetState
-	PAGESEL	$
 ;	.line	43; "led.c"	break;
 	GOTO	_00145_DS_
 _00139_DS_
 ;	.line	45; "led.c"	if(Counters.Led_counter == 50)
 	BANKSEL	_Counters
 	MOVF	(_Counters + 4),W
-	BANKSEL	r0x1010
-	MOVWF	r0x1010
+	BANKSEL	r0x1014
+	MOVWF	r0x1014
 	XORLW	0x32
 	BTFSS	STATUS,2
 	GOTO	_00141_DS_
@@ -541,29 +554,30 @@ _00139_DS_
 ;	.line	48; "led.c"	Counters.Led_counter = 0 ;
 	BANKSEL	_Counters
 	CLRF	(_Counters + 4)
+;	.line	49; "led.c"	RC7 = 1;
+	BANKSEL	_PORTCbits
+	BSF	_PORTCbits,7
 _00141_DS_
-;	.line	50; "led.c"	Counters.Led_counter++ ;
+;	.line	51; "led.c"	Counters.Led_counter++ ;
 	BANKSEL	_Counters
 	MOVF	(_Counters + 4),W
-	BANKSEL	r0x1010
-	MOVWF	r0x1010
-	INCF	r0x1010,F
+	BANKSEL	r0x1014
+	MOVWF	r0x1014
+	INCF	r0x1014,F
 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-	MOVF	r0x1010,W
+	MOVF	r0x1014,W
 	BANKSEL	_Counters
 	MOVWF	(_Counters + 4)
-;	.line	51; "led.c"	break;
+;	.line	52; "led.c"	break;
 	GOTO	_00145_DS_
 _00142_DS_
-;	.line	53; "led.c"	LED_SetState(LED_7,LED_OFF);
+;	.line	54; "led.c"	LED_SetState(LED_7,LED_OFF);
 	MOVLW	0x00
 	MOVWF	STK00
 	MOVLW	0x07
-	PAGESEL	_LED_SetState
 	CALL	_LED_SetState
-	PAGESEL	$
 _00145_DS_
-;	.line	57; "led.c"	}
+;	.line	58; "led.c"	}
 	RETURN	
 ; exit point of _LED_Update
 
@@ -586,38 +600,37 @@ _00145_DS_
 ;   _GPIO_InitPortPin
 ;   _GPIO_InitPortPin
 ;   _LED_SetState
-;5 compiler assigned registers:
-;   r0x1011
+;4 compiler assigned registers:
+;   r0x1015
 ;   STK00
-;   r0x1012
-;   r0x1013
+;   r0x1016
 ;   STK01
 ;; Starting pCode block
 _LED_Init	;Function start
 ; 2 exit points
 ;	.line	3; "led.c"	void LED_Init(tLED led, tLED_State initial_state)
-	BANKSEL	r0x1011
-	MOVWF	r0x1011
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
 	MOVF	STK00,W
-	MOVWF	r0x1012
+	MOVWF	r0x1016
 ;	.line	6; "led.c"	switch(led)
-	MOVF	r0x1011,W
-;;1	MOVWF	r0x1013
-	BTFSC	STATUS,2
-	GOTO	_00105_DS_
-	MOVF	r0x1011,W
+	MOVF	r0x1015,W
 	XORLW	0x01
 	BTFSC	STATUS,2
-	GOTO	_00106_DS_
-	MOVF	r0x1011,W
+	GOTO	_00105_DS_
+	MOVF	r0x1015,W
 	XORLW	0x02
 	BTFSC	STATUS,2
-	GOTO	_00107_DS_
-	MOVF	r0x1011,W
+	GOTO	_00106_DS_
+	MOVF	r0x1015,W
 	XORLW	0x03
 	BTFSC	STATUS,2
+	GOTO	_00107_DS_
+	MOVF	r0x1015,W
+	XORLW	0x04
+	BTFSC	STATUS,2
 	GOTO	_00108_DS_
-	MOVF	r0x1011,W
+	MOVF	r0x1015,W
 	XORLW	0x07
 	BTFSC	STATUS,2
 	GOTO	_00109_DS_
@@ -682,18 +695,16 @@ _00109_DS_
 	PAGESEL	$
 _00111_DS_
 ;	.line	34; "led.c"	LED_SetState(led, initial_state);
-	BANKSEL	r0x1012
-	MOVF	r0x1012,W
+	BANKSEL	r0x1016
+	MOVF	r0x1016,W
 	MOVWF	STK00
-	MOVF	r0x1011,W
-	PAGESEL	_LED_SetState
+	MOVF	r0x1015,W
 	CALL	_LED_SetState
-	PAGESEL	$
 	RETURN	
 ; exit point of _LED_Init
 
 
 ;	code size estimation:
-;	  225+   62 =   287 instructions (  698 byte)
+;	  233+   60 =   293 instructions (  706 byte)
 
 	end

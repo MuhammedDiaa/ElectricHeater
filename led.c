@@ -46,10 +46,11 @@ void LED_Update(void)
         {
             LED_Toggle(LED_7);
             Counters.Led_counter = 0 ;
+            RC7 = 1;
         }
         Counters.Led_counter++ ;
         break;
-    case 3:
+    case 2:
         LED_SetState(LED_7,LED_OFF);
         break;
     default:
@@ -87,7 +88,7 @@ tLED_State LED_GetState(tLED led)
     return ret;
 
 }
-void LED_SetState(tLED led, tLED_State state)
+static void LED_SetState(tLED led, tLED_State state)
 {
     switch(led)
     {

@@ -1,4 +1,4 @@
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  1
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -7,7 +7,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00001 ;--------------------------------------------------------
                       00002 ; File Created by SDCC : free open source ANSI-C Compiler
                       00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-                      00004 ; This file was generated Fri Jul 17 06:58:43 2020
+                      00004 ; This file was generated Sun Jul 19 20:05:24 2020
                       00005 ;--------------------------------------------------------
                       00006 ; PIC port for the 14-bit core
                       00007 ;--------------------------------------------------------
@@ -34,656 +34,751 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
   0000                00018         extern  _GPIO_SetPortPinState
   0000                00019         extern  _GPIO_SetPortState
   0000                00020         extern  _GPIO_GetPortPinState
-  0000                00021         extern  _UTIL_DelayMS
-  0000                00022         extern  _SSD_Init
-  0000                00023         extern  _SSD_SET_Symbol
-  0000                00024         extern  _SSD_SET_state
-  0000                00025         extern  _SSD_GET_state
-  0000                00026         extern  _SSD_GET_Symbol
-  0000                00027         extern  _SSD_update
-  0000                00028         extern  _PB_Init
-  0000                00029         extern  _PB_Update
-  0000                00030         extern  _PB_GetState
-  0000                00031         extern  _Heater_Init
-  0000                00032         extern  _Heater_SetState
-  0000                00033         extern  _Heater_GetState
+  0000                00021         extern  _PB_Init
+  0000                00022         extern  _PB_Update
+  0000                00023         extern  _PB_GetState
+  0000                00024         extern  _ADC_Init
+  0000                00025         extern  _ADC_Update
+  0000                00026         extern  _ADC_GetResult
+  0000                00027         extern  _Start_conversion_Int
+  0000                00028         extern  _Temprature_Init
+  0000                00029         extern  _Temprature_update
+  0000                00030         extern  _LED_Init
+  0000                00031         extern  _LED_GetState
+  0000                00032         extern  _LED_Update
+  0000                00033         extern  _Heater_Init
   0000                00034         extern  _Heater_update
-  0000                00035         extern  _Cooler_Init
-  0000                00036         extern  _Cooler_SetState
-  0000                00037         extern  _Cooler_GetState
-  0000                00038         extern  _Cooler_update
-  0000                00039         extern  _LED_Init
-  0000                00040         extern  _LED_Update
-  0000                00041         extern  _LED_GetState
-  0000                00042         extern  _LED_SetState
-  0000                00043         extern  _TMR0_Init
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  2
+  0000                00035         extern  _Heater_GetState
+  0000                00036         extern  _Cooler_Init
+  0000                00037         extern  _Cooler_SetState
+  0000                00038         extern  _Cooler_GetState
+  0000                00039         extern  _Cooler_update
+  0000                00040         extern  _I2C_Init
+  0000                00041         extern  _I2C_Hold
+  0000                00042         extern  _I2C_Begin
+  0000                00043         extern  _I2C_End
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  2
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00044         extern  _TMR0_Update
-  0000                00045         extern  _TMR0_Start
-  0000                00046         extern  _ADC_Init
-  0000                00047         extern  _ADC_Update
-  0000                00048         extern  _ADC_GetResult
-  0000                00049         extern  _Start_conversion_Int
-  0000                00050         extern  _Temprature_Init
-  0000                00051         extern  _Temprature_update
-  0000                00052         extern  _SettingMode_Get_SSD_state
-  0000                00053         extern  _STATUSbits
-  0000                00054         extern  _PORTAbits
-  0000                00055         extern  _PORTBbits
-  0000                00056         extern  _PORTCbits
-  0000                00057         extern  _PORTDbits
-  0000                00058         extern  _PORTEbits
-  0000                00059         extern  _INTCONbits
-  0000                00060         extern  _PIR1bits
-  0000                00061         extern  _PIR2bits
-  0000                00062         extern  _T1CONbits
-  0000                00063         extern  _T2CONbits
-  0000                00064         extern  _SSPCONbits
-  0000                00065         extern  _CCP1CONbits
-  0000                00066         extern  _RCSTAbits
-  0000                00067         extern  _CCP2CONbits
-  0000                00068         extern  _ADCON0bits
-  0000                00069         extern  _OPTION_REGbits
-  0000                00070         extern  _TRISAbits
-  0000                00071         extern  _TRISBbits
-  0000                00072         extern  _TRISCbits
-  0000                00073         extern  _TRISDbits
-  0000                00074         extern  _TRISEbits
-  0000                00075         extern  _PIE1bits
-  0000                00076         extern  _PIE2bits
-  0000                00077         extern  _PCONbits
-  0000                00078         extern  _SSPCON2bits
-  0000                00079         extern  _SSPSTATbits
-  0000                00080         extern  _TXSTAbits
-  0000                00081         extern  _CMCONbits
-  0000                00082         extern  _CVRCONbits
-  0000                00083         extern  _ADCON1bits
-  0000                00084         extern  _EECON1bits
-  0000                00085         extern  _INDF
-  0000                00086         extern  _TMR0
-  0000                00087         extern  _PCL
-  0000                00088         extern  _STATUS
-  0000                00089         extern  _FSR
-  0000                00090         extern  _PORTA
-  0000                00091         extern  _PORTB
-  0000                00092         extern  _PORTC
-  0000                00093         extern  _PORTD
-  0000                00094         extern  _PORTE
-  0000                00095         extern  _PCLATH
-  0000                00096         extern  _INTCON
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  3
+  0000                00044         extern  _I2C_Write
+  0000                00045         extern  _I2C_Read
+  0000                00046         extern  _e2pext_r
+  0000                00047         extern  _e2pext_w
+  0000                00048         extern  _e2pex_update
+  0000                00049         extern  _TMR0_Init
+  0000                00050         extern  _TMR0_Update
+  0000                00051         extern  _TMR0_Start
+  0000                00052         extern  _UTIL_DelayMS
+  0000                00053         extern  _SSD_Init
+  0000                00054         extern  _SSD_SET_Symbol
+  0000                00055         extern  _SSD_SET_state
+  0000                00056         extern  _SSD_GET_state
+  0000                00057         extern  _SSD_GET_Symbol
+  0000                00058         extern  _SSD_update
+  0000                00059         extern  _STATUSbits
+  0000                00060         extern  _PORTAbits
+  0000                00061         extern  _PORTBbits
+  0000                00062         extern  _PORTCbits
+  0000                00063         extern  _PORTDbits
+  0000                00064         extern  _PORTEbits
+  0000                00065         extern  _INTCONbits
+  0000                00066         extern  _PIR1bits
+  0000                00067         extern  _PIR2bits
+  0000                00068         extern  _T1CONbits
+  0000                00069         extern  _T2CONbits
+  0000                00070         extern  _SSPCONbits
+  0000                00071         extern  _CCP1CONbits
+  0000                00072         extern  _RCSTAbits
+  0000                00073         extern  _CCP2CONbits
+  0000                00074         extern  _ADCON0bits
+  0000                00075         extern  _OPTION_REGbits
+  0000                00076         extern  _TRISAbits
+  0000                00077         extern  _TRISBbits
+  0000                00078         extern  _TRISCbits
+  0000                00079         extern  _TRISDbits
+  0000                00080         extern  _TRISEbits
+  0000                00081         extern  _PIE1bits
+  0000                00082         extern  _PIE2bits
+  0000                00083         extern  _PCONbits
+  0000                00084         extern  _SSPCON2bits
+  0000                00085         extern  _SSPSTATbits
+  0000                00086         extern  _TXSTAbits
+  0000                00087         extern  _CMCONbits
+  0000                00088         extern  _CVRCONbits
+  0000                00089         extern  _ADCON1bits
+  0000                00090         extern  _EECON1bits
+  0000                00091         extern  _INDF
+  0000                00092         extern  _TMR0
+  0000                00093         extern  _PCL
+  0000                00094         extern  _STATUS
+  0000                00095         extern  _FSR
+  0000                00096         extern  _PORTA
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  3
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00097         extern  _PIR1
-  0000                00098         extern  _PIR2
-  0000                00099         extern  _TMR1
-  0000                00100         extern  _TMR1L
-  0000                00101         extern  _TMR1H
-  0000                00102         extern  _T1CON
-  0000                00103         extern  _TMR2
-  0000                00104         extern  _T2CON
-  0000                00105         extern  _SSPBUF
-  0000                00106         extern  _SSPCON
-  0000                00107         extern  _CCPR1
-  0000                00108         extern  _CCPR1L
-  0000                00109         extern  _CCPR1H
-  0000                00110         extern  _CCP1CON
-  0000                00111         extern  _RCSTA
-  0000                00112         extern  _TXREG
-  0000                00113         extern  _RCREG
-  0000                00114         extern  _CCPR2
-  0000                00115         extern  _CCPR2L
-  0000                00116         extern  _CCPR2H
-  0000                00117         extern  _CCP2CON
-  0000                00118         extern  _ADRESH
-  0000                00119         extern  _ADCON0
-  0000                00120         extern  _OPTION_REG
-  0000                00121         extern  _TRISA
-  0000                00122         extern  _TRISB
-  0000                00123         extern  _TRISC
-  0000                00124         extern  _TRISD
-  0000                00125         extern  _TRISE
-  0000                00126         extern  _PIE1
-  0000                00127         extern  _PIE2
-  0000                00128         extern  _PCON
-  0000                00129         extern  _SSPCON2
-  0000                00130         extern  _PR2
-  0000                00131         extern  _SSPADD
-  0000                00132         extern  _SSPSTAT
-  0000                00133         extern  _TXSTA
-  0000                00134         extern  _SPBRG
-  0000                00135         extern  _CMCON
-  0000                00136         extern  _CVRCON
-  0000                00137         extern  _ADRESL
-  0000                00138         extern  _ADCON1
-  0000                00139         extern  _EEDATA
-  0000                00140         extern  _EEADR
-  0000                00141         extern  _EEDATH
-  0000                00142         extern  _EEADRH
-  0000                00143         extern  _EECON1
-  0000                00144         extern  _EECON2
-                      00145 
-  0000                00146         extern PSAVE
-  0000                00147         extern SSAVE
-  0000                00148         extern WSAVE
-  0000                00149         extern STK12
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  4
+  0000                00097         extern  _PORTB
+  0000                00098         extern  _PORTC
+  0000                00099         extern  _PORTD
+  0000                00100         extern  _PORTE
+  0000                00101         extern  _PCLATH
+  0000                00102         extern  _INTCON
+  0000                00103         extern  _PIR1
+  0000                00104         extern  _PIR2
+  0000                00105         extern  _TMR1
+  0000                00106         extern  _TMR1L
+  0000                00107         extern  _TMR1H
+  0000                00108         extern  _T1CON
+  0000                00109         extern  _TMR2
+  0000                00110         extern  _T2CON
+  0000                00111         extern  _SSPBUF
+  0000                00112         extern  _SSPCON
+  0000                00113         extern  _CCPR1
+  0000                00114         extern  _CCPR1L
+  0000                00115         extern  _CCPR1H
+  0000                00116         extern  _CCP1CON
+  0000                00117         extern  _RCSTA
+  0000                00118         extern  _TXREG
+  0000                00119         extern  _RCREG
+  0000                00120         extern  _CCPR2
+  0000                00121         extern  _CCPR2L
+  0000                00122         extern  _CCPR2H
+  0000                00123         extern  _CCP2CON
+  0000                00124         extern  _ADRESH
+  0000                00125         extern  _ADCON0
+  0000                00126         extern  _OPTION_REG
+  0000                00127         extern  _TRISA
+  0000                00128         extern  _TRISB
+  0000                00129         extern  _TRISC
+  0000                00130         extern  _TRISD
+  0000                00131         extern  _TRISE
+  0000                00132         extern  _PIE1
+  0000                00133         extern  _PIE2
+  0000                00134         extern  _PCON
+  0000                00135         extern  _SSPCON2
+  0000                00136         extern  _PR2
+  0000                00137         extern  _SSPADD
+  0000                00138         extern  _SSPSTAT
+  0000                00139         extern  _TXSTA
+  0000                00140         extern  _SPBRG
+  0000                00141         extern  _CMCON
+  0000                00142         extern  _CVRCON
+  0000                00143         extern  _ADRESL
+  0000                00144         extern  _ADCON1
+  0000                00145         extern  _EEDATA
+  0000                00146         extern  _EEADR
+  0000                00147         extern  _EEDATH
+  0000                00148         extern  _EEADRH
+  0000                00149         extern  _EECON1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  4
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00150         extern STK11
-  0000                00151         extern STK10
-  0000                00152         extern STK09
-  0000                00153         extern STK08
-  0000                00154         extern STK07
-  0000                00155         extern STK06
-  0000                00156         extern STK05
-  0000                00157         extern STK04
-  0000                00158         extern STK03
-  0000                00159         extern STK02
-  0000                00160         extern STK01
-  0000                00161         extern STK00
-                      00162 ;--------------------------------------------------------
-                      00163 ; global declarations
-                      00164 ;--------------------------------------------------------
-  0000                00165         global  _SettingMode_OFF_mode
-  0000                00166         global  _SettingMode_update
-  0000                00167         global  _Counters
-  0000                00168         global  _Readings
-  0000                00169         global  _Flags
-                      00170 
-                      00171 ;--------------------------------------------------------
-                      00172 ; global definitions
-                      00173 ;--------------------------------------------------------
-                      00174 UD_setting_mode_0       udata
-0000                  00175 _Counters       res     6
-                      00176 
-                      00177 UD_setting_mode_1       udata
-0000                  00178 _Readings       res     8
-                      00179 
-                      00180 UD_setting_mode_2       udata
-0000                  00181 _Flags  res     5
-                      00182 
-                      00183 ;--------------------------------------------------------
-                      00184 ; absolute symbol definitions
-                      00185 ;--------------------------------------------------------
-                      00186 ;--------------------------------------------------------
-                      00187 ; compiler-defined variables
+  0000                00150         extern  _EECON2
+                      00151 
+  0000                00152         extern PSAVE
+  0000                00153         extern SSAVE
+  0000                00154         extern WSAVE
+  0000                00155         extern STK12
+  0000                00156         extern STK11
+  0000                00157         extern STK10
+  0000                00158         extern STK09
+  0000                00159         extern STK08
+  0000                00160         extern STK07
+  0000                00161         extern STK06
+  0000                00162         extern STK05
+  0000                00163         extern STK04
+  0000                00164         extern STK03
+  0000                00165         extern STK02
+  0000                00166         extern STK01
+  0000                00167         extern STK00
+                      00168 ;--------------------------------------------------------
+                      00169 ; global declarations
+                      00170 ;--------------------------------------------------------
+  0000                00171         global  _SettingMode_update
+  0000                00172         global  _Counters
+  0000                00173         global  _Readings
+  0000                00174         global  _Flags
+                      00175 
+                      00176 ;--------------------------------------------------------
+                      00177 ; global definitions
+                      00178 ;--------------------------------------------------------
+                      00179 UD_setting_mode_0       udata
+0000                  00180 _Counters       res     10
+                      00181 
+                      00182 UD_setting_mode_1       udata
+0000                  00183 _Readings       res     8
+                      00184 
+                      00185 UD_setting_mode_2       udata
+0000                  00186 _Flags  res     6
+                      00187 
                       00188 ;--------------------------------------------------------
-                      00189 UDL_setting_mode_0      udata
-0000                  00190 r0x1021 res     1
-0001                  00191 r0x1022 res     1
-0002                  00192 r0x1015 res     1
-0003                  00193 r0x1016 res     1
-0004                  00194 r0x1017 res     1
-0005                  00195 r0x1018 res     1
-0006                  00196 r0x1019 res     1
-0007                  00197 r0x101A res     1
-0008                  00198 r0x101B res     1
-0009                  00199 r0x101C res     1
-000A                  00200 r0x101D res     1
-000B                  00201 r0x101E res     1
-000C                  00202 r0x101F res     1
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  5
+                      00189 ; absolute symbol definitions
+                      00190 ;--------------------------------------------------------
+                      00191 ;--------------------------------------------------------
+                      00192 ; compiler-defined variables
+                      00193 ;--------------------------------------------------------
+                      00194 UDL_setting_mode_0      udata
+0000                  00195 r0x1028 res     1
+0001                  00196 r0x1029 res     1
+0002                  00197 r0x101C res     1
+0003                  00198 r0x101D res     1
+0004                  00199 r0x101E res     1
+0005                  00200 r0x101F res     1
+0006                  00201 r0x1020 res     1
+0007                  00202 r0x1021 res     1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  5
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-000D                  00203 r0x1020 res     1
-000E                  00204 r0x1013 res     1
-000F                  00205 r0x1014 res     1
-                      00206 ;--------------------------------------------------------
-                      00207 ; initialized data
-                      00208 ;--------------------------------------------------------
-                      00209 ;--------------------------------------------------------
-                      00210 ; overlayable items in internal ram 
-                      00211 ;--------------------------------------------------------
-                      00212 ;       udata_ovr
+0008                  00203 r0x1022 res     1
+0009                  00204 r0x1023 res     1
+000A                  00205 r0x1024 res     1
+000B                  00206 r0x1025 res     1
+000C                  00207 r0x1026 res     1
+000D                  00208 r0x1027 res     1
+000E                  00209 r0x1018 res     1
+000F                  00210 r0x1019 res     1
+0010                  00211 r0x101A res     1
+0011                  00212 r0x101B res     1
                       00213 ;--------------------------------------------------------
-                      00214 ; code
+                      00214 ; initialized data
                       00215 ;--------------------------------------------------------
-                      00216 code_setting_mode       code
-                      00217 ;***
-                      00218 ;  pBlock Stats: dbName = C
-                      00219 ;***
-                      00220 ;entry:  _SettingMode_OFF_mode  ;Function start
-                      00221 ; 2 exit points
-                      00222 ;has an exit
-                      00223 ;functions called:
-                      00224 ;   _SSD_SET_state
-                      00225 ;   _SSD_SET_state
-                      00226 ;   _SSD_SET_state
-                      00227 ;   _SSD_SET_state
-                      00228 ;1 compiler assigned register :
-                      00229 ;   STK00
-                      00230 ;; Starting pCode block
-0000                  00231 _SettingMode_OFF_mode   ;Function start
-                      00232 ; 2 exit points
-                      00233 ;       .line   61; "setting_mode.c"    SSD_SET_state(SSD_MR,SSD_OFF);
-0000   3000           00234         MOVLW   0x00
-0001   00??           00235         MOVWF   STK00
-0002   3002           00236         MOVLW   0x02
-0003   ???? ????      00237         PAGESEL _SSD_SET_state
-0005   2???           00238         CALL    _SSD_SET_state
-0006   ???? ????      00239         PAGESEL $
-                      00240 ;       .line   62; "setting_mode.c"    SSD_SET_state(SSD_R,SSD_OFF);
-0008   3000           00241         MOVLW   0x00
-0009   00??           00242         MOVWF   STK00
-000A   3003           00243         MOVLW   0x03
-000B   ???? ????      00244         PAGESEL _SSD_SET_state
-000D   2???           00245         CALL    _SSD_SET_state
-000E   ???? ????      00246         PAGESEL $
-                      00247 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00248 ;       .line   64; "setting_mode.c"    Flags.Heater_Operation = 0 ; //Turn off The heater element
-0010   ???? ????      00249         BANKSEL _Flags
-0012   01??           00250         CLRF    (_Flags + 2)
-                      00251 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00252 ;       .line   65; "setting_mode.c"    Flags.Cooler_Operation = 0 ; //Turn off Heater element
-0013   01??           00253         CLRF    (_Flags + 3)
+                      00216 ;--------------------------------------------------------
+                      00217 ; overlayable items in internal ram 
+                      00218 ;--------------------------------------------------------
+                      00219 ;       udata_ovr
+                      00220 ;--------------------------------------------------------
+                      00221 ; code
+                      00222 ;--------------------------------------------------------
+                      00223 code_setting_mode       code
+                      00224 ;***
+                      00225 ;  pBlock Stats: dbName = C
+                      00226 ;***
+                      00227 ;entry:  _SettingMode_OFF_mode  ;Function start
+                      00228 ; 2 exit points
+                      00229 ;has an exit
+                      00230 ;functions called:
+                      00231 ;   _SSD_SET_state
+                      00232 ;   _SSD_SET_state
+                      00233 ;   _SSD_SET_state
+                      00234 ;   _SSD_SET_state
+                      00235 ;1 compiler assigned register :
+                      00236 ;   STK00
+                      00237 ;; Starting pCode block
+0000                  00238 _SettingMode_OFF_mode   ;Function start
+                      00239 ; 2 exit points
+                      00240 ;       .line   72; "setting_mode.c"    SSD_SET_state(SSD_MR,SSD_OFF);
+0000   3000           00241         MOVLW   0x00
+0001   00??           00242         MOVWF   STK00
+0002   3000           00243         MOVLW   0x00
+0003   ???? ????      00244         PAGESEL _SSD_SET_state
+0005   2???           00245         CALL    _SSD_SET_state
+0006   ???? ????      00246         PAGESEL $
+                      00247 ;       .line   73; "setting_mode.c"    SSD_SET_state(SSD_R,SSD_OFF);
+0008   3000           00248         MOVLW   0x00
+0009   00??           00249         MOVWF   STK00
+000A   3001           00250         MOVLW   0x01
+000B   ???? ????      00251         PAGESEL _SSD_SET_state
+000D   2???           00252         CALL    _SSD_SET_state
+000E   ???? ????      00253         PAGESEL $
                       00254 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00255 ;       .line   67; "setting_mode.c"    Flags.Toggle_led = 3;        //Turn off Warning Led
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  6
+                      00255 ;       .line   75; "setting_mode.c"    Flags.Heater_Operation = OFF ; //Turn off The heater element
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  6
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-0014   3003           00256         MOVLW   0x03
-0015   00??           00257         MOVWF   (_Flags + 1)
-                      00258 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
-                      00259 ;       .line   69; "setting_mode.c"    Counters.FixedMode_counter    = 0 ;
-0016   ???? ????      00260         BANKSEL _Counters
-0018   01??           00261         CLRF    (_Counters + 0)
-                      00262 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
-0019   01??           00263         CLRF    (_Counters + 1)
-                      00264 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
-                      00265 ;       .line   70; "setting_mode.c"    Counters.Blink_counter      = 0 ;
-001A   01??           00266         CLRF    (_Counters + 2)
-                      00267 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
-001B   01??           00268         CLRF    (_Counters + 3)
-                      00269 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
-                      00270 ;       .line   71; "setting_mode.c"    Readings.temp_read          = 0 ;
-001C   ???? ????      00271         BANKSEL _Readings
-001E   01??           00272         CLRF    (_Readings + 0)
-                      00273 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
-001F   01??           00274         CLRF    (_Readings + 1)
-                      00275 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
-0020   01??           00276         CLRF    (_Readings + 2)
-                      00277 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
-0021   01??           00278         CLRF    (_Readings + 3)
-0022   0008           00279         RETURN  
-                      00280 ; exit point of _SettingMode_OFF_mode
-                      00281 
-                      00282 ;***
-                      00283 ;  pBlock Stats: dbName = C
-                      00284 ;***
-                      00285 ;entry:  _SettingMode_Blinking_mode     ;Function start
-                      00286 ; 2 exit points
-                      00287 ;has an exit
-                      00288 ;2 compiler assigned registers:
-                      00289 ;   r0x1013
-                      00290 ;   r0x1014
-                      00291 ;; Starting pCode block
-0023                  00292 _SettingMode_Blinking_mode      ;Function start
-                      00293 ; 2 exit points
-                      00294 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00295 ;       .line   45; "setting_mode.c"    Flags.Heater_Operation = 0 ; //Turn off The heater element
-0023   ???? ????      00296         BANKSEL _Flags
-0025   01??           00297         CLRF    (_Flags + 2)
-                      00298 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00299 ;       .line   46; "setting_mode.c"    Flags.Cooler_Operation = 0 ;//Turn off Heater element
-0026   01??           00300         CLRF    (_Flags + 3)
-                      00301 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00302 ;       .line   47; "setting_mode.c"    Flags.Toggle_led = 3;      //Turn off Warning Led
-0027   3003           00303         MOVLW   0x03
-0028   00??           00304         MOVWF   (_Flags + 1)
-                      00305 ;       .line   49; "setting_mode.c"    if(Counters.Blink_counter == 100)
-0029   ???? ????      00306         BANKSEL _Counters
-002B   08??           00307         MOVF    (_Counters + 2),W
-002C   ???? ????      00308         BANKSEL r0x1013
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  7
+0010   ???? ????      00256         BANKSEL _Flags
+0012   01??           00257         CLRF    (_Flags + 2)
+                      00258 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00259 ;       .line   76; "setting_mode.c"    Flags.Cooler_Operation = OFF ; //Turn off Heater element
+0013   01??           00260         CLRF    (_Flags + 3)
+                      00261 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00262 ;       .line   78; "setting_mode.c"    Flags.Toggle_led = 2;        //Turn off Warning Led
+0014   3002           00263         MOVLW   0x02
+0015   00??           00264         MOVWF   (_Flags + 1)
+                      00265 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
+                      00266 ;       .line   80; "setting_mode.c"    Counters.FixedMode_counter  = 0 ;
+0016   ???? ????      00267         BANKSEL _Counters
+0018   01??           00268         CLRF    (_Counters + 0)
+                      00269 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
+0019   01??           00270         CLRF    (_Counters + 1)
+                      00271 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
+                      00272 ;       .line   81; "setting_mode.c"    Counters.Blink_counter      = 0 ;
+001A   01??           00273         CLRF    (_Counters + 2)
+                      00274 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
+001B   01??           00275         CLRF    (_Counters + 3)
+                      00276 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
+                      00277 ;       .line   82; "setting_mode.c"    Readings.temp_read          = 0 ;
+001C   ???? ????      00278         BANKSEL _Readings
+001E   01??           00279         CLRF    (_Readings + 0)
+                      00280 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
+001F   01??           00281         CLRF    (_Readings + 1)
+                      00282 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
+0020   01??           00283         CLRF    (_Readings + 2)
+                      00284 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
+0021   01??           00285         CLRF    (_Readings + 3)
+                      00286 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00287 ;       .line   83; "setting_mode.c"    Flags.next_state = 0 ;
+0022   ???? ????      00288         BANKSEL _Flags
+0024   01??           00289         CLRF    (_Flags + 0)
+                      00290 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
+                      00291 ;       .line   84; "setting_mode.c"    Counters.FixedMode_counter = 250; //Turn on to fixed mode
+0025   30FA           00292         MOVLW   0xfa
+0026   ???? ????      00293         BANKSEL _Counters
+0028   00??           00294         MOVWF   (_Counters + 0)
+                      00295 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
+0029   01??           00296         CLRF    (_Counters + 1)
+002A   0008           00297         RETURN  
+                      00298 ; exit point of _SettingMode_OFF_mode
+                      00299 
+                      00300 ;***
+                      00301 ;  pBlock Stats: dbName = C
+                      00302 ;***
+                      00303 ;entry:  _SettingMode_Blinking_mode     ;Function start
+                      00304 ; 2 exit points
+                      00305 ;has an exit
+                      00306 ;4 compiler assigned registers:
+                      00307 ;   r0x1018
+                      00308 ;   r0x1019
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  7
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-002E   00??           00309         MOVWF   r0x1013
-002F   ???? ????      00310         BANKSEL _Counters
-0031   08??           00311         MOVF    (_Counters + 3),W
-0032   ???? ????      00312         BANKSEL r0x1014
-0034   00??           00313         MOVWF   r0x1014
-0035   08??           00314         MOVF    r0x1013,W
-0036   3A64           00315         XORLW   0x64
-0037   1D03           00316         BTFSS   STATUS,2
-0038   2???           00317         GOTO    _00133_DS_
-0039   08??           00318         MOVF    r0x1014,W
-003A   3A00           00319         XORLW   0x00
-003B   1D03           00320         BTFSS   STATUS,2
-003C   2???           00321         GOTO    _00133_DS_
-                      00322 ;       .line   51; "setting_mode.c"    Flags.next_state^=1; //toggle SSD State
-003D   ???? ????      00323         BANKSEL _Flags
-003F   08??           00324         MOVF    (_Flags + 0),W
-0040   ???? ????      00325         BANKSEL r0x1013
-0042   00??           00326         MOVWF   r0x1013
-0043   3001           00327         MOVLW   0x01
-0044   06??           00328         XORWF   r0x1013,F
-                      00329 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-0045   08??           00330         MOVF    r0x1013,W
-0046   ???? ????      00331         BANKSEL _Flags
-0048   00??           00332         MOVWF   (_Flags + 0)
-                      00333 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
-                      00334 ;       .line   52; "setting_mode.c"    Counters.Blink_counter = 0 ;
-0049   ???? ????      00335         BANKSEL _Counters
-004B   01??           00336         CLRF    (_Counters + 2)
-                      00337 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
-004C   01??           00338         CLRF    (_Counters + 3)
-004D                  00339 _00133_DS_
-                      00340 ;       .line   54; "setting_mode.c"    Counters.Blink_counter ++;
-004D   ???? ????      00341         BANKSEL _Counters
-004F   08??           00342         MOVF    (_Counters + 2),W
-0050   ???? ????      00343         BANKSEL r0x1013
-0052   00??           00344         MOVWF   r0x1013
-0053   ???? ????      00345         BANKSEL _Counters
-0055   08??           00346         MOVF    (_Counters + 3),W
-0056   ???? ????      00347         BANKSEL r0x1014
-0058   00??           00348         MOVWF   r0x1014
-0059   0A??           00349         INCF    r0x1013,F
-005A   1903           00350         BTFSC   STATUS,2
-005B   0A??           00351         INCF    r0x1014,F
-                      00352 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
-005C   08??           00353         MOVF    r0x1013,W
-005D   ???? ????      00354         BANKSEL _Counters
-005F   00??           00355         MOVWF   (_Counters + 2)
-                      00356 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
-0060   ???? ????      00357         BANKSEL r0x1014
-0062   08??           00358         MOVF    r0x1014,W
-0063   ???? ????      00359         BANKSEL _Counters
-0065   00??           00360         MOVWF   (_Counters + 3)
-                      00361 ;       .line   55; "setting_mode.c"    Counters.FixedMode_counter++;
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  8
+                      00309 ;   r0x101A
+                      00310 ;   r0x101B
+                      00311 ;; Starting pCode block
+002B                  00312 _SettingMode_Blinking_mode      ;Function start
+                      00313 ; 2 exit points
+                      00314 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00315 ;       .line   56; "setting_mode.c"    Flags.Heater_Operation = OFF ; //Turn off The heater element
+002B   ???? ????      00316         BANKSEL _Flags
+002D   01??           00317         CLRF    (_Flags + 2)
+                      00318 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00319 ;       .line   57; "setting_mode.c"    Flags.Cooler_Operation = OFF ;//Turn off Heater element
+002E   01??           00320         CLRF    (_Flags + 3)
+                      00321 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00322 ;       .line   58; "setting_mode.c"    Flags.Toggle_led = 2;      //Turn off Heating element Led
+002F   3002           00323         MOVLW   0x02
+0030   00??           00324         MOVWF   (_Flags + 1)
+                      00325 ;       .line   60; "setting_mode.c"    if(Counters.Blink_counter == 25)
+0031   ???? ????      00326         BANKSEL _Counters
+0033   08??           00327         MOVF    (_Counters + 2),W
+0034   ???? ????      00328         BANKSEL r0x1018
+0036   00??           00329         MOVWF   r0x1018
+0037   ???? ????      00330         BANKSEL _Counters
+0039   08??           00331         MOVF    (_Counters + 3),W
+003A   ???? ????      00332         BANKSEL r0x1019
+003C   00??           00333         MOVWF   r0x1019
+003D   08??           00334         MOVF    r0x1018,W
+003E   3A19           00335         XORLW   0x19
+003F   1D03           00336         BTFSS   STATUS,2
+0040   2???           00337         GOTO    _00149_DS_
+0041   08??           00338         MOVF    r0x1019,W
+0042   3A00           00339         XORLW   0x00
+0043   1D03           00340         BTFSS   STATUS,2
+0044   2???           00341         GOTO    _00149_DS_
+                      00342 ;       .line   62; "setting_mode.c"    Flags.next_state^=1;         //toggle SSD State
+0045   ???? ????      00343         BANKSEL _Flags
+0047   08??           00344         MOVF    (_Flags + 0),W
+0048   ???? ????      00345         BANKSEL r0x1018
+004A   00??           00346         MOVWF   r0x1018
+004B   3001           00347         MOVLW   0x01
+004C   06??           00348         XORWF   r0x1018,F
+                      00349 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+004D   08??           00350         MOVF    r0x1018,W
+004E   ???? ????      00351         BANKSEL _Flags
+0050   00??           00352         MOVWF   (_Flags + 0)
+                      00353 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
+                      00354 ;       .line   63; "setting_mode.c"    Counters.Blink_counter = 0 ;
+0051   ???? ????      00355         BANKSEL _Counters
+0053   01??           00356         CLRF    (_Counters + 2)
+                      00357 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
+0054   01??           00358         CLRF    (_Counters + 3)
+0055                  00359 _00149_DS_
+                      00360 ;       .line   65; "setting_mode.c"    Counters.Blink_counter++;
+0055   ???? ????      00361         BANKSEL _Counters
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  8
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-0066   08??           00362         MOVF    (_Counters + 0),W
-0067   ???? ????      00363         BANKSEL r0x1013
-0069   00??           00364         MOVWF   r0x1013
-006A   ???? ????      00365         BANKSEL _Counters
-006C   08??           00366         MOVF    (_Counters + 1),W
-006D   ???? ????      00367         BANKSEL r0x1014
-006F   00??           00368         MOVWF   r0x1014
-0070   0A??           00369         INCF    r0x1013,F
-0071   1903           00370         BTFSC   STATUS,2
-0072   0A??           00371         INCF    r0x1014,F
+0057   08??           00362         MOVF    (_Counters + 2),W
+0058   ???? ????      00363         BANKSEL r0x1018
+005A   00??           00364         MOVWF   r0x1018
+005B   ???? ????      00365         BANKSEL _Counters
+005D   08??           00366         MOVF    (_Counters + 3),W
+005E   ???? ????      00367         BANKSEL r0x1019
+0060   00??           00368         MOVWF   r0x1019
+0061   0A??           00369         INCF    r0x1018,F
+0062   1903           00370         BTFSC   STATUS,2
+0063   0A??           00371         INCF    r0x1019,F
                       00372 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
-0073   08??           00373         MOVF    r0x1013,W
-0074   ???? ????      00374         BANKSEL _Counters
-0076   00??           00375         MOVWF   (_Counters + 0)
+0064   08??           00373         MOVF    r0x1018,W
+0065   ???? ????      00374         BANKSEL _Counters
+0067   00??           00375         MOVWF   (_Counters + 2)
                       00376 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
-0077   ???? ????      00377         BANKSEL r0x1014
-0079   08??           00378         MOVF    r0x1014,W
-007A   ???? ????      00379         BANKSEL _Counters
-007C   00??           00380         MOVWF   (_Counters + 1)
-007D   0008           00381         RETURN  
-                      00382 ; exit point of _SettingMode_Blinking_mode
-                      00383 
-                      00384 ;***
-                      00385 ;  pBlock Stats: dbName = C
-                      00386 ;***
-                      00387 ;entry:  _SettingMode_Fixed_mode        ;Function start
-                      00388 ; 2 exit points
-                      00389 ;has an exit
-                      00390 ;12 compiler assigned registers:
-                      00391 ;   r0x1015
-                      00392 ;   r0x1016
-                      00393 ;   r0x1017
-                      00394 ;   r0x1018
-                      00395 ;   r0x1019
-                      00396 ;   r0x101A
-                      00397 ;   r0x101B
-                      00398 ;   r0x101C
-                      00399 ;   r0x101D
-                      00400 ;   r0x101E
-                      00401 ;   r0x101F
-                      00402 ;   r0x1020
-                      00403 ;; Starting pCode block
-007E                  00404 _SettingMode_Fixed_mode ;Function start
-                      00405 ; 2 exit points
-                      00406 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00407 ;       .line   26; "setting_mode.c"    Flags.next_state = 1 ; //make the SSD go into normal operation
-007E   3001           00408         MOVLW   0x01
-007F   ???? ????      00409         BANKSEL _Flags
-0081   00??           00410         MOVWF   (_Flags + 0)
-                      00411 ;       .line   28; "setting_mode.c"    if(Readings.temp_read <= (Readings.Set_value-5))
-0082   ???? ????      00412         BANKSEL _Readings
-0084   08??           00413         MOVF    (_Readings + 0),W
-0085   ???? ????      00414         BANKSEL r0x1015
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE  9
+0068   ???? ????      00377         BANKSEL r0x1019
+006A   08??           00378         MOVF    r0x1019,W
+006B   ???? ????      00379         BANKSEL _Counters
+006D   00??           00380         MOVWF   (_Counters + 3)
+                      00381 ;       .line   66; "setting_mode.c"    Counters.FixedMode_counter++;
+006E   08??           00382         MOVF    (_Counters + 0),W
+006F   ???? ????      00383         BANKSEL r0x1018
+0071   00??           00384         MOVWF   r0x1018
+0072   ???? ????      00385         BANKSEL _Counters
+0074   08??           00386         MOVF    (_Counters + 1),W
+0075   ???? ????      00387         BANKSEL r0x1019
+0077   00??           00388         MOVWF   r0x1019
+0078   0A??           00389         INCF    r0x1018,F
+0079   1903           00390         BTFSC   STATUS,2
+007A   0A??           00391         INCF    r0x1019,F
+                      00392 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=0, AOP_TYPE(res)=8
+007B   08??           00393         MOVF    r0x1018,W
+007C   ???? ????      00394         BANKSEL _Counters
+007E   00??           00395         MOVWF   (_Counters + 0)
+                      00396 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=1, AOP_TYPE(res)=8
+007F   ???? ????      00397         BANKSEL r0x1019
+0081   08??           00398         MOVF    r0x1019,W
+0082   ???? ????      00399         BANKSEL _Counters
+0084   00??           00400         MOVWF   (_Counters + 1)
+                      00401 ;       .line   67; "setting_mode.c"    Counters.e2prom_count++;
+0085   08??           00402         MOVF    (_Counters + 6),W
+0086   ???? ????      00403         BANKSEL r0x1018
+0088   00??           00404         MOVWF   r0x1018
+0089   ???? ????      00405         BANKSEL _Counters
+008B   08??           00406         MOVF    (_Counters + 7),W
+008C   ???? ????      00407         BANKSEL r0x1019
+008E   00??           00408         MOVWF   r0x1019
+008F   ???? ????      00409         BANKSEL _Counters
+0091   08??           00410         MOVF    (_Counters + 8),W
+0092   ???? ????      00411         BANKSEL r0x101A
+0094   00??           00412         MOVWF   r0x101A
+0095   ???? ????      00413         BANKSEL _Counters
+0097   08??           00414         MOVF    (_Counters + 9),W
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE  9
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-0087   00??           00415         MOVWF   r0x1015
-0088   ???? ????      00416         BANKSEL _Readings
-008A   08??           00417         MOVF    (_Readings + 1),W
-008B   ???? ????      00418         BANKSEL r0x1016
-008D   00??           00419         MOVWF   r0x1016
-008E   ???? ????      00420         BANKSEL _Readings
-0090   08??           00421         MOVF    (_Readings + 2),W
-0091   ???? ????      00422         BANKSEL r0x1017
-0093   00??           00423         MOVWF   r0x1017
-0094   ???? ????      00424         BANKSEL _Readings
-0096   08??           00425         MOVF    (_Readings + 3),W
-0097   ???? ????      00426         BANKSEL r0x1018
-0099   00??           00427         MOVWF   r0x1018
-009A   ???? ????      00428         BANKSEL _Readings
-009C   08??           00429         MOVF    (_Readings + 4),W
-009D   ???? ????      00430         BANKSEL r0x1019
-009F   00??           00431         MOVWF   r0x1019
-00A0   ???? ????      00432         BANKSEL _Readings
-00A2   08??           00433         MOVF    (_Readings + 5),W
-00A3   ???? ????      00434         BANKSEL r0x101A
-00A5   00??           00435         MOVWF   r0x101A
-00A6   ???? ????      00436         BANKSEL _Readings
-00A8   08??           00437         MOVF    (_Readings + 6),W
-00A9   ???? ????      00438         BANKSEL r0x101B
-00AB   00??           00439         MOVWF   r0x101B
-00AC   ???? ????      00440         BANKSEL _Readings
-00AE   08??           00441         MOVF    (_Readings + 7),W
-00AF   ???? ????      00442         BANKSEL r0x101C
-00B1   00??           00443         MOVWF   r0x101C
-00B2   30FB           00444         MOVLW   0xfb
-00B3   07??           00445         ADDWF   r0x1019,W
-00B4   00??           00446         MOVWF   r0x101D
-00B5   30FF           00447         MOVLW   0xff
-00B6   00??           00448         MOVWF   r0x101E
-00B7   08??           00449         MOVF    r0x101A,W
-00B8   1803           00450         BTFSC   STATUS,0
-00B9   0F??           00451         INCFSZ  r0x101A,W
-00BA   07??           00452         ADDWF   r0x101E,F
-00BB   30FF           00453         MOVLW   0xff
-00BC   00??           00454         MOVWF   r0x101F
-00BD   08??           00455         MOVF    r0x101B,W
-00BE   1803           00456         BTFSC   STATUS,0
-00BF   0F??           00457         INCFSZ  r0x101B,W
-00C0   07??           00458         ADDWF   r0x101F,F
-00C1   30FF           00459         MOVLW   0xff
-00C2   00??           00460         MOVWF   r0x1020
-00C3   08??           00461         MOVF    r0x101C,W
-00C4   1803           00462         BTFSC   STATUS,0
-00C5   0F??           00463         INCFSZ  r0x101C,W
-00C6   07??           00464         ADDWF   r0x1020,F
-00C7   08??           00465         MOVF    r0x1018,W
-00C8   02??           00466         SUBWF   r0x1020,W
-00C9   1D03           00467         BTFSS   STATUS,2
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 10
+0098   ???? ????      00415         BANKSEL r0x101B
+009A   00??           00416         MOVWF   r0x101B
+009B   0A??           00417         INCF    r0x1018,F
+009C   1903           00418         BTFSC   STATUS,2
+009D   0A??           00419         INCF    r0x1019,F
+009E   1903           00420         BTFSC   STATUS,2
+009F   0A??           00421         INCF    r0x101A,F
+00A0   1903           00422         BTFSC   STATUS,2
+00A1   0A??           00423         INCF    r0x101B,F
+                      00424 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=3, offset=0, AOP_TYPE(res)=8
+00A2   08??           00425         MOVF    r0x1018,W
+00A3   ???? ????      00426         BANKSEL _Counters
+00A5   00??           00427         MOVWF   (_Counters + 6)
+                      00428 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=2, offset=1, AOP_TYPE(res)=8
+00A6   ???? ????      00429         BANKSEL r0x1019
+00A8   08??           00430         MOVF    r0x1019,W
+00A9   ???? ????      00431         BANKSEL _Counters
+00AB   00??           00432         MOVWF   (_Counters + 7)
+                      00433 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=1, offset=2, AOP_TYPE(res)=8
+00AC   ???? ????      00434         BANKSEL r0x101A
+00AE   08??           00435         MOVF    r0x101A,W
+00AF   ???? ????      00436         BANKSEL _Counters
+00B1   00??           00437         MOVWF   (_Counters + 8)
+                      00438 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=3, AOP_TYPE(res)=8
+00B2   ???? ????      00439         BANKSEL r0x101B
+00B4   08??           00440         MOVF    r0x101B,W
+00B5   ???? ????      00441         BANKSEL _Counters
+00B7   00??           00442         MOVWF   (_Counters + 9)
+00B8   0008           00443         RETURN  
+                      00444 ; exit point of _SettingMode_Blinking_mode
+                      00445 
+                      00446 ;***
+                      00447 ;  pBlock Stats: dbName = C
+                      00448 ;***
+                      00449 ;entry:  _SettingMode_Fixed_mode        ;Function start
+                      00450 ; 2 exit points
+                      00451 ;has an exit
+                      00452 ;12 compiler assigned registers:
+                      00453 ;   r0x101C
+                      00454 ;   r0x101D
+                      00455 ;   r0x101E
+                      00456 ;   r0x101F
+                      00457 ;   r0x1020
+                      00458 ;   r0x1021
+                      00459 ;   r0x1022
+                      00460 ;   r0x1023
+                      00461 ;   r0x1024
+                      00462 ;   r0x1025
+                      00463 ;   r0x1026
+                      00464 ;   r0x1027
+                      00465 ;; Starting pCode block
+00B9                  00466 _SettingMode_Fixed_mode ;Function start
+                      00467 ; 2 exit points
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 10
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-00CA   2???           00468         GOTO    _00126_DS_
-00CB   08??           00469         MOVF    r0x1017,W
-00CC   02??           00470         SUBWF   r0x101F,W
-00CD   1D03           00471         BTFSS   STATUS,2
-00CE   2???           00472         GOTO    _00126_DS_
-00CF   08??           00473         MOVF    r0x1016,W
-00D0   02??           00474         SUBWF   r0x101E,W
-00D1   1D03           00475         BTFSS   STATUS,2
-00D2   2???           00476         GOTO    _00126_DS_
-00D3   08??           00477         MOVF    r0x1015,W
-00D4   02??           00478         SUBWF   r0x101D,W
-00D5                  00479 _00126_DS_
-00D5   1C03           00480         BTFSS   STATUS,0
-00D6   2???           00481         GOTO    _00116_DS_
-                      00482 ;;genSkipc:3247: created from rifx:027A5DF4
-                      00483 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00484 ;       .line   30; "setting_mode.c"    Flags.Toggle_led = 1 ;        //the led will toggle
-00D7   3001           00485         MOVLW   0x01
-                      00486 ;       .line   31; "setting_mode.c"    Flags.Heater_Operation = 1 ; //Turn on The Heater element
-00D8   ???? ????      00487         BANKSEL _Flags
-00DA   00??           00488         MOVWF   (_Flags + 1)
-00DB   00??           00489         MOVWF   (_Flags + 2)
-                      00490 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00491 ;       .line   32; "setting_mode.c"    Flags.Cooler_Operation = 0 ;//Turn off Cooler element
-00DC   01??           00492         CLRF    (_Flags + 3)
-00DD   2???           00493         GOTO    _00118_DS_
-00DE                  00494 _00116_DS_
-                      00495 ;       .line   34; "setting_mode.c"    else if(Readings.temp_read >= (Readings.Set_value+5))
-00DE   ???? ????      00496         BANKSEL _Readings
-00E0   08??           00497         MOVF    (_Readings + 0),W
-00E1   ???? ????      00498         BANKSEL r0x1015
-00E3   00??           00499         MOVWF   r0x1015
-00E4   ???? ????      00500         BANKSEL _Readings
-00E6   08??           00501         MOVF    (_Readings + 1),W
-00E7   ???? ????      00502         BANKSEL r0x1016
-00E9   00??           00503         MOVWF   r0x1016
-00EA   ???? ????      00504         BANKSEL _Readings
-00EC   08??           00505         MOVF    (_Readings + 2),W
-00ED   ???? ????      00506         BANKSEL r0x1017
-00EF   00??           00507         MOVWF   r0x1017
-00F0   ???? ????      00508         BANKSEL _Readings
-00F2   08??           00509         MOVF    (_Readings + 3),W
-00F3   ???? ????      00510         BANKSEL r0x1018
-00F5   00??           00511         MOVWF   r0x1018
-00F6   3005           00512         MOVLW   0x05
-00F7   07??           00513         ADDWF   r0x1019,F
-00F8   1803           00514         BTFSC   STATUS,0
-00F9   0A??           00515         INCF    r0x101A,F
-00FA   1903           00516         BTFSC   STATUS,2
-00FB   0A??           00517         INCF    r0x101B,F
-00FC   1903           00518         BTFSC   STATUS,2
-00FD   0A??           00519         INCF    r0x101C,F
-00FE   08??           00520         MOVF    r0x101C,W
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 11
+                      00468 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00469 ;       .line   37; "setting_mode.c"    Flags.next_state = 1 ; //make the SSD go into normal operation
+00B9   3001           00470         MOVLW   0x01
+00BA   ???? ????      00471         BANKSEL _Flags
+00BC   00??           00472         MOVWF   (_Flags + 0)
+                      00473 ;       .line   39; "setting_mode.c"    if(Readings.temp_read <= (Readings.Set_value-5))
+00BD   ???? ????      00474         BANKSEL _Readings
+00BF   08??           00475         MOVF    (_Readings + 0),W
+00C0   ???? ????      00476         BANKSEL r0x101C
+00C2   00??           00477         MOVWF   r0x101C
+00C3   ???? ????      00478         BANKSEL _Readings
+00C5   08??           00479         MOVF    (_Readings + 1),W
+00C6   ???? ????      00480         BANKSEL r0x101D
+00C8   00??           00481         MOVWF   r0x101D
+00C9   ???? ????      00482         BANKSEL _Readings
+00CB   08??           00483         MOVF    (_Readings + 2),W
+00CC   ???? ????      00484         BANKSEL r0x101E
+00CE   00??           00485         MOVWF   r0x101E
+00CF   ???? ????      00486         BANKSEL _Readings
+00D1   08??           00487         MOVF    (_Readings + 3),W
+00D2   ???? ????      00488         BANKSEL r0x101F
+00D4   00??           00489         MOVWF   r0x101F
+00D5   ???? ????      00490         BANKSEL _Readings
+00D7   08??           00491         MOVF    (_Readings + 4),W
+00D8   ???? ????      00492         BANKSEL r0x1020
+00DA   00??           00493         MOVWF   r0x1020
+00DB   ???? ????      00494         BANKSEL _Readings
+00DD   08??           00495         MOVF    (_Readings + 5),W
+00DE   ???? ????      00496         BANKSEL r0x1021
+00E0   00??           00497         MOVWF   r0x1021
+00E1   ???? ????      00498         BANKSEL _Readings
+00E3   08??           00499         MOVF    (_Readings + 6),W
+00E4   ???? ????      00500         BANKSEL r0x1022
+00E6   00??           00501         MOVWF   r0x1022
+00E7   ???? ????      00502         BANKSEL _Readings
+00E9   08??           00503         MOVF    (_Readings + 7),W
+00EA   ???? ????      00504         BANKSEL r0x1023
+00EC   00??           00505         MOVWF   r0x1023
+00ED   30FB           00506         MOVLW   0xfb
+00EE   07??           00507         ADDWF   r0x1020,W
+00EF   00??           00508         MOVWF   r0x1024
+00F0   30FF           00509         MOVLW   0xff
+00F1   00??           00510         MOVWF   r0x1025
+00F2   08??           00511         MOVF    r0x1021,W
+00F3   1803           00512         BTFSC   STATUS,0
+00F4   0F??           00513         INCFSZ  r0x1021,W
+00F5   07??           00514         ADDWF   r0x1025,F
+00F6   30FF           00515         MOVLW   0xff
+00F7   00??           00516         MOVWF   r0x1026
+00F8   08??           00517         MOVF    r0x1022,W
+00F9   1803           00518         BTFSC   STATUS,0
+00FA   0F??           00519         INCFSZ  r0x1022,W
+00FB   07??           00520         ADDWF   r0x1026,F
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 11
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-00FF   02??           00521         SUBWF   r0x1018,W
-0100   1D03           00522         BTFSS   STATUS,2
-0101   2???           00523         GOTO    _00127_DS_
-0102   08??           00524         MOVF    r0x101B,W
-0103   02??           00525         SUBWF   r0x1017,W
-0104   1D03           00526         BTFSS   STATUS,2
-0105   2???           00527         GOTO    _00127_DS_
-0106   08??           00528         MOVF    r0x101A,W
-0107   02??           00529         SUBWF   r0x1016,W
-0108   1D03           00530         BTFSS   STATUS,2
-0109   2???           00531         GOTO    _00127_DS_
-010A   08??           00532         MOVF    r0x1019,W
-010B   02??           00533         SUBWF   r0x1015,W
-010C                  00534 _00127_DS_
-010C   1C03           00535         BTFSS   STATUS,0
-010D   2???           00536         GOTO    _00118_DS_
-                      00537 ;;genSkipc:3247: created from rifx:027A5DF4
-                      00538 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00539 ;       .line   36; "setting_mode.c"    Flags.Toggle_led   = 0 ;      //the led will turn on without tog
-                            gling
-010E   ???? ????      00540         BANKSEL _Flags
-0110   01??           00541         CLRF    (_Flags + 1)
-                      00542 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00543 ;       .line   37; "setting_mode.c"    Flags.Heater_Operation = 0 ; //Turn on The Heater element
-0111   01??           00544         CLRF    (_Flags + 2)
+00FC   30FF           00521         MOVLW   0xff
+00FD   00??           00522         MOVWF   r0x1027
+00FE   08??           00523         MOVF    r0x1023,W
+00FF   1803           00524         BTFSC   STATUS,0
+0100   0F??           00525         INCFSZ  r0x1023,W
+0101   07??           00526         ADDWF   r0x1027,F
+0102   08??           00527         MOVF    r0x101F,W
+0103   02??           00528         SUBWF   r0x1027,W
+0104   1D03           00529         BTFSS   STATUS,2
+0105   2???           00530         GOTO    _00142_DS_
+0106   08??           00531         MOVF    r0x101E,W
+0107   02??           00532         SUBWF   r0x1026,W
+0108   1D03           00533         BTFSS   STATUS,2
+0109   2???           00534         GOTO    _00142_DS_
+010A   08??           00535         MOVF    r0x101D,W
+010B   02??           00536         SUBWF   r0x1025,W
+010C   1D03           00537         BTFSS   STATUS,2
+010D   2???           00538         GOTO    _00142_DS_
+010E   08??           00539         MOVF    r0x101C,W
+010F   02??           00540         SUBWF   r0x1024,W
+0110                  00541 _00142_DS_
+0110   1C03           00542         BTFSS   STATUS,0
+0111   2???           00543         GOTO    _00132_DS_
+                      00544 ;;genSkipc:3247: created from rifx:027A5DF4
                       00545 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00546 ;       .line   38; "setting_mode.c"    Flags.Cooler_Operation = 1 ;//Turn off Heater element
+                      00546 ;       .line   41; "setting_mode.c"    Flags.Toggle_led = 1 ;        //the led will toggle
 0112   3001           00547         MOVLW   0x01
-0113   00??           00548         MOVWF   (_Flags + 3)
-0114                  00549 _00118_DS_
-0114   0008           00550         RETURN  
-                      00551 ; exit point of _SettingMode_Fixed_mode
-                      00552 
-                      00553 ;***
-                      00554 ;  pBlock Stats: dbName = C
-                      00555 ;***
-                      00556 ;entry:  _SettingMode_update    ;Function start
-                      00557 ; 2 exit points
-                      00558 ;has an exit
-                      00559 ;functions called:
-                      00560 ;   _SettingMode_Fixed_mode
-                      00561 ;   _SettingMode_Blinking_mode
-                      00562 ;   _SettingMode_Fixed_mode
-                      00563 ;   _SettingMode_Blinking_mode
-                      00564 ;2 compiler assigned registers:
-                      00565 ;   r0x1021
-                      00566 ;   r0x1022
-                      00567 ;; Starting pCode block
-0115                  00568 _SettingMode_update     ;Function start
-                      00569 ; 2 exit points
-                      00570 ;       .line   11; "setting_mode.c"    if(Counters.FixedMode_counter == 1000) //if 5s are run out witho
-                            ut pressing up or down buttons the system goes into fixed mode
-0115   ???? ????      00571         BANKSEL _Counters
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 12
+                      00548 ;       .line   42; "setting_mode.c"    Flags.Heater_Operation = ON ; //Turn on The Heater element
+0113   ???? ????      00549         BANKSEL _Flags
+0115   00??           00550         MOVWF   (_Flags + 1)
+0116   00??           00551         MOVWF   (_Flags + 2)
+                      00552 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00553 ;       .line   43; "setting_mode.c"    Flags.Cooler_Operation = OFF ;//Turn off Cooler element
+0117   01??           00554         CLRF    (_Flags + 3)
+0118   2???           00555         GOTO    _00134_DS_
+0119                  00556 _00132_DS_
+                      00557 ;       .line   45; "setting_mode.c"    else if(Readings.temp_read >= (Readings.Set_value+5))
+0119   ???? ????      00558         BANKSEL _Readings
+011B   08??           00559         MOVF    (_Readings + 0),W
+011C   ???? ????      00560         BANKSEL r0x101C
+011E   00??           00561         MOVWF   r0x101C
+011F   ???? ????      00562         BANKSEL _Readings
+0121   08??           00563         MOVF    (_Readings + 1),W
+0122   ???? ????      00564         BANKSEL r0x101D
+0124   00??           00565         MOVWF   r0x101D
+0125   ???? ????      00566         BANKSEL _Readings
+0127   08??           00567         MOVF    (_Readings + 2),W
+0128   ???? ????      00568         BANKSEL r0x101E
+012A   00??           00569         MOVWF   r0x101E
+012B   ???? ????      00570         BANKSEL _Readings
+012D   08??           00571         MOVF    (_Readings + 3),W
+012E   ???? ????      00572         BANKSEL r0x101F
+0130   00??           00573         MOVWF   r0x101F
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 12
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-0117   08??           00572         MOVF    (_Counters + 0),W
-0118   ???? ????      00573         BANKSEL r0x1021
-011A   00??           00574         MOVWF   r0x1021
-011B   ???? ????      00575         BANKSEL _Counters
-011D   08??           00576         MOVF    (_Counters + 1),W
-011E   ???? ????      00577         BANKSEL r0x1022
-0120   00??           00578         MOVWF   r0x1022
-0121   08??           00579         MOVF    r0x1021,W
-0122   3AE8           00580         XORLW   0xe8
-0123   1D03           00581         BTFSS   STATUS,2
-0124   2???           00582         GOTO    _00106_DS_
-0125   08??           00583         MOVF    r0x1022,W
-0126   3A03           00584         XORLW   0x03
-0127   1D03           00585         BTFSS   STATUS,2
-0128   2???           00586         GOTO    _00106_DS_
-                      00587 ;       .line   13; "setting_mode.c"    SettingMode_Fixed_mode();
-0129   2???           00588         CALL    _SettingMode_Fixed_mode
-012A   2???           00589         GOTO    _00108_DS_
-012B                  00590 _00106_DS_
-                      00591 ;       .line   18; "setting_mode.c"    SettingMode_Blinking_mode();
-012B   2???           00592         CALL    _SettingMode_Blinking_mode
-012C                  00593 _00108_DS_
-012C   0008           00594         RETURN  
-                      00595 ; exit point of _SettingMode_update
-                      00596 
-                      00597 
-                      00598 ;       code size estimation:
-                      00599 ;         181+   60 =   241 instructions (  602 byte)
-                      00600 
-                      00601         end
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 13
+0131   3005           00574         MOVLW   0x05
+0132   07??           00575         ADDWF   r0x1020,F
+0133   1803           00576         BTFSC   STATUS,0
+0134   0A??           00577         INCF    r0x1021,F
+0135   1903           00578         BTFSC   STATUS,2
+0136   0A??           00579         INCF    r0x1022,F
+0137   1903           00580         BTFSC   STATUS,2
+0138   0A??           00581         INCF    r0x1023,F
+0139   08??           00582         MOVF    r0x1023,W
+013A   02??           00583         SUBWF   r0x101F,W
+013B   1D03           00584         BTFSS   STATUS,2
+013C   2???           00585         GOTO    _00143_DS_
+013D   08??           00586         MOVF    r0x1022,W
+013E   02??           00587         SUBWF   r0x101E,W
+013F   1D03           00588         BTFSS   STATUS,2
+0140   2???           00589         GOTO    _00143_DS_
+0141   08??           00590         MOVF    r0x1021,W
+0142   02??           00591         SUBWF   r0x101D,W
+0143   1D03           00592         BTFSS   STATUS,2
+0144   2???           00593         GOTO    _00143_DS_
+0145   08??           00594         MOVF    r0x1020,W
+0146   02??           00595         SUBWF   r0x101C,W
+0147                  00596 _00143_DS_
+0147   1C03           00597         BTFSS   STATUS,0
+0148   2???           00598         GOTO    _00134_DS_
+                      00599 ;;genSkipc:3247: created from rifx:027A5DF4
+                      00600 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00601 ;       .line   47; "setting_mode.c"    Flags.Toggle_led   = 0 ;      //the led will turn on without tog
+                            gling
+0149   ???? ????      00602         BANKSEL _Flags
+014B   01??           00603         CLRF    (_Flags + 1)
+                      00604 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00605 ;       .line   48; "setting_mode.c"    Flags.Heater_Operation = OFF ; //Turn on The Heater element
+014C   01??           00606         CLRF    (_Flags + 2)
+                      00607 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00608 ;       .line   49; "setting_mode.c"    Flags.Cooler_Operation = ON ;//Turn off Heater element
+014D   3001           00609         MOVLW   0x01
+014E   00??           00610         MOVWF   (_Flags + 3)
+014F                  00611 _00134_DS_
+014F   0008           00612         RETURN  
+                      00613 ; exit point of _SettingMode_Fixed_mode
+                      00614 
+                      00615 ;***
+                      00616 ;  pBlock Stats: dbName = C
+                      00617 ;***
+                      00618 ;entry:  _SettingMode_update    ;Function start
+                      00619 ; 2 exit points
+                      00620 ;has an exit
+                      00621 ;functions called:
+                      00622 ;   _SettingMode_OFF_mode
+                      00623 ;   _SettingMode_Fixed_mode
+                      00624 ;   _SettingMode_Blinking_mode
+                      00625 ;   _SettingMode_OFF_mode
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 13
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00626 ;   _SettingMode_Fixed_mode
+                      00627 ;   _SettingMode_Blinking_mode
+                      00628 ;2 compiler assigned registers:
+                      00629 ;   r0x1028
+                      00630 ;   r0x1029
+                      00631 ;; Starting pCode block
+0150                  00632 _SettingMode_update     ;Function start
+                      00633 ; 2 exit points
+                      00634 ;       .line   11; "setting_mode.c"    switch(Flags.Operation_Flag)
+0150   ???? ????      00635         BANKSEL _Flags
+0152   08??           00636         MOVF    (_Flags + 4),W
+0153   ???? ????      00637         BANKSEL r0x1028
+0155   00??           00638         MOVWF   r0x1028
+0156   1903           00639         BTFSC   STATUS,2
+0157   2???           00640         GOTO    _00105_DS_
+0158   08??           00641         MOVF    r0x1028,W
+0159   3A01           00642         XORLW   0x01
+015A   1903           00643         BTFSC   STATUS,2
+015B   2???           00644         GOTO    _00106_DS_
+015C   2???           00645         GOTO    _00112_DS_
+015D                  00646 _00105_DS_
+                      00647 ;       .line   14; "setting_mode.c"    SettingMode_OFF_mode();
+015D   2???           00648         CALL    _SettingMode_OFF_mode
+                      00649 ;       .line   15; "setting_mode.c"    break;
+015E   2???           00650         GOTO    _00112_DS_
+015F                  00651 _00106_DS_
+                      00652 ;       .line   17; "setting_mode.c"    if(Counters.FixedMode_counter == 250)//if 5s are run out without
+                             pressing up or down buttons the system goes into fixed mode
+015F   ???? ????      00653         BANKSEL _Counters
+0161   08??           00654         MOVF    (_Counters + 0),W
+0162   ???? ????      00655         BANKSEL r0x1028
+0164   00??           00656         MOVWF   r0x1028
+0165   ???? ????      00657         BANKSEL _Counters
+0167   08??           00658         MOVF    (_Counters + 1),W
+0168   ???? ????      00659         BANKSEL r0x1029
+016A   00??           00660         MOVWF   r0x1029
+016B   08??           00661         MOVF    r0x1028,W
+016C   3AFA           00662         XORLW   0xfa
+016D   1D03           00663         BTFSS   STATUS,2
+016E   2???           00664         GOTO    _00108_DS_
+016F   08??           00665         MOVF    r0x1029,W
+0170   3A00           00666         XORLW   0x00
+0171   1D03           00667         BTFSS   STATUS,2
+0172   2???           00668         GOTO    _00108_DS_
+                      00669 ;       .line   19; "setting_mode.c"    SettingMode_Fixed_mode();
+0173   2???           00670         CALL    _SettingMode_Fixed_mode
+0174   2???           00671         GOTO    _00112_DS_
+0175                  00672 _00108_DS_
+                      00673 ;       .line   24; "setting_mode.c"    SettingMode_Blinking_mode();
+0175   2???           00674         CALL    _SettingMode_Blinking_mode
+0176                  00675 _00112_DS_
+                      00676 ;       .line   31; "setting_mode.c"    }
+0176   0008           00677         RETURN  
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 14
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00678 ; exit point of _SettingMode_update
+                      00679 
+                      00680 
+                      00681 ;       code size estimation:
+                      00682 ;         219+   78 =   297 instructions (  750 byte)
+                      00683 
+                      00684         end
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 15
 
 
 SYMBOL TABLE
@@ -742,7 +837,7 @@ CHS1                              00000004
 CHS2                              00000005
 CIS                               00000003
 CKE                               00000006
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 14
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 16
 
 
 SYMBOL TABLE
@@ -801,7 +896,7 @@ INTF                              00000001
 IRP                               00000007
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 15
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 17
 
 
 SYMBOL TABLE
@@ -860,7 +955,7 @@ RA5                               00000005
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 16
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 18
 
 
 SYMBOL TABLE
@@ -919,7 +1014,7 @@ SSAVE                             00000000
 SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 17
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 19
 
 
 SYMBOL TABLE
@@ -978,7 +1073,7 @@ TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
 TOUTPS0                           00000003
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 18
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 20
 
 
 SYMBOL TABLE
@@ -1037,7 +1132,7 @@ TXREG                             00000019
 TXSTA                             00000098
 UA                                00000001
 W                                 00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 19
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 21
 
 
 SYMBOL TABLE
@@ -1049,13 +1144,15 @@ WREN                              00000002
 WRERR                             00000003
 WSAVE                             00000000
 Z                                 00000002
-_00106_DS_                        0000012B
-_00108_DS_                        0000012C
-_00116_DS_                        000000DE
-_00118_DS_                        00000114
-_00126_DS_                        000000D5
-_00127_DS_                        0000010C
-_00133_DS_                        0000004D
+_00105_DS_                        0000015D
+_00106_DS_                        0000015F
+_00108_DS_                        00000175
+_00112_DS_                        00000176
+_00132_DS_                        00000119
+_00134_DS_                        0000014F
+_00142_DS_                        00000110
+_00143_DS_                        00000147
+_00149_DS_                        00000055
 _ADCON0                           00000000
 _ADCON0bits                       00000000
 _ADCON1                           00000000
@@ -1094,14 +1191,14 @@ _Cooler_Init                      00000000
 _Cooler_SetState                  00000000
 _Cooler_update                    00000000
 _Counters                         00000000
-_DEBUG_OFF                        00003FFF
-_DEBUG_ON                         000037FF
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 20
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 22
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
 _DEVID1                           00002006
 _EEADR                            00000000
 _EEADRH                           00000000
@@ -1125,8 +1222,13 @@ _GPIO_Update                      00000000
 _HS_OSC                           00003FFE
 _Heater_GetState                  00000000
 _Heater_Init                      00000000
-_Heater_SetState                  00000000
 _Heater_update                    00000000
+_I2C_Begin                        00000000
+_I2C_End                          00000000
+_I2C_Hold                         00000000
+_I2C_Init                         00000000
+_I2C_Read                         00000000
+_I2C_Write                        00000000
 _IDLOC0                           00002000
 _IDLOC1                           00002001
 _IDLOC2                           00002002
@@ -1136,7 +1238,6 @@ _INTCON                           00000000
 _INTCONbits                       00000000
 _LED_GetState                     00000000
 _LED_Init                         00000000
-_LED_SetState                     00000000
 _LED_Update                       00000000
 _LP_OSC                           00003FFC
 _LVP_OFF                          00003F7F
@@ -1149,18 +1250,18 @@ _PB_Update                        00000000
 _PCL                              00000000
 _PCLATH                           00000000
 _PCON                             00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 23
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _PCONbits                         00000000
 _PIE1                             00000000
 _PIE1bits                         00000000
 _PIE2                             00000000
 _PIE2bits                         00000000
 _PIR1                             00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 21
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _PIR1bits                         00000000
 _PIR2                             00000000
 _PIR2bits                         00000000
@@ -1199,27 +1300,26 @@ _SSPSTAT                          00000000
 _SSPSTATbits                      00000000
 _STATUS                           00000000
 _STATUSbits                       00000000
-_SettingMode_Blinking_mode        00000023
-_SettingMode_Fixed_mode           0000007E
-_SettingMode_Get_SSD_state        00000000
+_SettingMode_Blinking_mode        0000002B
+_SettingMode_Fixed_mode           000000B9
 _SettingMode_OFF_mode             00000000
-_SettingMode_update               00000115
+_SettingMode_update               00000150
 _Start_conversion_Int             00000000
 _T1CON                            00000000
 _T1CONbits                        00000000
 _T2CON                            00000000
 _T2CONbits                        00000000
-_TMR0                             00000000
-_TMR0_Init                        00000000
-_TMR0_Start                       00000000
-_TMR0_Update                      00000000
-_TMR1                             00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 22
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 24
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_TMR0                             00000000
+_TMR0_Init                        00000000
+_TMR0_Start                       00000000
+_TMR0_Update                      00000000
+_TMR1                             00000000
 _TMR1H                            00000000
 _TMR1L                            00000000
 _TMR2                             00000000
@@ -1259,28 +1359,33 @@ __VECTOR_INT                      00000004
 __VECTOR_RESET                    00000000
 _code_setting_mode_0006           00000006
 _code_setting_mode_000E           0000000E
-r0x1013                           0000000E
-r0x1014                           0000000F
-r0x1015                           00000002
-r0x1016                           00000003
-r0x1017                           00000004
-r0x1018                           00000005
-r0x1019                           00000006
-r0x101A                           00000007
-r0x101B                           00000008
-r0x101C                           00000009
-r0x101D                           0000000A
-r0x101E                           0000000B
-r0x101F                           0000000C
-r0x1020                           0000000D
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-17-2020  06:58:43         PAGE 23
+_e2pex_update                     00000000
+_e2pext_r                         00000000
+_e2pext_w                         00000000
+r0x1018                           0000000E
+r0x1019                           0000000F
+r0x101A                           00000010
+r0x101B                           00000011
+r0x101C                           00000002
+r0x101D                           00000003
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\s   7-19-2020  20:05:24         PAGE 25
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
-r0x1021                           00000000
-r0x1022                           00000001
+r0x101E                           00000004
+r0x101F                           00000005
+r0x1020                           00000006
+r0x1021                           00000007
+r0x1022                           00000008
+r0x1023                           00000009
+r0x1024                           0000000A
+r0x1025                           0000000B
+r0x1026                           0000000C
+r0x1027                           0000000D
+r0x1028                           00000000
+r0x1029                           00000001
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed

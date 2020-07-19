@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-; This file was generated Fri Jul 17 06:58:43 2020
+; This file was generated Sun Jul 19 20:05:24 2020
 ;--------------------------------------------------------
 ; PIC port for the 14-bit core
 ;--------------------------------------------------------
@@ -18,30 +18,35 @@
 	extern	_GPIO_SetPortPinState
 	extern	_GPIO_SetPortState
 	extern	_GPIO_GetPortPinState
+	extern	_SettingMode_update
+	extern	_PB_Init
+	extern	_PB_Update
+	extern	_PB_GetState
 	extern	_ADC_Init
 	extern	_ADC_Update
 	extern	_ADC_GetResult
 	extern	_Start_conversion_Int
 	extern	_Temprature_Init
 	extern	_Temprature_update
+	extern	_LED_Init
+	extern	_LED_GetState
+	extern	_LED_Update
+	extern	_Heater_Init
+	extern	_Heater_update
+	extern	_Heater_GetState
 	extern	_Cooler_Init
 	extern	_Cooler_SetState
 	extern	_Cooler_GetState
 	extern	_Cooler_update
-	extern	_Heater_Init
-	extern	_Heater_SetState
-	extern	_Heater_GetState
-	extern	_Heater_update
-	extern	_SettingMode_update
-	extern	_SettingMode_Get_SSD_state
-	extern	_SettingMode_OFF_mode
-	extern	_PB_Init
-	extern	_PB_Update
-	extern	_PB_GetState
-	extern	_LED_Init
-	extern	_LED_Update
-	extern	_LED_GetState
-	extern	_LED_SetState
+	extern	_I2C_Init
+	extern	_I2C_Hold
+	extern	_I2C_Begin
+	extern	_I2C_End
+	extern	_I2C_Write
+	extern	_I2C_Read
+	extern	_e2pext_r
+	extern	_e2pext_w
+	extern	_e2pex_update
 	extern	_TMR0_Init
 	extern	_TMR0_Update
 	extern	_TMR0_Start
@@ -186,18 +191,20 @@ UDL_SSD_0	udata
 r0x101F	res	1
 r0x1020	res	1
 r0x1021	res	1
+r0x1022	res	1
+r0x1012	res	1
 r0x1013	res	1
 r0x1014	res	1
-r0x1015	res	1
+r0x101D	res	1
 r0x101E	res	1
+r0x101A	res	1
 r0x101B	res	1
-r0x101C	res	1
+r0x1015	res	1
 r0x1016	res	1
 r0x1017	res	1
 r0x1018	res	1
 r0x1019	res	1
-r0x101A	res	1
-_SSD_update_current_ssd_1_58	res	1
+_SSD_update_current_ssd_1_69	res	1
 ;--------------------------------------------------------
 ; initialized data
 ;--------------------------------------------------------
@@ -210,8 +217,6 @@ _display_flag
 ID_SSD_1	idata
 _SSD_symbols
 	db	0x0a
-	db	0x00
-	db	0x00
 	db	0x00
 
 
@@ -279,10 +284,10 @@ code_SSD	code
 ;   _GPIO_SetPortState
 ;   _SSD_SET_state
 ;12 compiler assigned registers:
+;   r0x1015
 ;   r0x1016
 ;   r0x1017
 ;   r0x1018
-;   r0x1019
 ;   STK06
 ;   STK05
 ;   STK04
@@ -290,33 +295,33 @@ code_SSD	code
 ;   STK02
 ;   STK01
 ;   STK00
-;   r0x101A
+;   r0x1019
 ;; Starting pCode block
 _SSD_update	;Function start
 ; 2 exit points
-;	.line	124; "SSD.c"	if(display_flag){
+;	.line	106; "SSD.c"	if(display_flag)//display the set value
 	MOVLW	0x00
 	BANKSEL	_display_flag
 	IORWF	_display_flag,W
 	BTFSC	STATUS,2
-	GOTO	_00165_DS_
-;	.line	125; "SSD.c"	SSD_SET_Symbol(SSD_MR,((Readings.Set_value%1000)%100)/10);
+	GOTO	_00168_DS_
+;	.line	108; "SSD.c"	SSD_SET_Symbol(SSD_MR,((Readings.Set_value%1000)%100)/10);
 	BANKSEL	_Readings
 	MOVF	(_Readings + 4),W
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
+	BANKSEL	_Readings
+	MOVF	(_Readings + 5),W
 	BANKSEL	r0x1016
 	MOVWF	r0x1016
 	BANKSEL	_Readings
-	MOVF	(_Readings + 5),W
+	MOVF	(_Readings + 6),W
 	BANKSEL	r0x1017
 	MOVWF	r0x1017
 	BANKSEL	_Readings
-	MOVF	(_Readings + 6),W
+	MOVF	(_Readings + 7),W
 	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	BANKSEL	_Readings
-	MOVF	(_Readings + 7),W
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
 	MOVLW	0xe8
 	MOVWF	STK06
 	MOVLW	0x03
@@ -325,24 +330,24 @@ _SSD_update	;Function start
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__modulong
 	CALL	__modulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
+	MOVF	STK02,W
+	MOVWF	r0x1015
 	MOVLW	0x64
 	MOVWF	STK06
 	MOVLW	0x00
@@ -351,24 +356,24 @@ _SSD_update	;Function start
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__modulong
 	CALL	__modulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
+	MOVF	STK02,W
+	MOVWF	r0x1015
 	MOVLW	0x0a
 	MOVWF	STK06
 	MOVLW	0x00
@@ -377,45 +382,45 @@ _SSD_update	;Function start
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__divulong
 	CALL	__divulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
-	MOVWF	r0x101A
+	MOVF	STK02,W
+	MOVWF	r0x1015
+	MOVWF	r0x1019
 	MOVWF	STK00
-	MOVLW	0x02
+	MOVLW	0x00
 	CALL	_SSD_SET_Symbol
-;	.line	126; "SSD.c"	SSD_SET_Symbol(SSD_R,Readings.Set_value%10);
+;	.line	109; "SSD.c"	SSD_SET_Symbol(SSD_R,Readings.Set_value%10);
 	BANKSEL	_Readings
 	MOVF	(_Readings + 4),W
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
+	BANKSEL	_Readings
+	MOVF	(_Readings + 5),W
 	BANKSEL	r0x1016
 	MOVWF	r0x1016
 	BANKSEL	_Readings
-	MOVF	(_Readings + 5),W
+	MOVF	(_Readings + 6),W
 	BANKSEL	r0x1017
 	MOVWF	r0x1017
 	BANKSEL	_Readings
-	MOVF	(_Readings + 6),W
+	MOVF	(_Readings + 7),W
 	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	BANKSEL	_Readings
-	MOVF	(_Readings + 7),W
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
 	MOVLW	0x0a
 	MOVWF	STK06
 	MOVLW	0x00
@@ -424,47 +429,47 @@ _SSD_update	;Function start
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__modulong
 	CALL	__modulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
-	MOVWF	r0x101A
+	MOVF	STK02,W
+	MOVWF	r0x1015
+	MOVWF	r0x1019
 	MOVWF	STK00
-	MOVLW	0x03
+	MOVLW	0x01
 	CALL	_SSD_SET_Symbol
-	GOTO	_00166_DS_
-_00165_DS_
-;	.line	128; "SSD.c"	SSD_SET_Symbol(SSD_MR,((Readings.temp_read%1000)%100)/10);
+	GOTO	_00169_DS_
+_00168_DS_
+;	.line	113; "SSD.c"	SSD_SET_Symbol(SSD_MR,((Readings.temp_read%1000)%100)/10);
 	BANKSEL	_Readings
 	MOVF	(_Readings + 0),W
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
+	BANKSEL	_Readings
+	MOVF	(_Readings + 1),W
 	BANKSEL	r0x1016
 	MOVWF	r0x1016
 	BANKSEL	_Readings
-	MOVF	(_Readings + 1),W
+	MOVF	(_Readings + 2),W
 	BANKSEL	r0x1017
 	MOVWF	r0x1017
 	BANKSEL	_Readings
-	MOVF	(_Readings + 2),W
+	MOVF	(_Readings + 3),W
 	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	BANKSEL	_Readings
-	MOVF	(_Readings + 3),W
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
 	MOVLW	0xe8
 	MOVWF	STK06
 	MOVLW	0x03
@@ -473,24 +478,24 @@ _00165_DS_
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__modulong
 	CALL	__modulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
+	MOVF	STK02,W
+	MOVWF	r0x1015
 	MOVLW	0x64
 	MOVWF	STK06
 	MOVLW	0x00
@@ -499,24 +504,24 @@ _00165_DS_
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__modulong
 	CALL	__modulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
+	MOVF	STK02,W
+	MOVWF	r0x1015
 	MOVLW	0x0a
 	MOVWF	STK06
 	MOVLW	0x00
@@ -525,45 +530,45 @@ _00165_DS_
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__divulong
 	CALL	__divulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
-	MOVWF	r0x101A
+	MOVF	STK02,W
+	MOVWF	r0x1015
+	MOVWF	r0x1019
 	MOVWF	STK00
-	MOVLW	0x02
+	MOVLW	0x00
 	CALL	_SSD_SET_Symbol
-;	.line	129; "SSD.c"	SSD_SET_Symbol(SSD_R,Readings.temp_read %10);
+;	.line	114; "SSD.c"	SSD_SET_Symbol(SSD_R,Readings.temp_read %10);
 	BANKSEL	_Readings
 	MOVF	(_Readings + 0),W
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
+	BANKSEL	_Readings
+	MOVF	(_Readings + 1),W
 	BANKSEL	r0x1016
 	MOVWF	r0x1016
 	BANKSEL	_Readings
-	MOVF	(_Readings + 1),W
+	MOVF	(_Readings + 2),W
 	BANKSEL	r0x1017
 	MOVWF	r0x1017
 	BANKSEL	_Readings
-	MOVF	(_Readings + 2),W
+	MOVF	(_Readings + 3),W
 	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	BANKSEL	_Readings
-	MOVF	(_Readings + 3),W
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
 	MOVLW	0x0a
 	MOVWF	STK06
 	MOVLW	0x00
@@ -572,105 +577,104 @@ _00165_DS_
 	MOVWF	STK04
 	MOVLW	0x00
 	MOVWF	STK03
-	MOVF	r0x1016,W
+	MOVF	r0x1015,W
 	MOVWF	STK02
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK01
-	MOVF	r0x1018,W
+	MOVF	r0x1017,W
 	MOVWF	STK00
-	MOVF	r0x1019,W
+	MOVF	r0x1018,W
 	PAGESEL	__modulong
 	CALL	__modulong
 	PAGESEL	$
-	BANKSEL	r0x1019
-	MOVWF	r0x1019
-	MOVF	STK00,W
+	BANKSEL	r0x1018
 	MOVWF	r0x1018
-	MOVF	STK01,W
+	MOVF	STK00,W
 	MOVWF	r0x1017
-	MOVF	STK02,W
+	MOVF	STK01,W
 	MOVWF	r0x1016
-	MOVWF	r0x101A
+	MOVF	STK02,W
+	MOVWF	r0x1015
+	MOVWF	r0x1019
 	MOVWF	STK00
-	MOVLW	0x03
+	MOVLW	0x01
 	CALL	_SSD_SET_Symbol
-_00166_DS_
-;	.line	140; "SSD.c"	SSD_SET_state(SSD_MR,SSD_OFF);
+_00169_DS_
+;	.line	116; "SSD.c"	SSD_SET_state(SSD_MR,SSD_OFF);
 	MOVLW	0x00
 	MOVWF	STK00
-	MOVLW	0x02
+	MOVLW	0x00
 	CALL	_SSD_SET_state
-;	.line	141; "SSD.c"	SSD_SET_state(SSD_R,SSD_OFF);
+;	.line	117; "SSD.c"	SSD_SET_state(SSD_R,SSD_OFF);
 	MOVLW	0x00
 	MOVWF	STK00
-	MOVLW	0x03
+	MOVLW	0x01
 	CALL	_SSD_SET_state
-;	.line	142; "SSD.c"	GPIO_SetPortState(SSD_DataPORT,symbols[SSD_symbols[current_ssd]]);
-	BANKSEL	_SSD_update_current_ssd_1_58
-	MOVF	_SSD_update_current_ssd_1_58,W
+;	.line	118; "SSD.c"	GPIO_SetPortState(SSD_DataPORT,symbols[SSD_symbols[current_ssd]]);
+	BANKSEL	_SSD_update_current_ssd_1_69
+	MOVF	_SSD_update_current_ssd_1_69,W
 	ADDLW	(_SSD_symbols + 0)
-	BANKSEL	r0x1016
-	MOVWF	r0x1016
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
 	MOVLW	high (_SSD_symbols + 0)
 	BTFSC	STATUS,0
 	ADDLW	0x01
-	MOVWF	r0x1017
-	MOVF	r0x1016,W
+	MOVWF	r0x1016
+	MOVF	r0x1015,W
 	BANKSEL	FSR
 	MOVWF	FSR
 	BCF	STATUS,7
-	BANKSEL	r0x1017
-	BTFSC	r0x1017,0
+	BANKSEL	r0x1016
+	BTFSC	r0x1016,0
 	BSF	STATUS,7
 	BANKSEL	INDF
 	MOVF	INDF,W
-	BANKSEL	r0x1018
-	MOVWF	r0x1018
+	BANKSEL	r0x1017
+	MOVWF	r0x1017
 	ADDLW	(_symbols + 0)
-	MOVWF	r0x1016
+	MOVWF	r0x1015
 	MOVLW	high (_symbols + 0)
 	BTFSC	STATUS,0
 	ADDLW	0x01
-	MOVWF	r0x1017
-	MOVF	r0x1016,W
+	MOVWF	r0x1016
+	MOVF	r0x1015,W
 	MOVWF	STK01
-	MOVF	r0x1017,W
+	MOVF	r0x1016,W
 	MOVWF	STK00
 	MOVLW	0x80
 	PAGESEL	__gptrget1
 	CALL	__gptrget1
 	PAGESEL	$
-	BANKSEL	r0x1018
-	MOVWF	r0x1018
+	BANKSEL	r0x1017
+	MOVWF	r0x1017
 	MOVWF	STK00
 	MOVLW	0x03
 	PAGESEL	_GPIO_SetPortState
 	CALL	_GPIO_SetPortState
 	PAGESEL	$
-;	.line	143; "SSD.c"	SSD_SET_state(current_ssd,Flags.next_state);
+;	.line	119; "SSD.c"	SSD_SET_state(current_ssd,Flags.next_state);
 	BANKSEL	_Flags
 	MOVF	(_Flags + 0),W
-	BANKSEL	r0x1016
-	MOVWF	r0x1016
+	BANKSEL	r0x1015
+	MOVWF	r0x1015
 	MOVWF	STK00
-	BANKSEL	_SSD_update_current_ssd_1_58
-	MOVF	_SSD_update_current_ssd_1_58,W
+	BANKSEL	_SSD_update_current_ssd_1_69
+	MOVF	_SSD_update_current_ssd_1_69,W
 	CALL	_SSD_SET_state
-;	.line	145; "SSD.c"	if(current_ssd == SSD_R)
-	BANKSEL	_SSD_update_current_ssd_1_58
-	MOVF	_SSD_update_current_ssd_1_58,W
-	XORLW	0x03
+;	.line	120; "SSD.c"	if(current_ssd == SSD_R)
+	BANKSEL	_SSD_update_current_ssd_1_69
+	MOVF	_SSD_update_current_ssd_1_69,W
+	XORLW	0x01
 	BTFSS	STATUS,2
-	GOTO	_00168_DS_
-;	.line	147; "SSD.c"	current_ssd  = SSD_MR;
-	MOVLW	0x02
-	MOVWF	_SSD_update_current_ssd_1_58
-	GOTO	_00170_DS_
-_00168_DS_
-;	.line	152; "SSD.c"	current_ssd++;
-	BANKSEL	_SSD_update_current_ssd_1_58
-	INCF	_SSD_update_current_ssd_1_58,F
-_00170_DS_
+	GOTO	_00171_DS_
+;	.line	122; "SSD.c"	current_ssd  = SSD_MR;
+	CLRF	_SSD_update_current_ssd_1_69
+	GOTO	_00173_DS_
+_00171_DS_
+;	.line	127; "SSD.c"	current_ssd++;
+	BANKSEL	_SSD_update_current_ssd_1_69
+	INCF	_SSD_update_current_ssd_1_69,F
+_00173_DS_
 	RETURN	
 ; exit point of _SSD_update
 
@@ -681,33 +685,33 @@ _00170_DS_
 ; 2 exit points
 ;has an exit
 ;3 compiler assigned registers:
+;   r0x101A
 ;   r0x101B
 ;   r0x101C
-;   r0x101D
 ;; Starting pCode block
 _SSD_GET_Symbol	;Function start
 ; 2 exit points
-;	.line	110; "SSD.c"	SSD_symbol SSD_GET_Symbol(tSSD ssd)
-	BANKSEL	r0x101B
-	MOVWF	r0x101B
-;	.line	115; "SSD.c"	ret = SSD_symbols[ssd];
+;	.line	92; "SSD.c"	SSD_symbol SSD_GET_Symbol(tSSD ssd)
+	BANKSEL	r0x101A
+	MOVWF	r0x101A
+;	.line	97; "SSD.c"	ret = SSD_symbols[ssd];
 	ADDLW	(_SSD_symbols + 0)
-	MOVWF	r0x101B
+	MOVWF	r0x101A
 	MOVLW	high (_SSD_symbols + 0)
 	BTFSC	STATUS,0
 	ADDLW	0x01
-	MOVWF	r0x101C
-	MOVF	r0x101B,W
+	MOVWF	r0x101B
+	MOVF	r0x101A,W
 	BANKSEL	FSR
 	MOVWF	FSR
 	BCF	STATUS,7
-	BANKSEL	r0x101C
-	BTFSC	r0x101C,0
+	BANKSEL	r0x101B
+	BTFSC	r0x101B,0
 	BSF	STATUS,7
 	BANKSEL	INDF
 	MOVF	INDF,W
-;;1	MOVWF	r0x101D
-;	.line	117; "SSD.c"	return ret;
+;;1	MOVWF	r0x101C
+;	.line	99; "SSD.c"	return ret;
 	RETURN	
 ; exit point of _SSD_GET_Symbol
 
@@ -722,93 +726,53 @@ _SSD_GET_Symbol	;Function start
 ;   _GPIO_GetPortPinState
 ;   _GPIO_GetPortPinState
 ;   _GPIO_GetPortPinState
-;   _GPIO_GetPortPinState
-;   _GPIO_GetPortPinState
-;   _GPIO_GetPortPinState
-;   _GPIO_GetPortPinState
-;2 compiler assigned registers:
+;3 compiler assigned registers:
+;   r0x101D
 ;   r0x101E
 ;   STK00
 ;; Starting pCode block
 _SSD_GET_state	;Function start
 ; 2 exit points
-;	.line	84; "SSD.c"	SSD_STATE SSD_GET_state(tSSD ssd)
-	BANKSEL	r0x101E
+;	.line	72; "SSD.c"	SSD_STATE SSD_GET_state(tSSD ssd)
+	BANKSEL	r0x101D
+	MOVWF	r0x101D
+;	.line	74; "SSD.c"	switch(ssd)
 	MOVWF	r0x101E
-;;swapping arguments (AOP_TYPEs 1/2)
-;;unsigned compare: left >= lit(0x4=4), size=1
-;	.line	86; "SSD.c"	switch(ssd)
-	MOVLW	0x04
-	SUBWF	r0x101E,W
-	BTFSC	STATUS,0
-	GOTO	_00147_DS_
-;;genSkipc:3247: created from rifx:027A5DF4
-	MOVLW	HIGH(_00155_DS_)
-	BANKSEL	PCLATH
-	MOVWF	PCLATH
-	MOVLW	_00155_DS_
-	BANKSEL	r0x101E
-	ADDWF	r0x101E,W
-	BTFSS	STATUS,0
-	GOTO	_00001_DS_
-	BANKSEL	PCLATH
-	INCF	PCLATH,F
-_00001_DS_
-	MOVWF	PCL
-_00155_DS_
-	GOTO	_00143_DS_
-	GOTO	_00144_DS_
+	MOVF	r0x101E,W
+	BTFSC	STATUS,2
 	GOTO	_00145_DS_
+	MOVF	r0x101D,W
+	XORLW	0x01
+	BTFSC	STATUS,2
 	GOTO	_00146_DS_
-_00143_DS_
-;	.line	90; "SSD.c"	return GPIO_GetPortPinState(SSD_En_PORT,SSD_L_En_Pin);
-	MOVLW	0x02
-	MOVWF	STK00
-	MOVLW	0x00
-	PAGESEL	_GPIO_GetPortPinState
-	CALL	_GPIO_GetPortPinState
-	PAGESEL	$
-	BANKSEL	r0x101E
-	MOVWF	r0x101E
-	GOTO	_00149_DS_
-_00144_DS_
-;	.line	93; "SSD.c"	return GPIO_GetPortPinState(SSD_En_PORT,SSD_ML_En_Pin);
-	MOVLW	0x03
-	MOVWF	STK00
-	MOVLW	0x00
-	PAGESEL	_GPIO_GetPortPinState
-	CALL	_GPIO_GetPortPinState
-	PAGESEL	$
-	BANKSEL	r0x101E
-	MOVWF	r0x101E
-	GOTO	_00149_DS_
+	GOTO	_00147_DS_
 _00145_DS_
-;	.line	96; "SSD.c"	return GPIO_GetPortPinState(SSD_En_PORT,SSD_MR_En_Pin);
+;	.line	78; "SSD.c"	return GPIO_GetPortPinState(SSD_En_PORT,SSD_MR_En_Pin);
 	MOVLW	0x04
 	MOVWF	STK00
 	MOVLW	0x00
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-	BANKSEL	r0x101E
-	MOVWF	r0x101E
+	BANKSEL	r0x101D
+	MOVWF	r0x101D
 	GOTO	_00149_DS_
 _00146_DS_
-;	.line	99; "SSD.c"	return GPIO_GetPortPinState(SSD_En_PORT,SSD_R_En_Pin);
+;	.line	81; "SSD.c"	return GPIO_GetPortPinState(SSD_En_PORT,SSD_R_En_Pin);
 	MOVLW	0x05
 	MOVWF	STK00
 	MOVLW	0x00
 	PAGESEL	_GPIO_GetPortPinState
 	CALL	_GPIO_GetPortPinState
 	PAGESEL	$
-	BANKSEL	r0x101E
-	MOVWF	r0x101E
+	BANKSEL	r0x101D
+	MOVWF	r0x101D
 	GOTO	_00149_DS_
 _00147_DS_
-;	.line	103; "SSD.c"	return 0;
+;	.line	85; "SSD.c"	return 0;
 	MOVLW	0x00
 _00149_DS_
-;	.line	105; "SSD.c"	}
+;	.line	87; "SSD.c"	}
 	RETURN	
 ; exit point of _SSD_GET_state
 
@@ -819,34 +783,34 @@ _00149_DS_
 ; 2 exit points
 ;has an exit
 ;4 compiler assigned registers:
-;   r0x1013
+;   r0x1012
 ;   STK00
+;   r0x1013
 ;   r0x1014
-;   r0x1015
 ;; Starting pCode block
 _SSD_SET_Symbol	;Function start
 ; 2 exit points
-;	.line	78; "SSD.c"	void SSD_SET_Symbol(tSSD ssd,SSD_symbol symbol)
-	BANKSEL	r0x1013
-	MOVWF	r0x1013
+;	.line	66; "SSD.c"	void SSD_SET_Symbol(tSSD ssd,SSD_symbol symbol)
+	BANKSEL	r0x1012
+	MOVWF	r0x1012
 	MOVF	STK00,W
-	MOVWF	r0x1014
-;	.line	80; "SSD.c"	SSD_symbols[ssd] = symbol ;
-	MOVF	r0x1013,W
-	ADDLW	(_SSD_symbols + 0)
 	MOVWF	r0x1013
+;	.line	68; "SSD.c"	SSD_symbols[ssd] = symbol ;
+	MOVF	r0x1012,W
+	ADDLW	(_SSD_symbols + 0)
+	MOVWF	r0x1012
 	MOVLW	high (_SSD_symbols + 0)
 	BTFSC	STATUS,0
 	ADDLW	0x01
-	MOVWF	r0x1015
-	MOVF	r0x1013,W
+	MOVWF	r0x1014
+	MOVF	r0x1012,W
 	BANKSEL	FSR
 	MOVWF	FSR
 	BCF	STATUS,7
-	BANKSEL	r0x1015
-	BTFSC	r0x1015,0
+	BANKSEL	r0x1014
+	BTFSC	r0x1014,0
 	BSF	STATUS,7
-	MOVF	r0x1014,W
+	MOVF	r0x1013,W
 	BANKSEL	INDF
 	MOVWF	INDF
 	RETURN	
@@ -863,78 +827,34 @@ _SSD_SET_Symbol	;Function start
 ;   _GPIO_SetPortPinState
 ;   _GPIO_SetPortPinState
 ;   _GPIO_SetPortPinState
-;   _GPIO_SetPortPinState
-;   _GPIO_SetPortPinState
-;   _GPIO_SetPortPinState
-;   _GPIO_SetPortPinState
-;4 compiler assigned registers:
-;   r0x1013
+;5 compiler assigned registers:
+;   r0x1012
 ;   STK00
+;   r0x1013
 ;   r0x1014
 ;   STK01
 ;; Starting pCode block
 _SSD_SET_state	;Function start
 ; 2 exit points
-;	.line	54; "SSD.c"	void SSD_SET_state(tSSD ssd,SSD_STATE state)
-	BANKSEL	r0x1013
-	MOVWF	r0x1013
+;	.line	48; "SSD.c"	void SSD_SET_state(tSSD ssd,SSD_STATE state)
+	BANKSEL	r0x1012
+	MOVWF	r0x1012
 	MOVF	STK00,W
-	MOVWF	r0x1014
-;;swapping arguments (AOP_TYPEs 1/2)
-;;unsigned compare: left >= lit(0x4=4), size=1
-;	.line	56; "SSD.c"	switch(ssd)
-	MOVLW	0x04
-	SUBWF	r0x1013,W
-	BTFSC	STATUS,0
-	GOTO	_00128_DS_
-;;genSkipc:3247: created from rifx:027A5DF4
-	MOVLW	HIGH(_00134_DS_)
-	BANKSEL	PCLATH
-	MOVWF	PCLATH
-	MOVLW	_00134_DS_
-	BANKSEL	r0x1013
-	ADDWF	r0x1013,W
-	BTFSS	STATUS,0
-	GOTO	_00002_DS_
-	BANKSEL	PCLATH
-	INCF	PCLATH,F
-_00002_DS_
-	MOVWF	PCL
-_00134_DS_
-	GOTO	_00122_DS_
+	MOVWF	r0x1013
+;	.line	50; "SSD.c"	switch(ssd)
+	MOVF	r0x1012,W
+;;1	MOVWF	r0x1014
+	BTFSC	STATUS,2
 	GOTO	_00123_DS_
+	MOVF	r0x1012,W
+	XORLW	0x01
+	BTFSC	STATUS,2
 	GOTO	_00124_DS_
-	GOTO	_00125_DS_
-_00122_DS_
-;	.line	60; "SSD.c"	GPIO_SetPortPinState(SSD_En_PORT,SSD_L_En_Pin,state);
-	BANKSEL	r0x1014
-	MOVF	r0x1014,W
-	MOVWF	STK01
-	MOVLW	0x02
-	MOVWF	STK00
-	MOVLW	0x00
-	PAGESEL	_GPIO_SetPortPinState
-	CALL	_GPIO_SetPortPinState
-	PAGESEL	$
-;	.line	61; "SSD.c"	break;
-	GOTO	_00128_DS_
+	GOTO	_00127_DS_
 _00123_DS_
-;	.line	63; "SSD.c"	GPIO_SetPortPinState(SSD_En_PORT,SSD_ML_En_Pin,state);
-	BANKSEL	r0x1014
-	MOVF	r0x1014,W
-	MOVWF	STK01
-	MOVLW	0x03
-	MOVWF	STK00
-	MOVLW	0x00
-	PAGESEL	_GPIO_SetPortPinState
-	CALL	_GPIO_SetPortPinState
-	PAGESEL	$
-;	.line	64; "SSD.c"	break;
-	GOTO	_00128_DS_
-_00124_DS_
-;	.line	66; "SSD.c"	GPIO_SetPortPinState(SSD_En_PORT,SSD_MR_En_Pin,state);
-	BANKSEL	r0x1014
-	MOVF	r0x1014,W
+;	.line	54; "SSD.c"	GPIO_SetPortPinState(SSD_En_PORT,SSD_MR_En_Pin,state);
+	BANKSEL	r0x1013
+	MOVF	r0x1013,W
 	MOVWF	STK01
 	MOVLW	0x04
 	MOVWF	STK00
@@ -942,12 +862,12 @@ _00124_DS_
 	PAGESEL	_GPIO_SetPortPinState
 	CALL	_GPIO_SetPortPinState
 	PAGESEL	$
-;	.line	67; "SSD.c"	break;
-	GOTO	_00128_DS_
-_00125_DS_
-;	.line	69; "SSD.c"	GPIO_SetPortPinState(SSD_En_PORT,SSD_R_En_Pin,state);
-	BANKSEL	r0x1014
-	MOVF	r0x1014,W
+;	.line	55; "SSD.c"	break;
+	GOTO	_00127_DS_
+_00124_DS_
+;	.line	57; "SSD.c"	GPIO_SetPortPinState(SSD_En_PORT,SSD_R_En_Pin,state);
+	BANKSEL	r0x1013
+	MOVF	r0x1013,W
 	MOVWF	STK01
 	MOVLW	0x05
 	MOVWF	STK00
@@ -955,8 +875,8 @@ _00125_DS_
 	PAGESEL	_GPIO_SetPortPinState
 	CALL	_GPIO_SetPortPinState
 	PAGESEL	$
-_00128_DS_
-;	.line	74; "SSD.c"	}
+_00127_DS_
+;	.line	62; "SSD.c"	}
 	RETURN	
 ; exit point of _SSD_SET_state
 
@@ -972,15 +892,11 @@ _00128_DS_
 ;   _GPIO_SetPortState
 ;   _GPIO_InitPortPin
 ;   _GPIO_InitPortPin
-;   _GPIO_InitPortPin
-;   _GPIO_InitPortPin
 ;   _SSD_SET_state
 ;   _SSD_SET_Symbol
 ;   _GPIO_InitPort
 ;   __gptrget1
 ;   _GPIO_SetPortState
-;   _GPIO_InitPortPin
-;   _GPIO_InitPortPin
 ;   _GPIO_InitPortPin
 ;   _GPIO_InitPortPin
 ;   _SSD_SET_state
@@ -1018,76 +934,38 @@ _SSD_Init	;Function start
 	PAGESEL	__gptrget1
 	CALL	__gptrget1
 	PAGESEL	$
-;;1	MOVWF	r0x1022
+	BANKSEL	r0x1022
+	MOVWF	r0x1022
 	MOVWF	STK00
 	MOVLW	0x03
 	PAGESEL	_GPIO_SetPortState
 	CALL	_GPIO_SetPortState
 	PAGESEL	$
-;;swapping arguments (AOP_TYPEs 1/2)
-;;unsigned compare: left >= lit(0x4=4), size=1
 ;	.line	30; "SSD.c"	switch(ssd)
-	MOVLW	0x04
 	BANKSEL	r0x101F
-	SUBWF	r0x101F,W
-	BTFSC	STATUS,0
-	GOTO	_00110_DS_
-;;genSkipc:3247: created from rifx:027A5DF4
-	MOVLW	HIGH(_00117_DS_)
-	BANKSEL	PCLATH
-	MOVWF	PCLATH
-	MOVLW	_00117_DS_
-	BANKSEL	r0x101F
-	ADDWF	r0x101F,W
-	BTFSS	STATUS,0
-	GOTO	_00003_DS_
-	BANKSEL	PCLATH
-	INCF	PCLATH,F
-_00003_DS_
-	MOVWF	PCL
-_00117_DS_
+	MOVF	r0x101F,W
+	MOVWF	r0x1022
+	BTFSC	STATUS,2
 	GOTO	_00105_DS_
+	MOVF	r0x101F,W
+	XORLW	0x01
+	BTFSC	STATUS,2
 	GOTO	_00106_DS_
-	GOTO	_00107_DS_
 	GOTO	_00108_DS_
 _00105_DS_
-;	.line	34; "SSD.c"	GPIO_InitPortPin(SSD_En_PORT,SSD_L_En_Pin,GPIO_OUT);
+;	.line	34; "SSD.c"	GPIO_InitPortPin(SSD_En_PORT,SSD_MR_En_Pin,GPIO_OUT);
 	MOVLW	0x00
 	MOVWF	STK01
-	MOVLW	0x02
+	MOVLW	0x04
 	MOVWF	STK00
 	MOVLW	0x00
 	PAGESEL	_GPIO_InitPortPin
 	CALL	_GPIO_InitPortPin
 	PAGESEL	$
 ;	.line	35; "SSD.c"	break;
-	GOTO	_00110_DS_
+	GOTO	_00108_DS_
 _00106_DS_
-;	.line	37; "SSD.c"	GPIO_InitPortPin(SSD_En_PORT,SSD_ML_En_Pin,GPIO_OUT);
-	MOVLW	0x00
-	MOVWF	STK01
-	MOVLW	0x03
-	MOVWF	STK00
-	MOVLW	0x00
-	PAGESEL	_GPIO_InitPortPin
-	CALL	_GPIO_InitPortPin
-	PAGESEL	$
-;	.line	38; "SSD.c"	break;
-	GOTO	_00110_DS_
-_00107_DS_
-;	.line	40; "SSD.c"	GPIO_InitPortPin(SSD_En_PORT,SSD_MR_En_Pin,GPIO_OUT);
-	MOVLW	0x00
-	MOVWF	STK01
-	MOVLW	0x04
-	MOVWF	STK00
-	MOVLW	0x00
-	PAGESEL	_GPIO_InitPortPin
-	CALL	_GPIO_InitPortPin
-	PAGESEL	$
-;	.line	41; "SSD.c"	break;
-	GOTO	_00110_DS_
-_00108_DS_
-;	.line	43; "SSD.c"	GPIO_InitPortPin(SSD_En_PORT,SSD_R_En_Pin,GPIO_OUT);
+;	.line	37; "SSD.c"	GPIO_InitPortPin(SSD_En_PORT,SSD_R_En_Pin,GPIO_OUT);
 	MOVLW	0x00
 	MOVWF	STK01
 	MOVLW	0x05
@@ -1096,8 +974,8 @@ _00108_DS_
 	PAGESEL	_GPIO_InitPortPin
 	CALL	_GPIO_InitPortPin
 	PAGESEL	$
-_00110_DS_
-;	.line	50; "SSD.c"	SSD_SET_state(ssd,initial_state);
+_00108_DS_
+;	.line	44; "SSD.c"	SSD_SET_state(ssd,initial_state);
 	BANKSEL	r0x1020
 	MOVF	r0x1020,W
 	MOVWF	STK00
@@ -1105,7 +983,7 @@ _00110_DS_
 	PAGESEL	_SSD_SET_state
 	CALL	_SSD_SET_state
 	PAGESEL	$
-;	.line	51; "SSD.c"	SSD_SET_Symbol(ssd, initial_symbol);
+;	.line	45; "SSD.c"	SSD_SET_Symbol(ssd, initial_symbol);
 	BANKSEL	r0x1021
 	MOVF	r0x1021,W
 	MOVWF	STK00
@@ -1118,6 +996,6 @@ _00110_DS_
 
 
 ;	code size estimation:
-;	  481+  138 =   619 instructions ( 1514 byte)
+;	  419+  114 =   533 instructions ( 1294 byte)
 
 	end

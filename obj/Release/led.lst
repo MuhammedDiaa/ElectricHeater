@@ -1,4 +1,4 @@
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  1
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  1
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
@@ -7,7 +7,7 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
                       00001 ;--------------------------------------------------------
                       00002 ; File Created by SDCC : free open source ANSI-C Compiler
                       00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW32)
-                      00004 ; This file was generated Fri Jul 17 06:58:43 2020
+                      00004 ; This file was generated Sun Jul 19 20:05:22 2020
                       00005 ;--------------------------------------------------------
                       00006 ; PIC port for the 14-bit core
                       00007 ;--------------------------------------------------------
@@ -34,764 +34,775 @@ LOC    OBJECT CODE    LINE  SOURCE TEXT
   0000                00018         extern  _GPIO_SetPortPinState
   0000                00019         extern  _GPIO_SetPortState
   0000                00020         extern  _GPIO_GetPortPinState
-  0000                00021         extern  _UTIL_DelayMS
-  0000                00022         extern  _PB_Init
-  0000                00023         extern  _PB_Update
-  0000                00024         extern  _PB_GetState
-  0000                00025         extern  _ADC_Init
-  0000                00026         extern  _ADC_Update
-  0000                00027         extern  _ADC_GetResult
-  0000                00028         extern  _Start_conversion_Int
-  0000                00029         extern  _Temprature_Init
-  0000                00030         extern  _Temprature_update
-  0000                00031         extern  _Cooler_Init
-  0000                00032         extern  _Cooler_SetState
-  0000                00033         extern  _Cooler_GetState
-  0000                00034         extern  _Cooler_update
-  0000                00035         extern  _Heater_Init
-  0000                00036         extern  _Heater_SetState
-  0000                00037         extern  _Heater_GetState
-  0000                00038         extern  _Heater_update
-  0000                00039         extern  _SettingMode_update
-  0000                00040         extern  _SettingMode_Get_SSD_state
-  0000                00041         extern  _SettingMode_OFF_mode
-  0000                00042         extern  _SSD_Init
-  0000                00043         extern  _SSD_SET_Symbol
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  2
+  0000                00021         extern  _PB_Init
+  0000                00022         extern  _PB_Update
+  0000                00023         extern  _PB_GetState
+  0000                00024         extern  _ADC_Init
+  0000                00025         extern  _ADC_Update
+  0000                00026         extern  _ADC_GetResult
+  0000                00027         extern  _Start_conversion_Int
+  0000                00028         extern  _Temprature_Init
+  0000                00029         extern  _Temprature_update
+  0000                00030         extern  _Heater_Init
+  0000                00031         extern  _Heater_update
+  0000                00032         extern  _Heater_GetState
+  0000                00033         extern  _Cooler_Init
+  0000                00034         extern  _Cooler_SetState
+  0000                00035         extern  _Cooler_GetState
+  0000                00036         extern  _Cooler_update
+  0000                00037         extern  _I2C_Init
+  0000                00038         extern  _I2C_Hold
+  0000                00039         extern  _I2C_Begin
+  0000                00040         extern  _I2C_End
+  0000                00041         extern  _I2C_Write
+  0000                00042         extern  _I2C_Read
+  0000                00043         extern  _e2pext_r
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  2
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00044         extern  _SSD_SET_state
-  0000                00045         extern  _SSD_GET_state
-  0000                00046         extern  _SSD_GET_Symbol
-  0000                00047         extern  _SSD_update
-  0000                00048         extern  _TMR0_Init
-  0000                00049         extern  _TMR0_Update
-  0000                00050         extern  _TMR0_Start
-  0000                00051         extern  _STATUSbits
-  0000                00052         extern  _PORTAbits
-  0000                00053         extern  _PORTBbits
-  0000                00054         extern  _PORTCbits
-  0000                00055         extern  _PORTDbits
-  0000                00056         extern  _PORTEbits
-  0000                00057         extern  _INTCONbits
-  0000                00058         extern  _PIR1bits
-  0000                00059         extern  _PIR2bits
-  0000                00060         extern  _T1CONbits
-  0000                00061         extern  _T2CONbits
-  0000                00062         extern  _SSPCONbits
-  0000                00063         extern  _CCP1CONbits
-  0000                00064         extern  _RCSTAbits
-  0000                00065         extern  _CCP2CONbits
-  0000                00066         extern  _ADCON0bits
-  0000                00067         extern  _OPTION_REGbits
-  0000                00068         extern  _TRISAbits
-  0000                00069         extern  _TRISBbits
-  0000                00070         extern  _TRISCbits
-  0000                00071         extern  _TRISDbits
-  0000                00072         extern  _TRISEbits
-  0000                00073         extern  _PIE1bits
-  0000                00074         extern  _PIE2bits
-  0000                00075         extern  _PCONbits
-  0000                00076         extern  _SSPCON2bits
-  0000                00077         extern  _SSPSTATbits
-  0000                00078         extern  _TXSTAbits
-  0000                00079         extern  _CMCONbits
-  0000                00080         extern  _CVRCONbits
-  0000                00081         extern  _ADCON1bits
-  0000                00082         extern  _EECON1bits
-  0000                00083         extern  _Counters
-  0000                00084         extern  _Flags
-  0000                00085         extern  _Readings
-  0000                00086         extern  _INDF
-  0000                00087         extern  _TMR0
-  0000                00088         extern  _PCL
-  0000                00089         extern  _STATUS
-  0000                00090         extern  _FSR
-  0000                00091         extern  _PORTA
-  0000                00092         extern  _PORTB
-  0000                00093         extern  _PORTC
-  0000                00094         extern  _PORTD
-  0000                00095         extern  _PORTE
-  0000                00096         extern  _PCLATH
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  3
+  0000                00044         extern  _e2pext_w
+  0000                00045         extern  _e2pex_update
+  0000                00046         extern  _TMR0_Init
+  0000                00047         extern  _TMR0_Update
+  0000                00048         extern  _TMR0_Start
+  0000                00049         extern  _UTIL_DelayMS
+  0000                00050         extern  _SSD_Init
+  0000                00051         extern  _SSD_SET_Symbol
+  0000                00052         extern  _SSD_SET_state
+  0000                00053         extern  _SSD_GET_state
+  0000                00054         extern  _SSD_GET_Symbol
+  0000                00055         extern  _SSD_update
+  0000                00056         extern  _SettingMode_update
+  0000                00057         extern  _STATUSbits
+  0000                00058         extern  _PORTAbits
+  0000                00059         extern  _PORTBbits
+  0000                00060         extern  _PORTCbits
+  0000                00061         extern  _PORTDbits
+  0000                00062         extern  _PORTEbits
+  0000                00063         extern  _INTCONbits
+  0000                00064         extern  _PIR1bits
+  0000                00065         extern  _PIR2bits
+  0000                00066         extern  _T1CONbits
+  0000                00067         extern  _T2CONbits
+  0000                00068         extern  _SSPCONbits
+  0000                00069         extern  _CCP1CONbits
+  0000                00070         extern  _RCSTAbits
+  0000                00071         extern  _CCP2CONbits
+  0000                00072         extern  _ADCON0bits
+  0000                00073         extern  _OPTION_REGbits
+  0000                00074         extern  _TRISAbits
+  0000                00075         extern  _TRISBbits
+  0000                00076         extern  _TRISCbits
+  0000                00077         extern  _TRISDbits
+  0000                00078         extern  _TRISEbits
+  0000                00079         extern  _PIE1bits
+  0000                00080         extern  _PIE2bits
+  0000                00081         extern  _PCONbits
+  0000                00082         extern  _SSPCON2bits
+  0000                00083         extern  _SSPSTATbits
+  0000                00084         extern  _TXSTAbits
+  0000                00085         extern  _CMCONbits
+  0000                00086         extern  _CVRCONbits
+  0000                00087         extern  _ADCON1bits
+  0000                00088         extern  _EECON1bits
+  0000                00089         extern  _Counters
+  0000                00090         extern  _Flags
+  0000                00091         extern  _Readings
+  0000                00092         extern  _INDF
+  0000                00093         extern  _TMR0
+  0000                00094         extern  _PCL
+  0000                00095         extern  _STATUS
+  0000                00096         extern  _FSR
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  3
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00097         extern  _INTCON
-  0000                00098         extern  _PIR1
-  0000                00099         extern  _PIR2
-  0000                00100         extern  _TMR1
-  0000                00101         extern  _TMR1L
-  0000                00102         extern  _TMR1H
-  0000                00103         extern  _T1CON
-  0000                00104         extern  _TMR2
-  0000                00105         extern  _T2CON
-  0000                00106         extern  _SSPBUF
-  0000                00107         extern  _SSPCON
-  0000                00108         extern  _CCPR1
-  0000                00109         extern  _CCPR1L
-  0000                00110         extern  _CCPR1H
-  0000                00111         extern  _CCP1CON
-  0000                00112         extern  _RCSTA
-  0000                00113         extern  _TXREG
-  0000                00114         extern  _RCREG
-  0000                00115         extern  _CCPR2
-  0000                00116         extern  _CCPR2L
-  0000                00117         extern  _CCPR2H
-  0000                00118         extern  _CCP2CON
-  0000                00119         extern  _ADRESH
-  0000                00120         extern  _ADCON0
-  0000                00121         extern  _OPTION_REG
-  0000                00122         extern  _TRISA
-  0000                00123         extern  _TRISB
-  0000                00124         extern  _TRISC
-  0000                00125         extern  _TRISD
-  0000                00126         extern  _TRISE
-  0000                00127         extern  _PIE1
-  0000                00128         extern  _PIE2
-  0000                00129         extern  _PCON
-  0000                00130         extern  _SSPCON2
-  0000                00131         extern  _PR2
-  0000                00132         extern  _SSPADD
-  0000                00133         extern  _SSPSTAT
-  0000                00134         extern  _TXSTA
-  0000                00135         extern  _SPBRG
-  0000                00136         extern  _CMCON
-  0000                00137         extern  _CVRCON
-  0000                00138         extern  _ADRESL
-  0000                00139         extern  _ADCON1
-  0000                00140         extern  _EEDATA
-  0000                00141         extern  _EEADR
-  0000                00142         extern  _EEDATH
-  0000                00143         extern  _EEADRH
-  0000                00144         extern  _EECON1
-  0000                00145         extern  _EECON2
-                      00146 
-  0000                00147         extern PSAVE
-  0000                00148         extern SSAVE
-  0000                00149         extern WSAVE
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  4
+  0000                00097         extern  _PORTA
+  0000                00098         extern  _PORTB
+  0000                00099         extern  _PORTC
+  0000                00100         extern  _PORTD
+  0000                00101         extern  _PORTE
+  0000                00102         extern  _PCLATH
+  0000                00103         extern  _INTCON
+  0000                00104         extern  _PIR1
+  0000                00105         extern  _PIR2
+  0000                00106         extern  _TMR1
+  0000                00107         extern  _TMR1L
+  0000                00108         extern  _TMR1H
+  0000                00109         extern  _T1CON
+  0000                00110         extern  _TMR2
+  0000                00111         extern  _T2CON
+  0000                00112         extern  _SSPBUF
+  0000                00113         extern  _SSPCON
+  0000                00114         extern  _CCPR1
+  0000                00115         extern  _CCPR1L
+  0000                00116         extern  _CCPR1H
+  0000                00117         extern  _CCP1CON
+  0000                00118         extern  _RCSTA
+  0000                00119         extern  _TXREG
+  0000                00120         extern  _RCREG
+  0000                00121         extern  _CCPR2
+  0000                00122         extern  _CCPR2L
+  0000                00123         extern  _CCPR2H
+  0000                00124         extern  _CCP2CON
+  0000                00125         extern  _ADRESH
+  0000                00126         extern  _ADCON0
+  0000                00127         extern  _OPTION_REG
+  0000                00128         extern  _TRISA
+  0000                00129         extern  _TRISB
+  0000                00130         extern  _TRISC
+  0000                00131         extern  _TRISD
+  0000                00132         extern  _TRISE
+  0000                00133         extern  _PIE1
+  0000                00134         extern  _PIE2
+  0000                00135         extern  _PCON
+  0000                00136         extern  _SSPCON2
+  0000                00137         extern  _PR2
+  0000                00138         extern  _SSPADD
+  0000                00139         extern  _SSPSTAT
+  0000                00140         extern  _TXSTA
+  0000                00141         extern  _SPBRG
+  0000                00142         extern  _CMCON
+  0000                00143         extern  _CVRCON
+  0000                00144         extern  _ADRESL
+  0000                00145         extern  _ADCON1
+  0000                00146         extern  _EEDATA
+  0000                00147         extern  _EEADR
+  0000                00148         extern  _EEDATH
+  0000                00149         extern  _EEADRH
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  4
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-  0000                00150         extern STK12
-  0000                00151         extern STK11
-  0000                00152         extern STK10
-  0000                00153         extern STK09
-  0000                00154         extern STK08
-  0000                00155         extern STK07
-  0000                00156         extern STK06
-  0000                00157         extern STK05
-  0000                00158         extern STK04
-  0000                00159         extern STK03
-  0000                00160         extern STK02
-  0000                00161         extern STK01
-  0000                00162         extern STK00
-                      00163 ;--------------------------------------------------------
-                      00164 ; global declarations
-                      00165 ;--------------------------------------------------------
-  0000                00166         global  _LED_SetState
-  0000                00167         global  _LED_GetState
-  0000                00168         global  _LED_Update
-  0000                00169         global  _LED_Init
-                      00170 
+  0000                00150         extern  _EECON1
+  0000                00151         extern  _EECON2
+                      00152 
+  0000                00153         extern PSAVE
+  0000                00154         extern SSAVE
+  0000                00155         extern WSAVE
+  0000                00156         extern STK12
+  0000                00157         extern STK11
+  0000                00158         extern STK10
+  0000                00159         extern STK09
+  0000                00160         extern STK08
+  0000                00161         extern STK07
+  0000                00162         extern STK06
+  0000                00163         extern STK05
+  0000                00164         extern STK04
+  0000                00165         extern STK03
+  0000                00166         extern STK02
+  0000                00167         extern STK01
+  0000                00168         extern STK00
+                      00169 ;--------------------------------------------------------
+                      00170 ; global declarations
                       00171 ;--------------------------------------------------------
-                      00172 ; global definitions
-                      00173 ;--------------------------------------------------------
-                      00174 ;--------------------------------------------------------
-                      00175 ; absolute symbol definitions
+  0000                00172         global  _LED_GetState
+  0000                00173         global  _LED_Update
+  0000                00174         global  _LED_Init
+                      00175 
                       00176 ;--------------------------------------------------------
-                      00177 ;--------------------------------------------------------
-                      00178 ; compiler-defined variables
+                      00177 ; global definitions
+                      00178 ;--------------------------------------------------------
                       00179 ;--------------------------------------------------------
-                      00180 UDL_led_0       udata
-0000                  00181 r0x1011 res     1
-0001                  00182 r0x1012 res     1
-0002                  00183 r0x1010 res     1
-0003                  00184 r0x100B res     1
-0004                  00185 r0x100C res     1
-0005                  00186 r0x100E res     1
-                      00187 ;--------------------------------------------------------
-                      00188 ; initialized data
-                      00189 ;--------------------------------------------------------
-                      00190 ;--------------------------------------------------------
-                      00191 ; overlayable items in internal ram 
+                      00180 ; absolute symbol definitions
+                      00181 ;--------------------------------------------------------
+                      00182 ;--------------------------------------------------------
+                      00183 ; compiler-defined variables
+                      00184 ;--------------------------------------------------------
+                      00185 UDL_led_0       udata
+0000                  00186 r0x1015 res     1
+0001                  00187 r0x1016 res     1
+0002                  00188 r0x1014 res     1
+0003                  00189 r0x1010 res     1
+0004                  00190 r0x1011 res     1
+0005                  00191 r0x1012 res     1
                       00192 ;--------------------------------------------------------
-                      00193 ;       udata_ovr
+                      00193 ; initialized data
                       00194 ;--------------------------------------------------------
-                      00195 ; code
-                      00196 ;--------------------------------------------------------
-                      00197 code_led        code
-                      00198 ;***
-                      00199 ;  pBlock Stats: dbName = C
-                      00200 ;***
-                      00201 ;entry:  _LED_Toggle    ;Function start
-                      00202 ; 2 exit points
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  5
+                      00195 ;--------------------------------------------------------
+                      00196 ; overlayable items in internal ram 
+                      00197 ;--------------------------------------------------------
+                      00198 ;       udata_ovr
+                      00199 ;--------------------------------------------------------
+                      00200 ; code
+                      00201 ;--------------------------------------------------------
+                      00202 code_led        code
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  5
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-                      00203 ;has an exit
-                      00204 ;functions called:
-                      00205 ;   _LED_GetState
-                      00206 ;   _LED_SetState
-                      00207 ;   _LED_SetState
-                      00208 ;   _LED_GetState
-                      00209 ;   _LED_SetState
-                      00210 ;   _LED_SetState
-                      00211 ;3 compiler assigned registers:
-                      00212 ;   r0x100E
-                      00213 ;   r0x100F
-                      00214 ;   STK00
-                      00215 ;; Starting pCode block
-0000                  00216 _LED_Toggle     ;Function start
-                      00217 ; 2 exit points
-                      00218 ;       .line   116; "led.c"    static void LED_Toggle(tLED led)
-0000   ???? ????      00219         BANKSEL r0x100E
-0002   00??           00220         MOVWF   r0x100E
-                      00221 ;       .line   118; "led.c"    if (LED_GetState(led) == LED_ON)
-0003   2???           00222         CALL    _LED_GetState
-                      00223 ;;1     MOVWF   r0x100F
-0004   3A01           00224         XORLW   0x01
-0005   1D03           00225         BTFSS   STATUS,2
-0006   2???           00226         GOTO    _00233_DS_
-                      00227 ;       .line   120; "led.c"    LED_SetState(led, LED_OFF);
-0007   3000           00228         MOVLW   0x00
-0008   00??           00229         MOVWF   STK00
-0009   ???? ????      00230         BANKSEL r0x100E
-000B   08??           00231         MOVF    r0x100E,W
-000C   2???           00232         CALL    _LED_SetState
-000D   2???           00233         GOTO    _00235_DS_
-000E                  00234 _00233_DS_
-                      00235 ;       .line   124; "led.c"    LED_SetState(led, LED_ON);
-000E   3001           00236         MOVLW   0x01
-000F   00??           00237         MOVWF   STK00
-0010   ???? ????      00238         BANKSEL r0x100E
-0012   08??           00239         MOVF    r0x100E,W
-0013   2???           00240         CALL    _LED_SetState
-0014                  00241 _00235_DS_
-0014   0008           00242         RETURN  
-                      00243 ; exit point of _LED_Toggle
-                      00244 
-                      00245 ;***
-                      00246 ;  pBlock Stats: dbName = C
-                      00247 ;***
-                      00248 ;entry:  _LED_SetState  ;Function start
-                      00249 ; 2 exit points
-                      00250 ;has an exit
-                      00251 ;functions called:
-                      00252 ;   _GPIO_SetPortPinState
-                      00253 ;   _GPIO_SetPortPinState
-                      00254 ;   _GPIO_SetPortPinState
-                      00255 ;   _GPIO_SetPortPinState
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  6
+                      00203 ;***
+                      00204 ;  pBlock Stats: dbName = C
+                      00205 ;***
+                      00206 ;entry:  _LED_Toggle    ;Function start
+                      00207 ; 2 exit points
+                      00208 ;has an exit
+                      00209 ;functions called:
+                      00210 ;   _LED_GetState
+                      00211 ;   _LED_SetState
+                      00212 ;   _LED_SetState
+                      00213 ;   _LED_GetState
+                      00214 ;   _LED_SetState
+                      00215 ;   _LED_SetState
+                      00216 ;3 compiler assigned registers:
+                      00217 ;   r0x1012
+                      00218 ;   r0x1013
+                      00219 ;   STK00
+                      00220 ;; Starting pCode block
+0000                  00221 _LED_Toggle     ;Function start
+                      00222 ; 2 exit points
+                      00223 ;       .line   117; "led.c"    static void LED_Toggle(tLED led)
+0000   ???? ????      00224         BANKSEL r0x1012
+0002   00??           00225         MOVWF   r0x1012
+                      00226 ;       .line   119; "led.c"    if (LED_GetState(led) == LED_ON)
+0003   2???           00227         CALL    _LED_GetState
+                      00228 ;;1     MOVWF   r0x1013
+0004   3A01           00229         XORLW   0x01
+0005   1D03           00230         BTFSS   STATUS,2
+0006   2???           00231         GOTO    _00226_DS_
+                      00232 ;       .line   121; "led.c"    LED_SetState(led, LED_OFF);
+0007   3000           00233         MOVLW   0x00
+0008   00??           00234         MOVWF   STK00
+0009   ???? ????      00235         BANKSEL r0x1012
+000B   08??           00236         MOVF    r0x1012,W
+000C   2???           00237         CALL    _LED_SetState
+000D   2???           00238         GOTO    _00228_DS_
+000E                  00239 _00226_DS_
+                      00240 ;       .line   125; "led.c"    LED_SetState(led, LED_ON);
+000E   3001           00241         MOVLW   0x01
+000F   00??           00242         MOVWF   STK00
+0010   ???? ????      00243         BANKSEL r0x1012
+0012   08??           00244         MOVF    r0x1012,W
+0013   2???           00245         CALL    _LED_SetState
+0014                  00246 _00228_DS_
+0014   0008           00247         RETURN  
+                      00248 ; exit point of _LED_Toggle
+                      00249 
+                      00250 ;***
+                      00251 ;  pBlock Stats: dbName = C
+                      00252 ;***
+                      00253 ;entry:  _LED_SetState  ;Function start
+                      00254 ; 2 exit points
+                      00255 ;has an exit
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  6
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-                      00256 ;   _GPIO_SetPortPinState
+                      00256 ;functions called:
                       00257 ;   _GPIO_SetPortPinState
                       00258 ;   _GPIO_SetPortPinState
                       00259 ;   _GPIO_SetPortPinState
                       00260 ;   _GPIO_SetPortPinState
                       00261 ;   _GPIO_SetPortPinState
-                      00262 ;5 compiler assigned registers:
-                      00263 ;   r0x100B
-                      00264 ;   STK00
-                      00265 ;   r0x100C
-                      00266 ;   r0x100D
-                      00267 ;   STK01
-                      00268 ;; Starting pCode block
-0015                  00269 _LED_SetState   ;Function start
-                      00270 ; 2 exit points
-                      00271 ;       .line   90; "led.c"     void LED_SetState(tLED led, tLED_State state)
-0015   ???? ????      00272         BANKSEL r0x100B
-0017   00??           00273         MOVWF   r0x100B
-0018   08??           00274         MOVF    STK00,W
-0019   00??           00275         MOVWF   r0x100C
-                      00276 ;       .line   92; "led.c"     switch(led)
-001A   08??           00277         MOVF    r0x100B,W
-                      00278 ;;1     MOVWF   r0x100D
-001B   1903           00279         BTFSC   STATUS,2
-001C   2???           00280         GOTO    _00199_DS_
-001D   08??           00281         MOVF    r0x100B,W
-001E   3A01           00282         XORLW   0x01
-001F   1903           00283         BTFSC   STATUS,2
-0020   2???           00284         GOTO    _00200_DS_
-0021   08??           00285         MOVF    r0x100B,W
-0022   3A02           00286         XORLW   0x02
-0023   1903           00287         BTFSC   STATUS,2
-0024   2???           00288         GOTO    _00201_DS_
-0025   08??           00289         MOVF    r0x100B,W
-0026   3A03           00290         XORLW   0x03
-0027   1903           00291         BTFSC   STATUS,2
-0028   2???           00292         GOTO    _00202_DS_
-0029   08??           00293         MOVF    r0x100B,W
-002A   3A07           00294         XORLW   0x07
-002B   1903           00295         BTFSC   STATUS,2
-002C   2???           00296         GOTO    _00203_DS_
-002D   2???           00297         GOTO    _00206_DS_
-002E                  00298 _00199_DS_
-                      00299 ;       .line   95; "led.c"     GPIO_SetPortPinState(PORT_B, 0, state);
-002E   ???? ????      00300         BANKSEL r0x100C
-0030   08??           00301         MOVF    r0x100C,W
-0031   00??           00302         MOVWF   STK01
-0032   3000           00303         MOVLW   0x00
-0033   00??           00304         MOVWF   STK00
-0034   3001           00305         MOVLW   0x01
-0035   ???? ????      00306         PAGESEL _GPIO_SetPortPinState
-0037   2???           00307         CALL    _GPIO_SetPortPinState
-0038   ???? ????      00308         PAGESEL $
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  7
+                      00262 ;   _GPIO_SetPortPinState
+                      00263 ;   _GPIO_SetPortPinState
+                      00264 ;   _GPIO_SetPortPinState
+                      00265 ;   _GPIO_SetPortPinState
+                      00266 ;   _GPIO_SetPortPinState
+                      00267 ;4 compiler assigned registers:
+                      00268 ;   r0x1010
+                      00269 ;   STK00
+                      00270 ;   r0x1011
+                      00271 ;   STK01
+                      00272 ;; Starting pCode block
+0015                  00273 _LED_SetState   ;Function start
+                      00274 ; 2 exit points
+                      00275 ;       .line   91; "led.c"     static void LED_SetState(tLED led, tLED_State state)
+0015   ???? ????      00276         BANKSEL r0x1010
+0017   00??           00277         MOVWF   r0x1010
+0018   08??           00278         MOVF    STK00,W
+0019   00??           00279         MOVWF   r0x1011
+                      00280 ;       .line   93; "led.c"     switch(led)
+001A   08??           00281         MOVF    r0x1010,W
+001B   3A01           00282         XORLW   0x01
+001C   1903           00283         BTFSC   STATUS,2
+001D   2???           00284         GOTO    _00192_DS_
+001E   08??           00285         MOVF    r0x1010,W
+001F   3A02           00286         XORLW   0x02
+0020   1903           00287         BTFSC   STATUS,2
+0021   2???           00288         GOTO    _00193_DS_
+0022   08??           00289         MOVF    r0x1010,W
+0023   3A03           00290         XORLW   0x03
+0024   1903           00291         BTFSC   STATUS,2
+0025   2???           00292         GOTO    _00194_DS_
+0026   08??           00293         MOVF    r0x1010,W
+0027   3A04           00294         XORLW   0x04
+0028   1903           00295         BTFSC   STATUS,2
+0029   2???           00296         GOTO    _00195_DS_
+002A   08??           00297         MOVF    r0x1010,W
+002B   3A07           00298         XORLW   0x07
+002C   1903           00299         BTFSC   STATUS,2
+002D   2???           00300         GOTO    _00196_DS_
+002E   2???           00301         GOTO    _00199_DS_
+002F                  00302 _00192_DS_
+                      00303 ;       .line   96; "led.c"     GPIO_SetPortPinState(PORT_B, 0, state);
+002F   ???? ????      00304         BANKSEL r0x1011
+0031   08??           00305         MOVF    r0x1011,W
+0032   00??           00306         MOVWF   STK01
+0033   3000           00307         MOVLW   0x00
+0034   00??           00308         MOVWF   STK00
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  7
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-                      00309 ;       .line   96; "led.c"     break;
-003A   2???           00310         GOTO    _00206_DS_
-003B                  00311 _00200_DS_
-                      00312 ;       .line   98; "led.c"     GPIO_SetPortPinState(PORT_B, 1, state);
-003B   ???? ????      00313         BANKSEL r0x100C
-003D   08??           00314         MOVF    r0x100C,W
-003E   00??           00315         MOVWF   STK01
-003F   3001           00316         MOVLW   0x01
-0040   00??           00317         MOVWF   STK00
-0041   3001           00318         MOVLW   0x01
-0042   ???? ????      00319         PAGESEL _GPIO_SetPortPinState
-0044   2???           00320         CALL    _GPIO_SetPortPinState
-0045   ???? ????      00321         PAGESEL $
-                      00322 ;       .line   99; "led.c"     break;
-0047   2???           00323         GOTO    _00206_DS_
-0048                  00324 _00201_DS_
-                      00325 ;       .line   101; "led.c"    GPIO_SetPortPinState(PORT_B, 2, state);
-0048   ???? ????      00326         BANKSEL r0x100C
-004A   08??           00327         MOVF    r0x100C,W
-004B   00??           00328         MOVWF   STK01
-004C   3002           00329         MOVLW   0x02
-004D   00??           00330         MOVWF   STK00
-004E   3001           00331         MOVLW   0x01
-004F   ???? ????      00332         PAGESEL _GPIO_SetPortPinState
-0051   2???           00333         CALL    _GPIO_SetPortPinState
-0052   ???? ????      00334         PAGESEL $
-                      00335 ;       .line   102; "led.c"    break;
-0054   2???           00336         GOTO    _00206_DS_
-0055                  00337 _00202_DS_
-                      00338 ;       .line   104; "led.c"    GPIO_SetPortPinState(PORT_B, 3, state);
-0055   ???? ????      00339         BANKSEL r0x100C
-0057   08??           00340         MOVF    r0x100C,W
-0058   00??           00341         MOVWF   STK01
-0059   3003           00342         MOVLW   0x03
-005A   00??           00343         MOVWF   STK00
-005B   3001           00344         MOVLW   0x01
-005C   ???? ????      00345         PAGESEL _GPIO_SetPortPinState
-005E   2???           00346         CALL    _GPIO_SetPortPinState
-005F   ???? ????      00347         PAGESEL $
-                      00348 ;       .line   105; "led.c"    break;
-0061   2???           00349         GOTO    _00206_DS_
-0062                  00350 _00203_DS_
-                      00351 ;       .line   107; "led.c"    GPIO_SetPortPinState(PORT_B, 7, state);
-0062   ???? ????      00352         BANKSEL r0x100C
-0064   08??           00353         MOVF    r0x100C,W
-0065   00??           00354         MOVWF   STK01
-0066   3007           00355         MOVLW   0x07
-0067   00??           00356         MOVWF   STK00
-0068   3001           00357         MOVLW   0x01
-0069   ???? ????      00358         PAGESEL _GPIO_SetPortPinState
-006B   2???           00359         CALL    _GPIO_SetPortPinState
-006C   ???? ????      00360         PAGESEL $
-006E                  00361 _00206_DS_
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  8
+0035   3001           00309         MOVLW   0x01
+0036   ???? ????      00310         PAGESEL _GPIO_SetPortPinState
+0038   2???           00311         CALL    _GPIO_SetPortPinState
+0039   ???? ????      00312         PAGESEL $
+                      00313 ;       .line   97; "led.c"     break;
+003B   2???           00314         GOTO    _00199_DS_
+003C                  00315 _00193_DS_
+                      00316 ;       .line   99; "led.c"     GPIO_SetPortPinState(PORT_B, 1, state);
+003C   ???? ????      00317         BANKSEL r0x1011
+003E   08??           00318         MOVF    r0x1011,W
+003F   00??           00319         MOVWF   STK01
+0040   3001           00320         MOVLW   0x01
+0041   00??           00321         MOVWF   STK00
+0042   3001           00322         MOVLW   0x01
+0043   ???? ????      00323         PAGESEL _GPIO_SetPortPinState
+0045   2???           00324         CALL    _GPIO_SetPortPinState
+0046   ???? ????      00325         PAGESEL $
+                      00326 ;       .line   100; "led.c"    break;
+0048   2???           00327         GOTO    _00199_DS_
+0049                  00328 _00194_DS_
+                      00329 ;       .line   102; "led.c"    GPIO_SetPortPinState(PORT_B, 2, state);
+0049   ???? ????      00330         BANKSEL r0x1011
+004B   08??           00331         MOVF    r0x1011,W
+004C   00??           00332         MOVWF   STK01
+004D   3002           00333         MOVLW   0x02
+004E   00??           00334         MOVWF   STK00
+004F   3001           00335         MOVLW   0x01
+0050   ???? ????      00336         PAGESEL _GPIO_SetPortPinState
+0052   2???           00337         CALL    _GPIO_SetPortPinState
+0053   ???? ????      00338         PAGESEL $
+                      00339 ;       .line   103; "led.c"    break;
+0055   2???           00340         GOTO    _00199_DS_
+0056                  00341 _00195_DS_
+                      00342 ;       .line   105; "led.c"    GPIO_SetPortPinState(PORT_B, 3, state);
+0056   ???? ????      00343         BANKSEL r0x1011
+0058   08??           00344         MOVF    r0x1011,W
+0059   00??           00345         MOVWF   STK01
+005A   3003           00346         MOVLW   0x03
+005B   00??           00347         MOVWF   STK00
+005C   3001           00348         MOVLW   0x01
+005D   ???? ????      00349         PAGESEL _GPIO_SetPortPinState
+005F   2???           00350         CALL    _GPIO_SetPortPinState
+0060   ???? ????      00351         PAGESEL $
+                      00352 ;       .line   106; "led.c"    break;
+0062   2???           00353         GOTO    _00199_DS_
+0063                  00354 _00196_DS_
+                      00355 ;       .line   108; "led.c"    GPIO_SetPortPinState(PORT_B, 7, state);
+0063   ???? ????      00356         BANKSEL r0x1011
+0065   08??           00357         MOVF    r0x1011,W
+0066   00??           00358         MOVWF   STK01
+0067   3007           00359         MOVLW   0x07
+0068   00??           00360         MOVWF   STK00
+0069   3001           00361         MOVLW   0x01
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  8
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-                      00362 ;       .line   112; "led.c"    }
-006E   0008           00363         RETURN  
-                      00364 ; exit point of _LED_SetState
-                      00365 
-                      00366 ;***
-                      00367 ;  pBlock Stats: dbName = C
-                      00368 ;***
-                      00369 ;entry:  _LED_GetState  ;Function start
-                      00370 ; 2 exit points
-                      00371 ;has an exit
-                      00372 ;functions called:
-                      00373 ;   _GPIO_GetPortPinState
-                      00374 ;   _GPIO_GetPortPinState
-                      00375 ;   _GPIO_GetPortPinState
-                      00376 ;   _GPIO_GetPortPinState
+006A   ???? ????      00362         PAGESEL _GPIO_SetPortPinState
+006C   2???           00363         CALL    _GPIO_SetPortPinState
+006D   ???? ????      00364         PAGESEL $
+006F                  00365 _00199_DS_
+                      00366 ;       .line   113; "led.c"    }
+006F   0008           00367         RETURN  
+                      00368 ; exit point of _LED_SetState
+                      00369 
+                      00370 ;***
+                      00371 ;  pBlock Stats: dbName = C
+                      00372 ;***
+                      00373 ;entry:  _LED_GetState  ;Function start
+                      00374 ; 2 exit points
+                      00375 ;has an exit
+                      00376 ;functions called:
                       00377 ;   _GPIO_GetPortPinState
                       00378 ;   _GPIO_GetPortPinState
                       00379 ;   _GPIO_GetPortPinState
                       00380 ;   _GPIO_GetPortPinState
                       00381 ;   _GPIO_GetPortPinState
                       00382 ;   _GPIO_GetPortPinState
-                      00383 ;4 compiler assigned registers:
-                      00384 ;   r0x100B
-                      00385 ;   r0x100C
-                      00386 ;   r0x100D
-                      00387 ;   STK00
-                      00388 ;; Starting pCode block
-006F                  00389 _LED_GetState   ;Function start
-                      00390 ; 2 exit points
-                      00391 ;       .line   61; "led.c"     tLED_State LED_GetState(tLED led)
-006F   ???? ????      00392         BANKSEL r0x100B
-0071   00??           00393         MOVWF   r0x100B
-                      00394 ;       .line   63; "led.c"     tLED_State ret = LED_OFF;
-0072   01??           00395         CLRF    r0x100C
-                      00396 ;       .line   65; "led.c"     switch(led)
-0073   08??           00397         MOVF    r0x100B,W
-                      00398 ;;1     MOVWF   r0x100D
-0074   1903           00399         BTFSC   STATUS,2
-0075   2???           00400         GOTO    _00166_DS_
-0076   08??           00401         MOVF    r0x100B,W
-0077   3A01           00402         XORLW   0x01
-0078   1903           00403         BTFSC   STATUS,2
-0079   2???           00404         GOTO    _00167_DS_
-007A   08??           00405         MOVF    r0x100B,W
-007B   3A02           00406         XORLW   0x02
-007C   1903           00407         BTFSC   STATUS,2
-007D   2???           00408         GOTO    _00168_DS_
-007E   08??           00409         MOVF    r0x100B,W
-007F   3A03           00410         XORLW   0x03
-0080   1903           00411         BTFSC   STATUS,2
-0081   2???           00412         GOTO    _00169_DS_
-0082   08??           00413         MOVF    r0x100B,W
-0083   3A07           00414         XORLW   0x07
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE  9
+                      00383 ;   _GPIO_GetPortPinState
+                      00384 ;   _GPIO_GetPortPinState
+                      00385 ;   _GPIO_GetPortPinState
+                      00386 ;   _GPIO_GetPortPinState
+                      00387 ;3 compiler assigned registers:
+                      00388 ;   r0x1010
+                      00389 ;   r0x1011
+                      00390 ;   STK00
+                      00391 ;; Starting pCode block
+0070                  00392 _LED_GetState   ;Function start
+                      00393 ; 2 exit points
+                      00394 ;       .line   62; "led.c"     tLED_State LED_GetState(tLED led)
+0070   ???? ????      00395         BANKSEL r0x1010
+0072   00??           00396         MOVWF   r0x1010
+                      00397 ;       .line   64; "led.c"     tLED_State ret = LED_OFF;
+0073   01??           00398         CLRF    r0x1011
+                      00399 ;       .line   66; "led.c"     switch(led)
+0074   08??           00400         MOVF    r0x1010,W
+0075   3A01           00401         XORLW   0x01
+0076   1903           00402         BTFSC   STATUS,2
+0077   2???           00403         GOTO    _00159_DS_
+0078   08??           00404         MOVF    r0x1010,W
+0079   3A02           00405         XORLW   0x02
+007A   1903           00406         BTFSC   STATUS,2
+007B   2???           00407         GOTO    _00160_DS_
+007C   08??           00408         MOVF    r0x1010,W
+007D   3A03           00409         XORLW   0x03
+007E   1903           00410         BTFSC   STATUS,2
+007F   2???           00411         GOTO    _00161_DS_
+0080   08??           00412         MOVF    r0x1010,W
+0081   3A04           00413         XORLW   0x04
+0082   1903           00414         BTFSC   STATUS,2
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE  9
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-0084   1903           00415         BTFSC   STATUS,2
-0085   2???           00416         GOTO    _00170_DS_
-0086   2???           00417         GOTO    _00172_DS_
-0087                  00418 _00166_DS_
-                      00419 ;       .line   68; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 0);
-0087   3000           00420         MOVLW   0x00
-0088   00??           00421         MOVWF   STK00
-0089   3001           00422         MOVLW   0x01
-008A   ???? ????      00423         PAGESEL _GPIO_GetPortPinState
-008C   2???           00424         CALL    _GPIO_GetPortPinState
-008D   ???? ????      00425         PAGESEL $
-008F   ???? ????      00426         BANKSEL r0x100C
-0091   00??           00427         MOVWF   r0x100C
-                      00428 ;       .line   69; "led.c"     break;
-0092   2???           00429         GOTO    _00172_DS_
-0093                  00430 _00167_DS_
-                      00431 ;       .line   71; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 1);
-0093   3001           00432         MOVLW   0x01
-0094   00??           00433         MOVWF   STK00
-0095   3001           00434         MOVLW   0x01
-0096   ???? ????      00435         PAGESEL _GPIO_GetPortPinState
-0098   2???           00436         CALL    _GPIO_GetPortPinState
-0099   ???? ????      00437         PAGESEL $
-009B   ???? ????      00438         BANKSEL r0x100C
-009D   00??           00439         MOVWF   r0x100C
-                      00440 ;       .line   72; "led.c"     break;
-009E   2???           00441         GOTO    _00172_DS_
-009F                  00442 _00168_DS_
-                      00443 ;       .line   74; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 2);
-009F   3002           00444         MOVLW   0x02
-00A0   00??           00445         MOVWF   STK00
-00A1   3001           00446         MOVLW   0x01
-00A2   ???? ????      00447         PAGESEL _GPIO_GetPortPinState
-00A4   2???           00448         CALL    _GPIO_GetPortPinState
-00A5   ???? ????      00449         PAGESEL $
-00A7   ???? ????      00450         BANKSEL r0x100C
-00A9   00??           00451         MOVWF   r0x100C
-                      00452 ;       .line   75; "led.c"     break;
-00AA   2???           00453         GOTO    _00172_DS_
-00AB                  00454 _00169_DS_
-                      00455 ;       .line   77; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 3);
-00AB   3003           00456         MOVLW   0x03
-00AC   00??           00457         MOVWF   STK00
-00AD   3001           00458         MOVLW   0x01
-00AE   ???? ????      00459         PAGESEL _GPIO_GetPortPinState
-00B0   2???           00460         CALL    _GPIO_GetPortPinState
-00B1   ???? ????      00461         PAGESEL $
-00B3   ???? ????      00462         BANKSEL r0x100C
-00B5   00??           00463         MOVWF   r0x100C
-                      00464 ;       .line   78; "led.c"     break;
-00B6   2???           00465         GOTO    _00172_DS_
-00B7                  00466 _00170_DS_
-                      00467 ;       .line   80; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 7);
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 10
+0083   2???           00415         GOTO    _00162_DS_
+0084   08??           00416         MOVF    r0x1010,W
+0085   3A07           00417         XORLW   0x07
+0086   1903           00418         BTFSC   STATUS,2
+0087   2???           00419         GOTO    _00163_DS_
+0088   2???           00420         GOTO    _00165_DS_
+0089                  00421 _00159_DS_
+                      00422 ;       .line   69; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 0);
+0089   3000           00423         MOVLW   0x00
+008A   00??           00424         MOVWF   STK00
+008B   3001           00425         MOVLW   0x01
+008C   ???? ????      00426         PAGESEL _GPIO_GetPortPinState
+008E   2???           00427         CALL    _GPIO_GetPortPinState
+008F   ???? ????      00428         PAGESEL $
+0091   ???? ????      00429         BANKSEL r0x1011
+0093   00??           00430         MOVWF   r0x1011
+                      00431 ;       .line   70; "led.c"     break;
+0094   2???           00432         GOTO    _00165_DS_
+0095                  00433 _00160_DS_
+                      00434 ;       .line   72; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 1);
+0095   3001           00435         MOVLW   0x01
+0096   00??           00436         MOVWF   STK00
+0097   3001           00437         MOVLW   0x01
+0098   ???? ????      00438         PAGESEL _GPIO_GetPortPinState
+009A   2???           00439         CALL    _GPIO_GetPortPinState
+009B   ???? ????      00440         PAGESEL $
+009D   ???? ????      00441         BANKSEL r0x1011
+009F   00??           00442         MOVWF   r0x1011
+                      00443 ;       .line   73; "led.c"     break;
+00A0   2???           00444         GOTO    _00165_DS_
+00A1                  00445 _00161_DS_
+                      00446 ;       .line   75; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 2);
+00A1   3002           00447         MOVLW   0x02
+00A2   00??           00448         MOVWF   STK00
+00A3   3001           00449         MOVLW   0x01
+00A4   ???? ????      00450         PAGESEL _GPIO_GetPortPinState
+00A6   2???           00451         CALL    _GPIO_GetPortPinState
+00A7   ???? ????      00452         PAGESEL $
+00A9   ???? ????      00453         BANKSEL r0x1011
+00AB   00??           00454         MOVWF   r0x1011
+                      00455 ;       .line   76; "led.c"     break;
+00AC   2???           00456         GOTO    _00165_DS_
+00AD                  00457 _00162_DS_
+                      00458 ;       .line   78; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 3);
+00AD   3003           00459         MOVLW   0x03
+00AE   00??           00460         MOVWF   STK00
+00AF   3001           00461         MOVLW   0x01
+00B0   ???? ????      00462         PAGESEL _GPIO_GetPortPinState
+00B2   2???           00463         CALL    _GPIO_GetPortPinState
+00B3   ???? ????      00464         PAGESEL $
+00B5   ???? ????      00465         BANKSEL r0x1011
+00B7   00??           00466         MOVWF   r0x1011
+                      00467 ;       .line   79; "led.c"     break;
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 10
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-00B7   3007           00468         MOVLW   0x07
-00B8   00??           00469         MOVWF   STK00
-00B9   3001           00470         MOVLW   0x01
-00BA   ???? ????      00471         PAGESEL _GPIO_GetPortPinState
-00BC   2???           00472         CALL    _GPIO_GetPortPinState
-00BD   ???? ????      00473         PAGESEL $
-00BF   ???? ????      00474         BANKSEL r0x100C
-00C1   00??           00475         MOVWF   r0x100C
-00C2                  00476 _00172_DS_
-                      00477 ;       .line   87; "led.c"     return ret;
-00C2   ???? ????      00478         BANKSEL r0x100C
-00C4   08??           00479         MOVF    r0x100C,W
-00C5   0008           00480         RETURN  
-                      00481 ; exit point of _LED_GetState
-                      00482 
-                      00483 ;***
-                      00484 ;  pBlock Stats: dbName = C
-                      00485 ;***
-                      00486 ;entry:  _LED_Update    ;Function start
-                      00487 ; 2 exit points
-                      00488 ;has an exit
-                      00489 ;functions called:
-                      00490 ;   _LED_SetState
-                      00491 ;   _LED_Toggle
-                      00492 ;   _LED_SetState
+00B8   2???           00468         GOTO    _00165_DS_
+00B9                  00469 _00163_DS_
+                      00470 ;       .line   81; "led.c"     ret = GPIO_GetPortPinState(PORT_B, 7);
+00B9   3007           00471         MOVLW   0x07
+00BA   00??           00472         MOVWF   STK00
+00BB   3001           00473         MOVLW   0x01
+00BC   ???? ????      00474         PAGESEL _GPIO_GetPortPinState
+00BE   2???           00475         CALL    _GPIO_GetPortPinState
+00BF   ???? ????      00476         PAGESEL $
+00C1   ???? ????      00477         BANKSEL r0x1011
+00C3   00??           00478         MOVWF   r0x1011
+00C4                  00479 _00165_DS_
+                      00480 ;       .line   88; "led.c"     return ret;
+00C4   ???? ????      00481         BANKSEL r0x1011
+00C6   08??           00482         MOVF    r0x1011,W
+00C7   0008           00483         RETURN  
+                      00484 ; exit point of _LED_GetState
+                      00485 
+                      00486 ;***
+                      00487 ;  pBlock Stats: dbName = C
+                      00488 ;***
+                      00489 ;entry:  _LED_Update    ;Function start
+                      00490 ; 2 exit points
+                      00491 ;has an exit
+                      00492 ;functions called:
                       00493 ;   _LED_SetState
                       00494 ;   _LED_Toggle
                       00495 ;   _LED_SetState
-                      00496 ;2 compiler assigned registers:
-                      00497 ;   r0x1010
-                      00498 ;   STK00
-                      00499 ;; Starting pCode block
-00C6                  00500 _LED_Update     ;Function start
-                      00501 ; 2 exit points
-                      00502 ;       .line   39; "led.c"     switch(Flags.Toggle_led)
-00C6   ???? ????      00503         BANKSEL _Flags
-00C8   08??           00504         MOVF    (_Flags + 1),W
-00C9   ???? ????      00505         BANKSEL r0x1010
-00CB   00??           00506         MOVWF   r0x1010
-00CC   1903           00507         BTFSC   STATUS,2
-00CD   2???           00508         GOTO    _00138_DS_
-00CE   08??           00509         MOVF    r0x1010,W
-00CF   3A01           00510         XORLW   0x01
-00D0   1903           00511         BTFSC   STATUS,2
-00D1   2???           00512         GOTO    _00139_DS_
-00D2   08??           00513         MOVF    r0x1010,W
-00D3   3A03           00514         XORLW   0x03
-00D4   1903           00515         BTFSC   STATUS,2
-00D5   2???           00516         GOTO    _00142_DS_
-00D6   2???           00517         GOTO    _00145_DS_
-00D7                  00518 _00138_DS_
-                      00519 ;       .line   42; "led.c"     LED_SetState(LED_7,LED_ON);
-00D7   3001           00520         MOVLW   0x01
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 11
+                      00496 ;   _LED_SetState
+                      00497 ;   _LED_Toggle
+                      00498 ;   _LED_SetState
+                      00499 ;2 compiler assigned registers:
+                      00500 ;   r0x1014
+                      00501 ;   STK00
+                      00502 ;; Starting pCode block
+00C8                  00503 _LED_Update     ;Function start
+                      00504 ; 2 exit points
+                      00505 ;       .line   39; "led.c"     switch(Flags.Toggle_led)
+00C8   ???? ????      00506         BANKSEL _Flags
+00CA   08??           00507         MOVF    (_Flags + 1),W
+00CB   ???? ????      00508         BANKSEL r0x1014
+00CD   00??           00509         MOVWF   r0x1014
+                      00510 ;;swapping arguments (AOP_TYPEs 1/2)
+                      00511 ;;unsigned compare: left >= lit(0x3=3), size=1
+00CE   3003           00512         MOVLW   0x03
+00CF   02??           00513         SUBWF   r0x1014,W
+00D0   1803           00514         BTFSC   STATUS,0
+00D1   2???           00515         GOTO    _00145_DS_
+                      00516 ;;genSkipc:3247: created from rifx:027A5DF4
+00D2   30??           00517         MOVLW   HIGH(_00154_DS_)
+00D3   1283 1303      00518         BANKSEL PCLATH
+00D5   008A           00519         MOVWF   PCLATH
+00D6   30??           00520         MOVLW   _00154_DS_
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 11
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-00D8   00??           00521         MOVWF   STK00
-00D9   3007           00522         MOVLW   0x07
-00DA   ???? ????      00523         PAGESEL _LED_SetState
-00DC   2???           00524         CALL    _LED_SetState
-00DD   ???? ????      00525         PAGESEL $
-                      00526 ;       .line   43; "led.c"     break;
-00DF   2???           00527         GOTO    _00145_DS_
-00E0                  00528 _00139_DS_
-                      00529 ;       .line   45; "led.c"     if(Counters.Led_counter == 50)
-00E0   ???? ????      00530         BANKSEL _Counters
-00E2   08??           00531         MOVF    (_Counters + 4),W
-00E3   ???? ????      00532         BANKSEL r0x1010
-00E5   00??           00533         MOVWF   r0x1010
-00E6   3A32           00534         XORLW   0x32
-00E7   1D03           00535         BTFSS   STATUS,2
-00E8   2???           00536         GOTO    _00141_DS_
-                      00537 ;       .line   47; "led.c"     LED_Toggle(LED_7);
-00E9   3007           00538         MOVLW   0x07
-00EA   2???           00539         CALL    _LED_Toggle
-                      00540 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-                      00541 ;       .line   48; "led.c"     Counters.Led_counter = 0 ;
-00EB   ???? ????      00542         BANKSEL _Counters
-00ED   01??           00543         CLRF    (_Counters + 4)
-00EE                  00544 _00141_DS_
-                      00545 ;       .line   50; "led.c"     Counters.Led_counter++ ;
-00EE   ???? ????      00546         BANKSEL _Counters
-00F0   08??           00547         MOVF    (_Counters + 4),W
-00F1   ???? ????      00548         BANKSEL r0x1010
-00F3   00??           00549         MOVWF   r0x1010
-00F4   0A??           00550         INCF    r0x1010,F
-                      00551 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
-00F5   08??           00552         MOVF    r0x1010,W
-00F6   ???? ????      00553         BANKSEL _Counters
-00F8   00??           00554         MOVWF   (_Counters + 4)
-                      00555 ;       .line   51; "led.c"     break;
-00F9   2???           00556         GOTO    _00145_DS_
-00FA                  00557 _00142_DS_
-                      00558 ;       .line   53; "led.c"     LED_SetState(LED_7,LED_OFF);
-00FA   3000           00559         MOVLW   0x00
-00FB   00??           00560         MOVWF   STK00
-00FC   3007           00561         MOVLW   0x07
-00FD   ???? ????      00562         PAGESEL _LED_SetState
-00FF   2???           00563         CALL    _LED_SetState
-0100   ???? ????      00564         PAGESEL $
-0102                  00565 _00145_DS_
-                      00566 ;       .line   57; "led.c"     }
-0102   0008           00567         RETURN  
-                      00568 ; exit point of _LED_Update
-                      00569 
-                      00570 ;***
-                      00571 ;  pBlock Stats: dbName = C
-                      00572 ;***
-                      00573 ;entry:  _LED_Init      ;Function start
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 12
+00D7   ???? ????      00521         BANKSEL r0x1014
+00D9   07??           00522         ADDWF   r0x1014,W
+00DA   1C03           00523         BTFSS   STATUS,0
+00DB   2???           00524         GOTO    _00001_DS_
+00DC   1283 1303      00525         BANKSEL PCLATH
+00DE   0A8A           00526         INCF    PCLATH,F
+00DF                  00527 _00001_DS_
+00DF   0082           00528         MOVWF   PCL
+00E0                  00529 _00154_DS_
+00E0   2???           00530         GOTO    _00138_DS_
+00E1   2???           00531         GOTO    _00139_DS_
+00E2   2???           00532         GOTO    _00142_DS_
+00E3                  00533 _00138_DS_
+                      00534 ;       .line   42; "led.c"     LED_SetState(LED_7,LED_ON);
+00E3   3001           00535         MOVLW   0x01
+00E4   00??           00536         MOVWF   STK00
+00E5   3007           00537         MOVLW   0x07
+00E6   2???           00538         CALL    _LED_SetState
+                      00539 ;       .line   43; "led.c"     break;
+00E7   2???           00540         GOTO    _00145_DS_
+00E8                  00541 _00139_DS_
+                      00542 ;       .line   45; "led.c"     if(Counters.Led_counter == 50)
+00E8   ???? ????      00543         BANKSEL _Counters
+00EA   08??           00544         MOVF    (_Counters + 4),W
+00EB   ???? ????      00545         BANKSEL r0x1014
+00ED   00??           00546         MOVWF   r0x1014
+00EE   3A32           00547         XORLW   0x32
+00EF   1D03           00548         BTFSS   STATUS,2
+00F0   2???           00549         GOTO    _00141_DS_
+                      00550 ;       .line   47; "led.c"     LED_Toggle(LED_7);
+00F1   3007           00551         MOVLW   0x07
+00F2   2???           00552         CALL    _LED_Toggle
+                      00553 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+                      00554 ;       .line   48; "led.c"     Counters.Led_counter = 0 ;
+00F3   ???? ????      00555         BANKSEL _Counters
+00F5   01??           00556         CLRF    (_Counters + 4)
+                      00557 ;       .line   49; "led.c"     RC7 = 1;
+00F6   ???? ????      00558         BANKSEL _PORTCbits
+00F8   17??           00559         BSF     _PORTCbits,7
+00F9                  00560 _00141_DS_
+                      00561 ;       .line   51; "led.c"     Counters.Led_counter++ ;
+00F9   ???? ????      00562         BANKSEL _Counters
+00FB   08??           00563         MOVF    (_Counters + 4),W
+00FC   ???? ????      00564         BANKSEL r0x1014
+00FE   00??           00565         MOVWF   r0x1014
+00FF   0A??           00566         INCF    r0x1014,F
+                      00567 ;;/home/sdcc-builder/build/sdcc-build/orig/sdcc/src/pic14/gen.c:6461: size=0, offset=0, AOP_TYPE(res)=8
+0100   08??           00568         MOVF    r0x1014,W
+0101   ???? ????      00569         BANKSEL _Counters
+0103   00??           00570         MOVWF   (_Counters + 4)
+                      00571 ;       .line   52; "led.c"     break;
+0104   2???           00572         GOTO    _00145_DS_
+0105                  00573 _00142_DS_
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 12
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-                      00574 ; 2 exit points
-                      00575 ;has an exit
-                      00576 ;functions called:
-                      00577 ;   _GPIO_InitPortPin
-                      00578 ;   _GPIO_InitPortPin
-                      00579 ;   _GPIO_InitPortPin
-                      00580 ;   _GPIO_InitPortPin
-                      00581 ;   _GPIO_InitPortPin
-                      00582 ;   _LED_SetState
-                      00583 ;   _GPIO_InitPortPin
-                      00584 ;   _GPIO_InitPortPin
-                      00585 ;   _GPIO_InitPortPin
-                      00586 ;   _GPIO_InitPortPin
-                      00587 ;   _GPIO_InitPortPin
-                      00588 ;   _LED_SetState
-                      00589 ;5 compiler assigned registers:
-                      00590 ;   r0x1011
-                      00591 ;   STK00
-                      00592 ;   r0x1012
-                      00593 ;   r0x1013
-                      00594 ;   STK01
-                      00595 ;; Starting pCode block
-0103                  00596 _LED_Init       ;Function start
-                      00597 ; 2 exit points
-                      00598 ;       .line   3; "led.c"      void LED_Init(tLED led, tLED_State initial_state)
-0103   ???? ????      00599         BANKSEL r0x1011
-0105   00??           00600         MOVWF   r0x1011
-0106   08??           00601         MOVF    STK00,W
-0107   00??           00602         MOVWF   r0x1012
-                      00603 ;       .line   6; "led.c"      switch(led)
-0108   08??           00604         MOVF    r0x1011,W
-                      00605 ;;1     MOVWF   r0x1013
-0109   1903           00606         BTFSC   STATUS,2
-010A   2???           00607         GOTO    _00105_DS_
-010B   08??           00608         MOVF    r0x1011,W
-010C   3A01           00609         XORLW   0x01
-010D   1903           00610         BTFSC   STATUS,2
-010E   2???           00611         GOTO    _00106_DS_
-010F   08??           00612         MOVF    r0x1011,W
-0110   3A02           00613         XORLW   0x02
-0111   1903           00614         BTFSC   STATUS,2
-0112   2???           00615         GOTO    _00107_DS_
-0113   08??           00616         MOVF    r0x1011,W
-0114   3A03           00617         XORLW   0x03
-0115   1903           00618         BTFSC   STATUS,2
-0116   2???           00619         GOTO    _00108_DS_
-0117   08??           00620         MOVF    r0x1011,W
-0118   3A07           00621         XORLW   0x07
-0119   1903           00622         BTFSC   STATUS,2
-011A   2???           00623         GOTO    _00109_DS_
-011B   2???           00624         GOTO    _00111_DS_
-011C                  00625 _00105_DS_
-                      00626 ;       .line   10; "led.c"     GPIO_InitPortPin(PORT_B, 0, GPIO_OUT);
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 13
+                      00574 ;       .line   54; "led.c"     LED_SetState(LED_7,LED_OFF);
+0105   3000           00575         MOVLW   0x00
+0106   00??           00576         MOVWF   STK00
+0107   3007           00577         MOVLW   0x07
+0108   2???           00578         CALL    _LED_SetState
+0109                  00579 _00145_DS_
+                      00580 ;       .line   58; "led.c"     }
+0109   0008           00581         RETURN  
+                      00582 ; exit point of _LED_Update
+                      00583 
+                      00584 ;***
+                      00585 ;  pBlock Stats: dbName = C
+                      00586 ;***
+                      00587 ;entry:  _LED_Init      ;Function start
+                      00588 ; 2 exit points
+                      00589 ;has an exit
+                      00590 ;functions called:
+                      00591 ;   _GPIO_InitPortPin
+                      00592 ;   _GPIO_InitPortPin
+                      00593 ;   _GPIO_InitPortPin
+                      00594 ;   _GPIO_InitPortPin
+                      00595 ;   _GPIO_InitPortPin
+                      00596 ;   _LED_SetState
+                      00597 ;   _GPIO_InitPortPin
+                      00598 ;   _GPIO_InitPortPin
+                      00599 ;   _GPIO_InitPortPin
+                      00600 ;   _GPIO_InitPortPin
+                      00601 ;   _GPIO_InitPortPin
+                      00602 ;   _LED_SetState
+                      00603 ;4 compiler assigned registers:
+                      00604 ;   r0x1015
+                      00605 ;   STK00
+                      00606 ;   r0x1016
+                      00607 ;   STK01
+                      00608 ;; Starting pCode block
+010A                  00609 _LED_Init       ;Function start
+                      00610 ; 2 exit points
+                      00611 ;       .line   3; "led.c"      void LED_Init(tLED led, tLED_State initial_state)
+010A   ???? ????      00612         BANKSEL r0x1015
+010C   00??           00613         MOVWF   r0x1015
+010D   08??           00614         MOVF    STK00,W
+010E   00??           00615         MOVWF   r0x1016
+                      00616 ;       .line   6; "led.c"      switch(led)
+010F   08??           00617         MOVF    r0x1015,W
+0110   3A01           00618         XORLW   0x01
+0111   1903           00619         BTFSC   STATUS,2
+0112   2???           00620         GOTO    _00105_DS_
+0113   08??           00621         MOVF    r0x1015,W
+0114   3A02           00622         XORLW   0x02
+0115   1903           00623         BTFSC   STATUS,2
+0116   2???           00624         GOTO    _00106_DS_
+0117   08??           00625         MOVF    r0x1015,W
+0118   3A03           00626         XORLW   0x03
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 13
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-011C   3000           00627         MOVLW   0x00
-011D   00??           00628         MOVWF   STK01
-011E   3000           00629         MOVLW   0x00
-011F   00??           00630         MOVWF   STK00
-0120   3001           00631         MOVLW   0x01
-0121   ???? ????      00632         PAGESEL _GPIO_InitPortPin
-0123   2???           00633         CALL    _GPIO_InitPortPin
-0124   ???? ????      00634         PAGESEL $
-                      00635 ;       .line   11; "led.c"     break;
-0126   2???           00636         GOTO    _00111_DS_
-0127                  00637 _00106_DS_
-                      00638 ;       .line   14; "led.c"     GPIO_InitPortPin(PORT_B, 1, GPIO_OUT);
-0127   3000           00639         MOVLW   0x00
-0128   00??           00640         MOVWF   STK01
-0129   3001           00641         MOVLW   0x01
-012A   00??           00642         MOVWF   STK00
-012B   3001           00643         MOVLW   0x01
-012C   ???? ????      00644         PAGESEL _GPIO_InitPortPin
-012E   2???           00645         CALL    _GPIO_InitPortPin
-012F   ???? ????      00646         PAGESEL $
-                      00647 ;       .line   15; "led.c"     break;
-0131   2???           00648         GOTO    _00111_DS_
-0132                  00649 _00107_DS_
-                      00650 ;       .line   18; "led.c"     GPIO_InitPortPin(PORT_B, 2, GPIO_OUT);
-0132   3000           00651         MOVLW   0x00
-0133   00??           00652         MOVWF   STK01
-0134   3002           00653         MOVLW   0x02
-0135   00??           00654         MOVWF   STK00
-0136   3001           00655         MOVLW   0x01
-0137   ???? ????      00656         PAGESEL _GPIO_InitPortPin
-0139   2???           00657         CALL    _GPIO_InitPortPin
-013A   ???? ????      00658         PAGESEL $
-                      00659 ;       .line   19; "led.c"     break;
-013C   2???           00660         GOTO    _00111_DS_
-013D                  00661 _00108_DS_
-                      00662 ;       .line   22; "led.c"     GPIO_InitPortPin(PORT_B, 3, GPIO_OUT);
-013D   3000           00663         MOVLW   0x00
-013E   00??           00664         MOVWF   STK01
-013F   3003           00665         MOVLW   0x03
-0140   00??           00666         MOVWF   STK00
-0141   3001           00667         MOVLW   0x01
-0142   ???? ????      00668         PAGESEL _GPIO_InitPortPin
-0144   2???           00669         CALL    _GPIO_InitPortPin
-0145   ???? ????      00670         PAGESEL $
-                      00671 ;       .line   23; "led.c"     break;
-0147   2???           00672         GOTO    _00111_DS_
-0148                  00673 _00109_DS_
-                      00674 ;       .line   26; "led.c"     GPIO_InitPortPin(PORT_B, 7, GPIO_OUT);
-0148   3000           00675         MOVLW   0x00
-0149   00??           00676         MOVWF   STK01
-014A   3007           00677         MOVLW   0x07
-014B   00??           00678         MOVWF   STK00
-014C   3001           00679         MOVLW   0x01
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 14
+0119   1903           00627         BTFSC   STATUS,2
+011A   2???           00628         GOTO    _00107_DS_
+011B   08??           00629         MOVF    r0x1015,W
+011C   3A04           00630         XORLW   0x04
+011D   1903           00631         BTFSC   STATUS,2
+011E   2???           00632         GOTO    _00108_DS_
+011F   08??           00633         MOVF    r0x1015,W
+0120   3A07           00634         XORLW   0x07
+0121   1903           00635         BTFSC   STATUS,2
+0122   2???           00636         GOTO    _00109_DS_
+0123   2???           00637         GOTO    _00111_DS_
+0124                  00638 _00105_DS_
+                      00639 ;       .line   10; "led.c"     GPIO_InitPortPin(PORT_B, 0, GPIO_OUT);
+0124   3000           00640         MOVLW   0x00
+0125   00??           00641         MOVWF   STK01
+0126   3000           00642         MOVLW   0x00
+0127   00??           00643         MOVWF   STK00
+0128   3001           00644         MOVLW   0x01
+0129   ???? ????      00645         PAGESEL _GPIO_InitPortPin
+012B   2???           00646         CALL    _GPIO_InitPortPin
+012C   ???? ????      00647         PAGESEL $
+                      00648 ;       .line   11; "led.c"     break;
+012E   2???           00649         GOTO    _00111_DS_
+012F                  00650 _00106_DS_
+                      00651 ;       .line   14; "led.c"     GPIO_InitPortPin(PORT_B, 1, GPIO_OUT);
+012F   3000           00652         MOVLW   0x00
+0130   00??           00653         MOVWF   STK01
+0131   3001           00654         MOVLW   0x01
+0132   00??           00655         MOVWF   STK00
+0133   3001           00656         MOVLW   0x01
+0134   ???? ????      00657         PAGESEL _GPIO_InitPortPin
+0136   2???           00658         CALL    _GPIO_InitPortPin
+0137   ???? ????      00659         PAGESEL $
+                      00660 ;       .line   15; "led.c"     break;
+0139   2???           00661         GOTO    _00111_DS_
+013A                  00662 _00107_DS_
+                      00663 ;       .line   18; "led.c"     GPIO_InitPortPin(PORT_B, 2, GPIO_OUT);
+013A   3000           00664         MOVLW   0x00
+013B   00??           00665         MOVWF   STK01
+013C   3002           00666         MOVLW   0x02
+013D   00??           00667         MOVWF   STK00
+013E   3001           00668         MOVLW   0x01
+013F   ???? ????      00669         PAGESEL _GPIO_InitPortPin
+0141   2???           00670         CALL    _GPIO_InitPortPin
+0142   ???? ????      00671         PAGESEL $
+                      00672 ;       .line   19; "led.c"     break;
+0144   2???           00673         GOTO    _00111_DS_
+0145                  00674 _00108_DS_
+                      00675 ;       .line   22; "led.c"     GPIO_InitPortPin(PORT_B, 3, GPIO_OUT);
+0145   3000           00676         MOVLW   0x00
+0146   00??           00677         MOVWF   STK01
+0147   3003           00678         MOVLW   0x03
+0148   00??           00679         MOVWF   STK00
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 14
 
 
 LOC    OBJECT CODE    LINE  SOURCE TEXT
   VALUE
 
-014D   ???? ????      00680         PAGESEL _GPIO_InitPortPin
-014F   2???           00681         CALL    _GPIO_InitPortPin
-0150   ???? ????      00682         PAGESEL $
-0152                  00683 _00111_DS_
-                      00684 ;       .line   34; "led.c"     LED_SetState(led, initial_state);
-0152   ???? ????      00685         BANKSEL r0x1012
-0154   08??           00686         MOVF    r0x1012,W
-0155   00??           00687         MOVWF   STK00
-0156   08??           00688         MOVF    r0x1011,W
-0157   ???? ????      00689         PAGESEL _LED_SetState
-0159   2???           00690         CALL    _LED_SetState
-015A   ???? ????      00691         PAGESEL $
-015C   0008           00692         RETURN  
-                      00693 ; exit point of _LED_Init
-                      00694 
-                      00695 
-                      00696 ;       code size estimation:
-                      00697 ;         225+   62 =   287 instructions (  698 byte)
-                      00698 
-                      00699         end
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 15
+0149   3001           00680         MOVLW   0x01
+014A   ???? ????      00681         PAGESEL _GPIO_InitPortPin
+014C   2???           00682         CALL    _GPIO_InitPortPin
+014D   ???? ????      00683         PAGESEL $
+                      00684 ;       .line   23; "led.c"     break;
+014F   2???           00685         GOTO    _00111_DS_
+0150                  00686 _00109_DS_
+                      00687 ;       .line   26; "led.c"     GPIO_InitPortPin(PORT_B, 7, GPIO_OUT);
+0150   3000           00688         MOVLW   0x00
+0151   00??           00689         MOVWF   STK01
+0152   3007           00690         MOVLW   0x07
+0153   00??           00691         MOVWF   STK00
+0154   3001           00692         MOVLW   0x01
+0155   ???? ????      00693         PAGESEL _GPIO_InitPortPin
+0157   2???           00694         CALL    _GPIO_InitPortPin
+0158   ???? ????      00695         PAGESEL $
+015A                  00696 _00111_DS_
+                      00697 ;       .line   34; "led.c"     LED_SetState(led, initial_state);
+015A   ???? ????      00698         BANKSEL r0x1016
+015C   08??           00699         MOVF    r0x1016,W
+015D   00??           00700         MOVWF   STK00
+015E   08??           00701         MOVF    r0x1015,W
+015F   2???           00702         CALL    _LED_SetState
+0160   0008           00703         RETURN  
+                      00704 ; exit point of _LED_Init
+                      00705 
+                      00706 
+                      00707 ;       code size estimation:
+                      00708 ;         233+   60 =   293 instructions (  706 byte)
+                      00709 
+                      00710         end
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 15
 
 
 SYMBOL TABLE
@@ -850,7 +861,7 @@ CHS1                              00000004
 CHS2                              00000005
 CIS                               00000003
 CKE                               00000006
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 16
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 16
 
 
 SYMBOL TABLE
@@ -909,7 +920,7 @@ INTF                              00000001
 IRP                               00000007
 NOT_A                             00000005
 NOT_ADDRESS                       00000005
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 17
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 17
 
 
 SYMBOL TABLE
@@ -968,7 +979,7 @@ RA5                               00000005
 RB0                               00000000
 RB1                               00000001
 RB2                               00000002
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 18
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 18
 
 
 SYMBOL TABLE
@@ -1027,7 +1038,7 @@ SSAVE                             00000000
 SSPADD                            00000093
 SSPBUF                            00000013
 SSPCON                            00000014
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 19
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 19
 
 
 SYMBOL TABLE
@@ -1086,7 +1097,7 @@ TMR2IE                            00000001
 TMR2IF                            00000001
 TMR2ON                            00000002
 TOUTPS0                           00000003
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 20
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 20
 
 
 SYMBOL TABLE
@@ -1145,7 +1156,7 @@ TXREG                             00000019
 TXSTA                             00000098
 UA                                00000001
 W                                 00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 21
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 21
 
 
 SYMBOL TABLE
@@ -1157,31 +1168,33 @@ WREN                              00000002
 WRERR                             00000003
 WSAVE                             00000000
 Z                                 00000002
-_00105_DS_                        0000011C
-_00106_DS_                        00000127
-_00107_DS_                        00000132
-_00108_DS_                        0000013D
-_00109_DS_                        00000148
-_00111_DS_                        00000152
-_00138_DS_                        000000D7
-_00139_DS_                        000000E0
-_00141_DS_                        000000EE
-_00142_DS_                        000000FA
-_00145_DS_                        00000102
-_00166_DS_                        00000087
-_00167_DS_                        00000093
-_00168_DS_                        0000009F
-_00169_DS_                        000000AB
-_00170_DS_                        000000B7
-_00172_DS_                        000000C2
-_00199_DS_                        0000002E
-_00200_DS_                        0000003B
-_00201_DS_                        00000048
-_00202_DS_                        00000055
-_00203_DS_                        00000062
-_00206_DS_                        0000006E
-_00233_DS_                        0000000E
-_00235_DS_                        00000014
+_00001_DS_                        000000DF
+_00105_DS_                        00000124
+_00106_DS_                        0000012F
+_00107_DS_                        0000013A
+_00108_DS_                        00000145
+_00109_DS_                        00000150
+_00111_DS_                        0000015A
+_00138_DS_                        000000E3
+_00139_DS_                        000000E8
+_00141_DS_                        000000F9
+_00142_DS_                        00000105
+_00145_DS_                        00000109
+_00154_DS_                        000000E0
+_00159_DS_                        00000089
+_00160_DS_                        00000095
+_00161_DS_                        000000A1
+_00162_DS_                        000000AD
+_00163_DS_                        000000B9
+_00165_DS_                        000000C4
+_00192_DS_                        0000002F
+_00193_DS_                        0000003C
+_00194_DS_                        00000049
+_00195_DS_                        00000056
+_00196_DS_                        00000063
+_00199_DS_                        0000006F
+_00226_DS_                        0000000E
+_00228_DS_                        00000014
 _ADCON0                           00000000
 _ADCON0bits                       00000000
 _ADCON1                           00000000
@@ -1202,14 +1215,14 @@ _CCP2CONbits                      00000000
 _CCPR1                            00000000
 _CCPR1H                           00000000
 _CCPR1L                           00000000
-_CCPR2                            00000000
-_CCPR2H                           00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 22
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 22
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_CCPR2                            00000000
+_CCPR2H                           00000000
 _CCPR2L                           00000000
 _CMCON                            00000000
 _CMCONbits                        00000000
@@ -1251,26 +1264,31 @@ _GPIO_Update                      00000000
 _HS_OSC                           00003FFE
 _Heater_GetState                  00000000
 _Heater_Init                      00000000
-_Heater_SetState                  00000000
 _Heater_update                    00000000
+_I2C_Begin                        00000000
+_I2C_End                          00000000
+_I2C_Hold                         00000000
+_I2C_Init                         00000000
+_I2C_Read                         00000000
+_I2C_Write                        00000000
 _IDLOC0                           00002000
 _IDLOC1                           00002001
 _IDLOC2                           00002002
-_IDLOC3                           00002003
-_INDF                             00000000
-_INTCON                           00000000
-_INTCONbits                       00000000
-_LED_GetState                     0000006F
-_LED_Init                         00000103
-_LED_SetState                     00000015
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 23
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 23
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+_IDLOC3                           00002003
+_INDF                             00000000
+_INTCON                           00000000
+_INTCONbits                       00000000
+_LED_GetState                     00000070
+_LED_Init                         0000010A
+_LED_SetState                     00000015
 _LED_Toggle                       00000000
-_LED_Update                       000000C6
+_LED_Update                       000000C8
 _LP_OSC                           00003FFC
 _LVP_OFF                          00003F7F
 _LVP_ON                           00003FFF
@@ -1315,6 +1333,12 @@ _SSD_GET_state                    00000000
 _SSD_Init                         00000000
 _SSD_SET_Symbol                   00000000
 _SSD_SET_state                    00000000
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 24
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
 _SSD_update                       00000000
 _SSPADD                           00000000
 _SSPBUF                           00000000
@@ -1322,18 +1346,10 @@ _SSPCON                           00000000
 _SSPCON2                          00000000
 _SSPCON2bits                      00000000
 _SSPCONbits                       00000000
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 24
-
-
-SYMBOL TABLE
-  LABEL                             VALUE 
-
 _SSPSTAT                          00000000
 _SSPSTATbits                      00000000
 _STATUS                           00000000
 _STATUSbits                       00000000
-_SettingMode_Get_SSD_state        00000000
-_SettingMode_OFF_mode             00000000
 _SettingMode_update               00000000
 _Start_conversion_Int             00000000
 _T1CON                            00000000
@@ -1376,42 +1392,42 @@ _XT_OSC                           00003FFD
 __16F877A                         00000001
 __CODE_END                        00001FFF
 __CODE_START                      00000000
-__COMMON_RAM_END                  0000007F
-__COMMON_RAM_START                00000070
-__EEPROM_END                      000021FF
-__EEPROM_START                    00002100
-__VECTOR_INT                      00000004
-gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-17-2020  06:58:43         PAGE 25
+gpasm-1.4.0 #1106 (Oct  6 2014) obj\Release\l   7-19-2020  20:05:22         PAGE 25
 
 
 SYMBOL TABLE
   LABEL                             VALUE 
 
+__COMMON_RAM_END                  0000007F
+__COMMON_RAM_START                00000070
+__EEPROM_END                      000021FF
+__EEPROM_START                    00002100
+__VECTOR_INT                      00000004
 __VECTOR_RESET                    00000000
-_code_led_0038                    00000038
-_code_led_0045                    00000045
-_code_led_0052                    00000052
-_code_led_005F                    0000005F
-_code_led_006C                    0000006C
-_code_led_008D                    0000008D
-_code_led_0099                    00000099
-_code_led_00A5                    000000A5
-_code_led_00B1                    000000B1
-_code_led_00BD                    000000BD
-_code_led_00DD                    000000DD
-_code_led_0100                    00000100
-_code_led_0124                    00000124
-_code_led_012F                    0000012F
-_code_led_013A                    0000013A
-_code_led_0145                    00000145
-_code_led_0150                    00000150
-_code_led_015A                    0000015A
-r0x100B                           00000003
-r0x100C                           00000004
-r0x100E                           00000005
-r0x1010                           00000002
-r0x1011                           00000000
-r0x1012                           00000001
+_code_led_0039                    00000039
+_code_led_0046                    00000046
+_code_led_0053                    00000053
+_code_led_0060                    00000060
+_code_led_006D                    0000006D
+_code_led_008F                    0000008F
+_code_led_009B                    0000009B
+_code_led_00A7                    000000A7
+_code_led_00B3                    000000B3
+_code_led_00BF                    000000BF
+_code_led_012C                    0000012C
+_code_led_0137                    00000137
+_code_led_0142                    00000142
+_code_led_014D                    0000014D
+_code_led_0158                    00000158
+_e2pex_update                     00000000
+_e2pext_r                         00000000
+_e2pext_w                         00000000
+r0x1010                           00000003
+r0x1011                           00000004
+r0x1012                           00000005
+r0x1014                           00000002
+r0x1015                           00000000
+r0x1016                           00000001
 
 Errors   :     0
 Warnings :     0 reported,     0 suppressed
